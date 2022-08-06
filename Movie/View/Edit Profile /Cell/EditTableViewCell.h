@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString *) getReuseIdentifier;
 +(NSString *) getNibName;
 -(void) bindingData: (User *)user withInforType: (InforProfileType)type;
+-(void) gettingDataWithInforType: (InforProfileType)type withUser: (User *)user;
 @end
 
 NS_ASSUME_NONNULL_END

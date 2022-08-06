@@ -14,7 +14,7 @@
 #import "UserDefaultsNames.h"
 #import "EditProfileHeaderTableViewCell.h"
 
-@interface EditProfileViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface EditProfileViewController ()<UITableViewDelegate, UITableViewDataSource, EditProfileHeaderTableViewCellDelegate>
 @property(strong, nonatomic) AvatarView *avatarView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(strong, nonatomic) ProfileViewModel *profileViewModel;
@@ -26,9 +26,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.profileViewModel loadUserFromUserDefaultWithKey:UserInforNameDefaults completionHandler:^{
-        [self.tableView reloadData];
-    }];
+    //    [self.profileViewModel loadUserFromUserDefaultWithKey:UserInforNameDefaults completionHandler:^{
+    //        [self.tableView reloadData];
+    //    }];
 }
 
 - (void)viewDidLoad {
@@ -38,25 +38,31 @@
     [self layout];
 }
 
+#pragma mark - Class Helper
++ (NSString *)getNibName{
+    return @"EditProfileViewController";
+}
+#pragma mark - Instance Helper
+
 #pragma mark - Helper
 -(void) setup{
     [self configViewModel];
     [self configAvatarView];
     [self configTableView];
     
-
+    
 }
 
 -(void) configViewModel{
     self.profileViewModel = [[ProfileViewModel alloc] init];
+    [self.profileViewModel loadUserFromUserDefaultWithKey:UserInforNameDefaults completionHandler:^{
+        [self.tableView reloadData];
+        self.user = [self.profileViewModel getUser];
+    }];
 }
 
 -(void) layout{
     
-}
-
-+ (NSString *)getNibName{
-    return @"EditProfileViewController";
 }
 
 -(void) configAvatarView{
@@ -64,10 +70,6 @@
     self.avatarView.translatesAutoresizingMaskIntoConstraints = false;
     self.avatarView.backgroundColor = [UIColor clearColor];
     [self.avatarView configTextFiledWithBorderStyle:UITextBorderStyleRoundedRect withInteract:YES];
-}
-
--(void) loadUser: (ProfileViewModel *)viewModel{
-    self.profileViewModel = viewModel;
 }
 
 -(void)configTableView{
@@ -78,32 +80,59 @@
     [self.tableView registerClass:[EditProfileHeaderTableViewCell class] forHeaderFooterViewReuseIdentifier:[EditProfileHeaderTableViewCell getReuseIdentifier]];
     
     if (@available(iOS 15.0, *)) {
-          [self.tableView setSectionHeaderTopPadding:0.0f];
+        [self.tableView setSectionHeaderTopPadding:0.0f];
+    }
+}
+//getting data from cell
+-(void) gettingDataFromCells: (User *)user{
+    NSInteger sections = [self.profileViewModel numberOfSectionsIntTableViewForEditVC];
+    NSInteger rows = [self.profileViewModel numberOfRowsInSectionForEditVC:sections - 1];
+    for(int i = 0; i < rows; i++){
+        NSIndexPath *idx = [NSIndexPath indexPathForRow:i inSection:0];
+        EditTableViewCell *cell = [self.tableView cellForRowAtIndexPath:idx];
+        InforProfileType type = [self.profileViewModel inforProfileTypeForIndexPath:idx];
+        [cell gettingDataWithInforType:type withUser:user];
     }
 }
 
 #pragma mark - Delegate
+- (void)didDoneButtonTapped:(User *)user{
+    //add infor to user
+    [self gettingDataFromCells:user];
+    [self.profileViewModel saveUserInUserDefault:user withKey:UserInforNameDefaults];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didCancelButtonTapped{
+    NSLog(@"didCancelButtonTapped from edit profile vc");
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - Datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    NSInteger sections = [self.profileViewModel numberOfSectionsIntTableViewForEditVC];
+    return sections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    NSInteger rows = [self.profileViewModel numberOfRowsInSectionForEditVC:section];
+    return rows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     EditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[EditTableViewCell getReuseIdentifier] forIndexPath:indexPath];
-    User *user = [self.profileViewModel getUser];
     InforProfileType type = [self.profileViewModel inforProfileTypeForIndexPath:indexPath];
-    [cell bindingData:user withInforType:type];
+    
+    [cell bindingData:self.user withInforType:type];
     return cell;
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     EditProfileHeaderTableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[EditProfileHeaderTableViewCell getReuseIdentifier]];
+    cell.delegate = self;
     //binding avatar view
+    [cell bindingData:self.user];
     return cell;
 }
 

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, SectionProfileType){
 typedef NS_ENUM(NSInteger, InforProfileType){
     imagePath = 0,
     name,
-    birdthday,
+    birthday,
     email,
     gender
 };
@@ -25,12 +25,17 @@ typedef NS_ENUM(NSInteger, InforProfileType){
 -(void) saveUserInUserDefault: (User *)user withKey: (NSString *)key;
 
 -(void) loadUserFromUserDefaultWithKey: (NSString *) key completionHandler: (void(^)(void)) completionHandler;
-
+#pragma mark - Profile VC
 - (NSInteger)numberOfSectionsInTableView;
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 
 -(NSString *)inforForRowAtIndexPath:(NSIndexPath *)indexPath;
+
+#pragma mark - Edit Profile VC
+-(NSInteger)numberOfSectionsIntTableViewForEditVC;
+
+-(NSInteger)numberOfRowsInSectionForEditVC:(NSInteger)section;
 
 -(BOOL) checkIfHaveReminderList;
 

@@ -30,9 +30,14 @@
 }
 
 -(void) didDoneButtonTapped: (UIButton *)sender{
-    [self.delegate didDoneButtonTapped];
+    NSString *name = [self.avatarView getName];
+    User *user = [[User alloc] initWithName:name withBirthday:[[NSDate alloc]init] withGender:@"" withImagePath:@"" withEmail:@""];
+    [self.delegate didDoneButtonTapped:user];
 }
-
+#pragma mark - Instance Helper
+- (void)bindingData:(User *)user{
+    [self.avatarView bindingData:user];
+}
 
 
 #pragma mark - Helper

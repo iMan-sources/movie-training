@@ -61,6 +61,7 @@
 
 -(void) loadInforUser{
     [self.profileViewModel loadUserFromUserDefaultWithKey:UserInforNameDefaults completionHandler:^{
+        
         [self.profileTableView reloadData];
     }];
 }

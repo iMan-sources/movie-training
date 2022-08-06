@@ -27,6 +27,23 @@
     return self;
 }
 
+
+- (void)setWithName:(NSString *)name{
+    self.name = name;
+}
+
+- (void)setWithEmail:(NSString *)email{
+    self.email = email;
+}
+
+- (void)setWithGender:(NSString *)gender{
+    self.gender = gender;
+}
+
+-(void) setWithBirthday: (NSDate *)date;{
+    self.birthday = date;
+}
+
 -(NSString *)getName{
     return self.name;
 }
@@ -48,6 +65,8 @@
 -(NSString *)getEmail{
     return self.email;
 }
+
+
 
 - (void)printOut{
     NSLog(@"%@", self.name);

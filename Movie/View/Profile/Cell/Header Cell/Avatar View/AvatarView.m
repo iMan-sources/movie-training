@@ -41,7 +41,11 @@
     
     [self configAvatarView];
 }
-
+#pragma mark - Instance Helper
+- (NSString *)getName{
+    NSString *name = self.nameTextfield.text;
+    return name;;
+}
 
 #pragma mark - Helper
 -(void) configAvatarView{
@@ -58,5 +62,7 @@
     self.nameTextfield.text = [user getName];
     //get image
 }
+
+
 
 @end

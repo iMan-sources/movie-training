@@ -69,4 +69,17 @@
     UIImage *image = [UIImage imageNamed:url];
     return image;
 }
+
++ (UIImage *)getFilledBlackRound{
+    NSString *url =  @"filledRound";
+    UIImage *image = [UIImage imageNamed:url];
+    return image;
+}
+
++(UIImage *)getFilledWhiteRound{
+    NSString *url =  @"filledWhiteRound";
+    UIImage *image = [UIImage imageNamed:url];
+    return image;
+
+}
 @end

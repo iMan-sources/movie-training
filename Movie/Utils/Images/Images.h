@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(UIImage *) getHomeImage;
 +(UIImage *) getPlaceholderImage;
 +(UIImage *) getFilledStar;
++(UIImage *) getFilledBlackRound;
++(UIImage *) getFilledWhiteRound;
 @end
 
 NS_ASSUME_NONNULL_END

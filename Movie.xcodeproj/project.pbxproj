@@ -12,6 +12,12 @@
 		0F62E2EB28943079006ED111 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0F8254AB289BFA3500B048C0 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254A9289BFA3500B048C0 /* EditProfileViewController.m */; };
 		0F8254AC289BFA3500B048C0 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8254AA289BFA3500B048C0 /* EditProfileViewController.xib */; };
+		0F8254B3289E0A9000B048C0 /* BirthdayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8254B2289E0A9000B048C0 /* BirthdayView.xib */; };
+		0F8254B6289E0AF400B048C0 /* BirthdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254B5289E0AF400B048C0 /* BirthdayView.m */; };
+		0F8254BB289E13E600B048C0 /* EmailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254BA289E13E600B048C0 /* EmailView.m */; };
+		0F8254BD289E13FC00B048C0 /* EmailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8254BC289E13FC00B048C0 /* EmailView.xib */; };
+		0F8254C4289E19FF00B048C0 /* GenderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8254C3289E19FF00B048C0 /* GenderView.xib */; };
+		0F8254C7289E1A1C00B048C0 /* GenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254C6289E1A1C00B048C0 /* GenderView.m */; };
 		0FF35D9C2894384000F6521E /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35D9B2894384000F6521E /* Parser.m */; };
 		0FF35D9F28943D7900F6521E /* MoviesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35D9E28943D7900F6521E /* MoviesViewModel.m */; };
 		0FF35DA528952ABB00F6521E /* Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35DA428952ABB00F6521E /* Fetcher.m */; };
@@ -119,10 +125,19 @@
 		0F8254A8289BFA3500B048C0 /* EditProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		0F8254A9289BFA3500B048C0 /* EditProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		0F8254AA289BFA3500B048C0 /* EditProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
+		0F8254B2289E0A9000B048C0 /* BirthdayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BirthdayView.xib; sourceTree = "<group>"; };
+		0F8254B4289E0AF400B048C0 /* BirthdayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BirthdayView.h; sourceTree = "<group>"; };
+		0F8254B5289E0AF400B048C0 /* BirthdayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BirthdayView.m; sourceTree = "<group>"; };
+		0F8254B9289E13E600B048C0 /* EmailView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmailView.h; sourceTree = "<group>"; };
+		0F8254BA289E13E600B048C0 /* EmailView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmailView.m; sourceTree = "<group>"; };
+		0F8254BC289E13FC00B048C0 /* EmailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailView.xib; sourceTree = "<group>"; };
+		0F8254C3289E19FF00B048C0 /* GenderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenderView.xib; sourceTree = "<group>"; };
+		0F8254C5289E1A1C00B048C0 /* GenderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenderView.h; sourceTree = "<group>"; };
+		0F8254C6289E1A1C00B048C0 /* GenderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenderView.m; sourceTree = "<group>"; };
 		0FF35D9A2894384000F6521E /* Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		0FF35D9B2894384000F6521E /* Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
-		0FF35D9D28943D7900F6521E /* MoviesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MoviesViewModel.h; path = Movie/ViewModel/MoviesViewModel.h; sourceTree = SOURCE_ROOT; };
-		0FF35D9E28943D7900F6521E /* MoviesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MoviesViewModel.m; path = Movie/ViewModel/MoviesViewModel.m; sourceTree = SOURCE_ROOT; };
+		0FF35D9D28943D7900F6521E /* MoviesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MoviesViewModel.h; path = "../iOS/Objective-C/FPT_Training_Movie/Movie/ViewModel/MoviesViewModel.h"; sourceTree = SOURCE_ROOT; };
+		0FF35D9E28943D7900F6521E /* MoviesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MoviesViewModel.m; path = "../iOS/Objective-C/FPT_Training_Movie/Movie/ViewModel/MoviesViewModel.m"; sourceTree = SOURCE_ROOT; };
 		0FF35DA328952ABB00F6521E /* Fetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fetcher.h; sourceTree = "<group>"; };
 		0FF35DA428952ABB00F6521E /* Fetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fetcher.m; sourceTree = "<group>"; };
 		0FF35DA62895858E00F6521E /* NSString+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
@@ -287,17 +302,98 @@
 			path = "Edit Profile ";
 			sourceTree = "<group>";
 		};
-		0FF35DA028943D9700F6521E /* ViewModel */ = {
+		0F8254AD289E04EE00B048C0 /* Movie Detail */ = {
 			isa = PBXGroup;
 			children = (
 				373C666D289781EE00B5F55B /* MovieDetailViewModel.h */,
 				373C666E289781EE00B5F55B /* MovieDetailViewModel.m */,
+			);
+			path = "Movie Detail";
+			sourceTree = "<group>";
+		};
+		0F8254AE289E04F600B048C0 /* Movies */ = {
+			isa = PBXGroup;
+			children = (
 				0FF35D9D28943D7900F6521E /* MoviesViewModel.h */,
 				0FF35D9E28943D7900F6521E /* MoviesViewModel.m */,
+			);
+			path = Movies;
+			sourceTree = "<group>";
+		};
+		0F8254AF289E051A00B048C0 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
 				377B18FA2897D3280004E707 /* FavoritesViewModel.h */,
 				377B18FB2897D3280004E707 /* FavoritesViewModel.m */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		0F8254B0289E052400B048C0 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
 				37235F8E289B737500125AE8 /* ProfileViewModel.h */,
 				37235F8F289B737500125AE8 /* ProfileViewModel.m */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		0F8254B1289E0A5F00B048C0 /* Support View */ = {
+			isa = PBXGroup;
+			children = (
+				0F8254BF289E18E400B048C0 /* Gender View */,
+				0F8254B8289E13CC00B048C0 /* Email View */,
+				0F8254B7289E13BB00B048C0 /* Birthday View */,
+			);
+			path = "Support View";
+			sourceTree = "<group>";
+		};
+		0F8254B7289E13BB00B048C0 /* Birthday View */ = {
+			isa = PBXGroup;
+			children = (
+				0F8254B2289E0A9000B048C0 /* BirthdayView.xib */,
+				0F8254B4289E0AF400B048C0 /* BirthdayView.h */,
+				0F8254B5289E0AF400B048C0 /* BirthdayView.m */,
+			);
+			path = "Birthday View";
+			sourceTree = "<group>";
+		};
+		0F8254B8289E13CC00B048C0 /* Email View */ = {
+			isa = PBXGroup;
+			children = (
+				0F8254B9289E13E600B048C0 /* EmailView.h */,
+				0F8254BA289E13E600B048C0 /* EmailView.m */,
+				0F8254BC289E13FC00B048C0 /* EmailView.xib */,
+			);
+			path = "Email View";
+			sourceTree = "<group>";
+		};
+		0F8254BE289E16DC00B048C0 /* NSDate+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				37798057289BAA9D00F5B19A /* NSDate+Extensions.h */,
+				37798058289BAA9D00F5B19A /* NSDate+Extensions.m */,
+			);
+			path = "NSDate+Extensions";
+			sourceTree = "<group>";
+		};
+		0F8254BF289E18E400B048C0 /* Gender View */ = {
+			isa = PBXGroup;
+			children = (
+				0F8254C3289E19FF00B048C0 /* GenderView.xib */,
+				0F8254C5289E1A1C00B048C0 /* GenderView.h */,
+				0F8254C6289E1A1C00B048C0 /* GenderView.m */,
+			);
+			path = "Gender View";
+			sourceTree = "<group>";
+		};
+		0FF35DA028943D9700F6521E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0F8254AD289E04EE00B048C0 /* Movie Detail */,
+				0F8254AE289E04F600B048C0 /* Movies */,
+				0F8254AF289E051A00B048C0 /* Favorite */,
+				0F8254B0289E052400B048C0 /* Profile */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -589,8 +685,7 @@
 				37747CD82890EB88000E82E5 /* UIViewController+Extensions */,
 				0FF35DA92895859A00F6521E /* NSString+Extensions */,
 				373C666928976C7C00B5F55B /* UIView+Extensions */,
-				37798057289BAA9D00F5B19A /* NSDate+Extensions.h */,
-				37798058289BAA9D00F5B19A /* NSDate+Extensions.m */,
+				0F8254BE289E16DC00B048C0 /* NSDate+Extensions */,
 				37BE81EC289CF91C004F54A6 /* UserDefaults */,
 			);
 			path = Utils;
@@ -766,6 +861,7 @@
 		3780D77D289CC5500021A16E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				0F8254B1289E0A5F00B048C0 /* Support View */,
 				3780D780289CC5C70021A16E /* EditTableViewCell.h */,
 				3780D781289CC5C70021A16E /* EditTableViewCell.m */,
 				3780D782289CC5C70021A16E /* EditTableViewCell.xib */,
@@ -946,8 +1042,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F62E2E92894304D006ED111 /* LaunchScreen.storyboard in Resources */,
+				0F8254C4289E19FF00B048C0 /* GenderView.xib in Resources */,
 				0F8254AC289BFA3500B048C0 /* EditProfileViewController.xib in Resources */,
 				0F62E2E728943031006ED111 /* Main.storyboard in Resources */,
+				0F8254B3289E0A9000B048C0 /* BirthdayView.xib in Resources */,
 				37747C972890E172000E82E5 /* Assets.xcassets in Resources */,
 				37235F7B289B5FD300125AE8 /* AvatarView.xib in Resources */,
 				37FB8ED528929B9400FE5441 /* MovieDetailView.xib in Resources */,
@@ -958,6 +1056,7 @@
 				3780D784289CC5C70021A16E /* EditTableViewCell.xib in Resources */,
 				37235F88289B6A0000125AE8 /* ProfileTableViewCell.xib in Resources */,
 				37798062289BBDA300F5B19A /* ProfileFooterTableViewCell.xib in Resources */,
+				0F8254BD289E13FC00B048C0 /* EmailView.xib in Resources */,
 				3780D779289CBE890021A16E /* EditView.xib in Resources */,
 				377A38432892850000141288 /* MovieGridViewCell.xib in Resources */,
 			);
@@ -1098,6 +1197,7 @@
 				370D4C6B289111BD0040CE38 /* FavoritesViewController.m in Sources */,
 				37235F8D289B6E2600125AE8 /* User.m in Sources */,
 				37747C9D2890E172000E82E5 /* main.m in Sources */,
+				0F8254B6289E0AF400B048C0 /* BirthdayView.m in Sources */,
 				37235F90289B737500125AE8 /* ProfileViewModel.m in Sources */,
 				37235F87289B6A0000125AE8 /* ProfileTableViewCell.m in Sources */,
 				37235F7E289B5FE400125AE8 /* AvatarView.m in Sources */,
@@ -1119,6 +1219,7 @@
 				37BE81EF289CFAFD004F54A6 /* EditProfileHeaderTableViewCell.m in Sources */,
 				3731E19A289A0F5C0037CD76 /* NotificationNames.m in Sources */,
 				0FF35D9C2894384000F6521E /* Parser.m in Sources */,
+				0F8254C7289E1A1C00B048C0 /* GenderView.m in Sources */,
 				372EAE2E2898D2EA00D956D6 /* Coredata.xcdatamodeld in Sources */,
 				37747CCD2890E40E000E82E5 /* MainViewController.m in Sources */,
 				37798061289BBDA300F5B19A /* ProfileFooterTableViewCell.m in Sources */,
@@ -1126,6 +1227,7 @@
 				0FF35D9F28943D7900F6521E /* MoviesViewModel.m in Sources */,
 				377A38332892368900141288 /* MovieGridViewController.m in Sources */,
 				372EAE402898D5DF00D956D6 /* MovieCD+CoreDataProperties.m in Sources */,
+				0F8254BB289E13E600B048C0 /* EmailView.m in Sources */,
 				370D4C71289111DB0040CE38 /* AboutViewController.m in Sources */,
 				0FF35DA82895858E00F6521E /* NSString+Extensions.m in Sources */,
 				373C666828976C7600B5F55B /* UIView+Extensions.m in Sources */,

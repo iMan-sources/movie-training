@@ -22,6 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)getImagePath;
 
 -(NSString *)getEmail;
+
+-(void) setWithName: (NSString *)name;
+-(void) setWithGender: (NSString *)gender;
+-(void) setWithEmail: (NSString *)email;
+-(void) setWithBirthday: (NSDate *)date;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

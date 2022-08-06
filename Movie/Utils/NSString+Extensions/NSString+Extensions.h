@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Extensions)
--(NSString *) convertDateFormatToString: (NSDate *)date;
+-(NSDate *) convertStringToDate;
 @end
 
 NS_ASSUME_NONNULL_END

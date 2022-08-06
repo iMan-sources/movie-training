@@ -8,12 +8,12 @@
 #import "NSString+Extensions.h"
 
 @implementation NSString (Extensions)
-- (NSString *)convertDateFormatToString:(NSDate *)date{
-    NSDate *dat = date;
+
+- (NSDate *)convertStringToDate{
     NSDateFormatter *fomatter = [[NSDateFormatter alloc] init];
     [fomatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *dateString = [fomatter stringFromDate:dat];
-    NSLog(@"from ff%@", dateString);
-    return dateString;
+    NSDate *date = [fomatter dateFromString:self];
+    return date;
 }
+
 @end

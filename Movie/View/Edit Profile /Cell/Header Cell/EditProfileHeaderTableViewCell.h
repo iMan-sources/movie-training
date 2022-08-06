@@ -11,13 +11,15 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol EditProfileHeaderTableViewCellDelegate <NSObject>
 
 -(void) didCancelButtonTapped;
--(void) didDoneButtonTapped;
+-(void) didDoneButtonTapped: (User *)user;
 @end
 @interface EditProfileHeaderTableViewCell : UITableViewHeaderFooterView
 +(NSString *) getReuseIdentifier;
 
 +(CGFloat) getHeaderHeight;
 @property(weak, nonatomic) id<EditProfileHeaderTableViewCellDelegate> delegate;
+
+-(void) bindingData: (User *)user;
 @end
 
 NS_ASSUME_NONNULL_END

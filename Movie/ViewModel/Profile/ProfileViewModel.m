@@ -10,7 +10,7 @@
 #import "NSDate+Extensions.h"
 
 const int SectionProfileTypeCount = reminderList - infor_profile + 1;
-const int InforProfileTypeCount = (gender - birdthday + 1);
+const int InforProfileTypeCount = (gender - birthday + 1);
 
 @interface ProfileViewModel()
 @property(strong, nonatomic) User *user;
@@ -37,6 +37,32 @@ const int InforProfileTypeCount = (gender - birdthday + 1);
     [dict setValue:[user getImagePath] forKey: @"imagePath"];
     [dict setValue:[user getEmail] forKey:@"email"];
     [defaults setObject:dict forKey:key];
+}
+
+-(NSString *) titleForInforType: (InforProfileType) type{
+    switch (type) {
+        case imagePath: {
+            {
+                return @"email";
+            }
+        case name:
+            {
+                return @"name";
+            }
+        case birthday:
+            {
+                return @"date";
+            }
+        case email:
+            {
+                return @"email";
+            }
+        case gender:
+            {
+                return @"gender";
+            }
+        }
+    }
 }
 
 -(void) loadUserFromUserDefaultWithKey: (NSString *) key completionHandler: (void(^)(void)) completionHandler{
@@ -71,7 +97,7 @@ const int InforProfileTypeCount = (gender - birdthday + 1);
                 NSString *name = [self.user getName];
                 return name;
             }
-        case birdthday:
+        case birthday:
             {
                 NSDate *date = [self.user getBirthDay];
                 NSString *dateString = [date convertDateToString];
@@ -111,6 +137,14 @@ const int InforProfileTypeCount = (gender - birdthday + 1);
     
 }
 
+-(NSInteger)numberOfSectionsIntTableViewForEditVC{
+    return 1;
+}
+
+-(NSInteger)numberOfRowsInSectionForEditVC:(NSInteger)section{
+    return InforProfileTypeCount;
+}
+
 - (NSString *)inforForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    NSInteger row = indexPath.row;
     InforProfileType type = [self inforProfileTypeForIndexPath:indexPath];
@@ -120,10 +154,10 @@ const int InforProfileTypeCount = (gender - birdthday + 1);
 
 -(InforProfileType) inforProfileTypeForIndexPath: (NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
-    InforProfileType type = birdthday;
+    InforProfileType type = birthday;
     //iterate InforProfileTypeCount to define type -> infor
-    for (int i = birdthday; i <= gender; i++) {
-        if (i == row + birdthday) {
+    for (int i = birthday; i <= gender; i++) {
+        if (i == row + birthday) {
             type = i;
             break;
         }

@@ -3,4 +3,22 @@
    uuid = "3C2AE9A0-A299-4E21-9A62-95C599FA377C"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "003B2D0E-BA57-468C-80A5-958BFAD46A82"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie/View/Edit Profile /Cell/EditTableViewCell.m"
+            startingColumnNumber = "86"
+            endingColumnNumber = "86"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-configGenderView"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

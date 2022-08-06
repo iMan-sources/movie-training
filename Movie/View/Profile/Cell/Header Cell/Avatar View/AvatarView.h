@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AvatarView : UIView
 -(void) configTextFiledWithBorderStyle: (UITextBorderStyle) borderStyle withInteract: (BOOL) isInteract;
 -(void) bindingData: (User *)user;
+-(NSString *) getName;
 @end
 
 NS_ASSUME_NONNULL_END
