@@ -44,7 +44,9 @@
     NSString *vote = [NSString stringWithFormat:@"%@ / 10", [movie getVoteAverage]];
     self.ratingLabel.attributedText = [self makeAttributedStringWithBase:@"Rating: " withRedString:vote];
     
-    self.contentOverviewLabel.text = [movie getOverview];
+    NSString *overview = [movie getOverview];
+    self.contentOverviewLabel.text = [self generatingSpaceWhenOverviewEmptyWithOverview:overview];
+    
     
     NSString *stringPosterURL = [movie getPosterURL];
     [self setPosterImageByURL:stringPosterURL inImageView:self.posterImageView];
@@ -55,6 +57,16 @@
     [[NSBundle mainBundle] loadNibNamed:@"MovieDetailView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
+}
+
+-(NSString *) generatingSpaceWhenOverviewEmptyWithOverview: (NSString *) overview{
+    NSMutableString *spacing = [[NSMutableString alloc] initWithString:overview];
+    for (int i = 0; i < 100; i++) {
+        [spacing appendString:@" "];
+    }
+    NSString *res = [NSString stringWithString:spacing];
+    return res;
+    
 }
 
 @end

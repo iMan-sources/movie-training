@@ -91,6 +91,14 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSideBarButtonTapped:) name:SideMenuNotification object:nil];
 }
 
+-(void) handleSlideMenuWhenPushVC{
+    //hide the profile VC
+    NSLog(@"send post");
+    if (self.sideMenuStatus == state_open) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:SideMenuNotification object:nil];
+    }
+}
+
 #pragma mark - Action
 
 - (void)didSideBarButtonTapped: (NSNotification *) sender{
@@ -112,8 +120,10 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
     EditProfileViewController *editProfileVC = [[EditProfileViewController alloc] initWithNibName:[EditProfileViewController getNibName] bundle:nil];
     if (tag == 0) {
         [self.navigationController pushViewController:editProfileVC animated:YES];
+        [ self handleSlideMenuWhenPushVC];
         return;
     }
+    
 }
 
 

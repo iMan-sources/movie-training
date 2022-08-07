@@ -100,16 +100,6 @@
 
 #pragma mark - Delegate
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    NSInteger sections = [self.moviesViewModel numberOfSectionsInCollectionView];
-    return sections;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSInteger items = [self.moviesViewModel numberOfItemsInSection:section];
-    return items;
-}
-
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     CGFloat offsetY = scrollView.contentOffset.y;
     CGFloat contentHeight = scrollView.contentSize.height;
@@ -118,6 +108,13 @@
     if (offsetY > contentHeight - height) {
         NSLog(@"%f", offsetY);
         [self.delegate scrollViewDidEndDragging];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    Movie *movie = [self.moviesViewModel didSelectRowAtIndexPath:indexPath];
+    if (movie!=nil) {
+        [self.delegate didCellSelected:movie];
     }
 }
 #pragma mark - Datasource
@@ -130,6 +127,16 @@
         [cell bindingData:movie];
     }
     return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    NSInteger sections = [self.moviesViewModel numberOfSectionsInCollectionView];
+    return sections;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    NSInteger items = [self.moviesViewModel numberOfItemsInSection:section];
+    return items;
 }
 
 

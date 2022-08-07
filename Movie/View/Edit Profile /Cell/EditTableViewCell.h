@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EditTableViewCell : UITableViewCell
 +(NSString *) getReuseIdentifier;
 +(NSString *) getNibName;
--(void) bindingData: (User *)user withInforType: (InforProfileType)type;
+-(void) bindingData: (User *)user withInforType: (InforProfileType)type withImage: (UIImage *)image;
 -(void) gettingDataWithInforType: (InforProfileType)type withUser: (User *)user;
 @end
 

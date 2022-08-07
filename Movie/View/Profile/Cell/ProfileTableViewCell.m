@@ -45,8 +45,9 @@
     
 }
 
-- (void)bindingData:(NSString *)infor{
+- (void)bindingData:(NSString *)infor withImage: (UIImage *)image{
     self.inforLabel.text = infor;
+    self.inforImageView.image = image;
 }
 
 @end

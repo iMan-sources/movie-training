@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(UIImage *) getFilledStar;
 +(UIImage *) getFilledBlackRound;
 +(UIImage *) getFilledWhiteRound;
++(UIImage *) getCalendarImage;
++(UIImage *) getEmailImage;
++(UIImage *) getPersonImage;
 @end
 
 NS_ASSUME_NONNULL_END

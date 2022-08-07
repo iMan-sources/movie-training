@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileTableViewCell : UITableViewCell
 
--(void) bindingData: (NSString *)infor;
+- (void)bindingData:(NSString *)infor withImage: (UIImage *)image;
 
 +(NSString *) getReuseIdentifier;
 +(NSString *) getNibName;

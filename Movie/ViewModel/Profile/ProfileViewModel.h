@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import "User.h"
+#import <UIKit/UIKit.h>
+
 NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger, SectionProfileType){
     infor_profile = 0,
@@ -25,6 +27,8 @@ typedef NS_ENUM(NSInteger, InforProfileType){
 -(void) saveUserInUserDefault: (User *)user withKey: (NSString *)key;
 
 -(void) loadUserFromUserDefaultWithKey: (NSString *) key completionHandler: (void(^)(void)) completionHandler;
+
+
 #pragma mark - Profile VC
 - (NSInteger)numberOfSectionsInTableView;
 
@@ -41,7 +45,10 @@ typedef NS_ENUM(NSInteger, InforProfileType){
 
 -(InforProfileType) inforProfileTypeForIndexPath: (NSIndexPath *)indexPath;
 
+- (UIImage *)imageForRowAtIndexPath:(NSIndexPath *)indexPath;
+
 -(User *)getUser;
+
 @end
 
 NS_ASSUME_NONNULL_END

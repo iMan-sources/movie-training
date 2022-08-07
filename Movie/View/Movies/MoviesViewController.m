@@ -63,8 +63,10 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     if (self.displayState == tableView_state) {
         self.displayState = collectionView_state;
         [self transitionFromViewToView:self.movieListView to:self.movieGridView];
+        [self.navigationItem.rightBarButtonItem.customView setSelected:YES];
     }else{
         self.displayState = tableView_state;
+        [self.navigationItem.rightBarButtonItem.customView setSelected:NO];
         [self transitionFromViewToView:self.movieGridView to:self.movieListView];
     }
 }
@@ -81,6 +83,8 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 -(void) configRightBarItemButtons{
     UIButton *gridButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [gridButton setImage:[Images getGridMenuImage] forState:UIControlStateNormal];
+    [gridButton setImage:[Images getListMenuImage] forState:UIControlStateSelected];
+
     [gridButton addTarget:self action:@selector(didGridButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [gridButton setTintColor:[UIColor whiteColor]];
     

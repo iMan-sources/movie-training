@@ -6,9 +6,8 @@
 //
 
 #import "ProfileViewModel.h"
-#import <UIKit/UIKit.h>
 #import "NSDate+Extensions.h"
-
+#import "Images.h"
 const int SectionProfileTypeCount = reminderList - infor_profile + 1;
 const int InforProfileTypeCount = (gender - birthday + 1);
 
@@ -38,7 +37,34 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     [dict setValue:[user getEmail] forKey:@"email"];
     [defaults setObject:dict forKey:key];
 }
-
+-(UIImage *)imageForInforType: (InforProfileType) type{
+    switch (type) {
+        case imagePath: {
+            {
+                return nil;
+            }
+        case name:
+            {
+                return nil;
+            }
+        case birthday:
+            {
+                UIImage *image = [Images getCalendarImage];
+                return image;
+            }
+        case email:
+            {
+                UIImage *image = [Images getEmailImage];
+                return image;
+            }
+        case gender:
+            {
+                UIImage *image = [Images getPersonImage];
+                return image;
+            }
+        }
+    }
+}
 -(NSString *) titleForInforType: (InforProfileType) type{
     switch (type) {
         case imagePath: {
@@ -145,11 +171,18 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     return InforProfileTypeCount;
 }
 
-- (NSString *)inforForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSInteger row = indexPath.row;
+-(NSString *)inforForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //    NSInteger row = indexPath.row;
     InforProfileType type = [self inforProfileTypeForIndexPath:indexPath];
     NSString *infor = [self inforWithInforProfileType:type];
     return infor;
+}
+
+- (UIImage *)imageForRowAtIndexPath:(NSIndexPath *)indexPath{
+    //    NSInteger row = indexPath.row;
+    InforProfileType type = [self inforProfileTypeForIndexPath:indexPath];
+    UIImage *img = [self imageForInforType:type];
+    return img;
 }
 
 -(InforProfileType) inforProfileTypeForIndexPath: (NSIndexPath *)indexPath{

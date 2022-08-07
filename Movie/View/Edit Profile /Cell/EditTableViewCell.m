@@ -65,18 +65,21 @@
     }
 }
 
--(void) bindingData: (User *)user withInforType: (InforProfileType)type{
+-(void) bindingData: (User *)user withInforType: (InforProfileType)type withImage: (UIImage *)image{
     switch (type) {
         case birthday:
         {
+            self.iconImageView.image = image;
             self.contentEditableView.backgroundColor = [UIColor clearColor];
             [self configBirthdayView];
             [self layoutChildView:self.birthdayView];
             [self.birthdayView bindingData:[user getBirthDay]];
+            
             break;
         }
         case email:
         {
+            self.iconImageView.image = image;
             self.contentEditableView.backgroundColor = [UIColor clearColor];
             [self configEmailView];
             [self layoutChildView:self.emailView];
@@ -86,6 +89,7 @@
         }
         case gender:
         {
+            self.iconImageView.image = image;
             self.contentEditableView.backgroundColor = [UIColor systemGreenColor];
             [self configGenderView];
             [self layoutChildView:self.genderView];

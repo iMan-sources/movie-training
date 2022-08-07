@@ -112,7 +112,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ProfileTableViewCell getReuseIdentifier] forIndexPath:indexPath];
     NSString *infor = [self.profileViewModel inforForRowAtIndexPath:indexPath];
-    [cell bindingData:infor];
+    UIImage *image = [self.profileViewModel imageForRowAtIndexPath:indexPath];
+    [cell bindingData: infor withImage:image];
     return cell;
 }
 

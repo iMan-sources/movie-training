@@ -123,8 +123,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     EditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[EditTableViewCell getReuseIdentifier] forIndexPath:indexPath];
     InforProfileType type = [self.profileViewModel inforProfileTypeForIndexPath:indexPath];
-    
-    [cell bindingData:self.user withInforType:type];
+    UIImage *image = [self.profileViewModel imageForRowAtIndexPath:indexPath];
+    [cell bindingData:self.user withInforType:type withImage:image];
     return cell;
 }
 
