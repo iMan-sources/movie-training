@@ -60,7 +60,7 @@
 
 -(void)bindingData: (User *)user{
     [self.avatarView bindingData:user];
-    [self.avatarView configTextFiledWithBorderStyle:UITextBorderStyleNone withInteract:NO];
+    [self.avatarView configTextFieldWithBorderStyle:UITextBorderStyleNone withInteract:NO];
 }
 
 +(CGFloat) getHeaderViewHeight{

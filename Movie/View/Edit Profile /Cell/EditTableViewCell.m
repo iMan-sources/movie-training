@@ -74,6 +74,7 @@
             [self configBirthdayView];
             [self layoutChildView:self.birthdayView];
             [self.birthdayView bindingData:[user getBirthDay]];
+            //config date picker
             
             break;
         }

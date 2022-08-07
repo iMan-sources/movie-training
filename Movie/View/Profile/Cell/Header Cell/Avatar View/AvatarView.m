@@ -12,7 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarHeightContraint;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextfield;
-
+@property (copy, nonatomic) NSString *imagePath;
 @end
 @implementation AvatarView
 #pragma mark - Init
@@ -41,19 +41,45 @@
     
     [self configAvatarView];
 }
+#pragma mark - Action
+-(void) didAvatarImageViewTapped: (UITapGestureRecognizer *) sender{
+    NSLog(@"did tapped from avatar view");
+    [self.delegate didAvatarViewTapped];
+}
 #pragma mark - Instance Helper
 - (NSString *)getName{
     NSString *name = self.nameTextfield.text;
     return name;;
 }
 
+- (NSString *)getImagePath{
+    return self.imagePath;
+}
+
+- (void)setAvatarImageViewUseInteraction:(BOOL)isInteract{
+    [self.avatarImageView setUserInteractionEnabled:isInteract];
+}
+
+- (void)settingImageForAvatarImageView:(NSString *)urlImagePath{
+    if (urlImagePath) {
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:urlImagePath]];
+        if (image != nil) {
+            self.imagePath = urlImagePath;
+            self.avatarImageView.image = image;
+        }
+    }
+}
+
 #pragma mark - Helper
 -(void) configAvatarView{
     self.avatarImageView.layer.cornerRadius = self.avatarHeightContraint.constant / 2;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didAvatarImageViewTapped:)];
+    [self.avatarImageView addGestureRecognizer:tapGesture];
+    
 }
 
 
--(void) configTextFiledWithBorderStyle: (UITextBorderStyle ) borderStyle withInteract: (BOOL) isInteract{
+-(void) configTextFieldWithBorderStyle: (UITextBorderStyle ) borderStyle withInteract: (BOOL) isInteract{
     [self.nameTextfield setBorderStyle:borderStyle];
     [self.nameTextfield setUserInteractionEnabled:isInteract];
 }
@@ -61,7 +87,19 @@
 - (void)bindingData:(User *)user{
     self.nameTextfield.text = [user getName];
     //get image
+    
+    NSString *urlImagePath = [user getImagePath];
+    NSLog(@"%@ from avatarView", urlImagePath);
+    if (urlImagePath) {
+        self.imagePath = urlImagePath;
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:urlImagePath]];
+        if (image != nil) {
+            self.avatarImageView.image = image;
+        }
+    }
 }
+
+#pragma mark -Delegate
 
 
 

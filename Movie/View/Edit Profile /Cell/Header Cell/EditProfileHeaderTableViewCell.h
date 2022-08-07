@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(CGFloat) getHeaderHeight;
 @property(weak, nonatomic) id<EditProfileHeaderTableViewCellDelegate> delegate;
-
+@property(strong, nonatomic) AvatarView *avatarView;
 -(void) bindingData: (User *)user;
 @end
 

@@ -6,8 +6,10 @@
 //
 
 #import "EditProfileHeaderTableViewCell.h"
-@interface EditProfileHeaderTableViewCell()
-@property(strong, nonatomic) AvatarView *avatarView;
+#import <UIKit/UIKit.h>
+
+@interface EditProfileHeaderTableViewCell()<UIImagePickerControllerDelegate>
+
 @property(strong, nonatomic) UIButton *cancelButton;
 @property(strong, nonatomic) UIButton *doneButton;
 @end
@@ -31,9 +33,11 @@
 
 -(void) didDoneButtonTapped: (UIButton *)sender{
     NSString *name = [self.avatarView getName];
-    User *user = [[User alloc] initWithName:name withBirthday:[[NSDate alloc]init] withGender:@"" withImagePath:@"" withEmail:@""];
+    NSString *imageURL = [self.avatarView getImagePath];
+    User *user = [[User alloc] initWithName:name withBirthday:[[NSDate alloc]init] withGender:@"" withImagePath:imageURL withEmail:@""];
     [self.delegate didDoneButtonTapped:user];
 }
+
 #pragma mark - Instance Helper
 - (void)bindingData:(User *)user{
     [self.avatarView bindingData:user];
@@ -75,9 +79,11 @@
 -(void) configAvatarView{
     self.avatarView = [[AvatarView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.avatarView.translatesAutoresizingMaskIntoConstraints = false;
-    [self.avatarView configTextFiledWithBorderStyle:UITextBorderStyleRoundedRect withInteract:YES];
+    [self.avatarView setAvatarImageViewUseInteraction: YES];
+    [self.avatarView configTextFieldWithBorderStyle:UITextBorderStyleRoundedRect withInteract:YES];
     
 }
+
 + (NSString *)getReuseIdentifier{
     return @"EditProfileHeaderTableViewCell";
 }
@@ -85,7 +91,6 @@
 + (CGFloat)getHeaderHeight{
     return 150.0;
 }
-
 
 -(UIButton *) makeButtonWithText: (NSString *)text withBackgroundColor: (UIColor *)color{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -102,5 +107,6 @@
     return button;
 }
 
+#pragma mark - Delegate
 
 @end

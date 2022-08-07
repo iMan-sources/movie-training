@@ -14,11 +14,12 @@
 #import "UserDefaultsNames.h"
 #import "EditProfileHeaderTableViewCell.h"
 
-@interface EditProfileViewController ()<UITableViewDelegate, UITableViewDataSource, EditProfileHeaderTableViewCellDelegate>
-@property(strong, nonatomic) AvatarView *avatarView;
+static NSInteger const SectionInTableView = 0;
+@interface EditProfileViewController ()<UITableViewDelegate, UITableViewDataSource, EditProfileHeaderTableViewCellDelegate,  AvatarViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(strong, nonatomic) ProfileViewModel *profileViewModel;
 @property(strong, nonatomic) User *user;
+
 @end
 
 @implementation EditProfileViewController
@@ -47,7 +48,7 @@
 #pragma mark - Helper
 -(void) setup{
     [self configViewModel];
-    [self configAvatarView];
+    //    [self configAvatarView];
     [self configTableView];
     
     
@@ -63,13 +64,6 @@
 
 -(void) layout{
     
-}
-
--(void) configAvatarView{
-    self.avatarView = [[AvatarView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    self.avatarView.translatesAutoresizingMaskIntoConstraints = false;
-    self.avatarView.backgroundColor = [UIColor clearColor];
-    [self.avatarView configTextFiledWithBorderStyle:UITextBorderStyleRoundedRect withInteract:YES];
 }
 
 -(void)configTableView{
@@ -95,6 +89,13 @@
     }
 }
 
+
+- (NSString *)documentsPathForFileName:(NSString *)name {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    return [documentsPath stringByAppendingPathComponent:name];
+}
+
 #pragma mark - Delegate
 - (void)didDoneButtonTapped:(User *)user{
     //add infor to user
@@ -106,6 +107,32 @@
 - (void)didCancelButtonTapped{
     NSLog(@"didCancelButtonTapped from edit profile vc");
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)didAvatarViewTapped{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    
+    // Get image data. Here you can use UIImagePNGRepresentation if you need transparency
+    NSData *imageData = UIImageJPEGRepresentation(chosenImage, 1);
+    
+    // Get image path in user's folder and store file with name image_CurrentTimestamp.jpg (see documentsPathForFileName below)
+    NSString *imagePath = [self documentsPathForFileName:[NSString stringWithFormat:@"image_%f.jpg", [NSDate timeIntervalSinceReferenceDate]]];
+    
+    // Write image data to user's folder
+    [imageData writeToFile:imagePath atomically:YES];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        EditProfileHeaderTableViewCell *cell = (EditProfileHeaderTableViewCell *)[self.tableView headerViewForSection:SectionInTableView];
+        [cell.avatarView settingImageForAvatarImageView:imagePath];
+    }];
 }
 
 #pragma mark - Datasource
@@ -132,7 +159,10 @@
     EditProfileHeaderTableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[EditProfileHeaderTableViewCell getReuseIdentifier]];
     cell.delegate = self;
     //binding avatar view
+    cell.avatarView.delegate = self;
+    
     [cell bindingData:self.user];
+    
     return cell;
 }
 
@@ -140,5 +170,6 @@
     CGFloat height = [EditProfileHeaderTableViewCell getHeaderHeight];
     return height;
 }
+
 
 @end

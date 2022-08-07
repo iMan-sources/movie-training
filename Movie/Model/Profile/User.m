@@ -44,6 +44,10 @@
     self.birthday = date;
 }
 
+-(void) setWithImagePath: (NSString *)imagePath{
+    self.imagePath = imagePath;
+}
+
 -(NSString *)getName{
     return self.name;
 }
