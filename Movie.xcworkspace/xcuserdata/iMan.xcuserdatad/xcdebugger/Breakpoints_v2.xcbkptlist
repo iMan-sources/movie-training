@@ -14,8 +14,8 @@
             filePath = "Movie/View/Edit Profile /Cell/EditTableViewCell.m"
             startingColumnNumber = "86"
             endingColumnNumber = "86"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "-configGenderView"
             landmarkType = "7">
          </BreakpointContent>

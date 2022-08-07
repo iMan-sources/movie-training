@@ -13,12 +13,14 @@
 #import "EditTableViewCell.h"
 #import "UserDefaultsNames.h"
 #import "EditProfileHeaderTableViewCell.h"
-
+#import "BirthdayView.h"
+#import "DatePickerManager.h"
 static NSInteger const SectionInTableView = 0;
-@interface EditProfileViewController ()<UITableViewDelegate, UITableViewDataSource, EditProfileHeaderTableViewCellDelegate,  AvatarViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface EditProfileViewController ()<UITableViewDelegate, UITableViewDataSource, EditProfileHeaderTableViewCellDelegate,  AvatarViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BirthdayViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(strong, nonatomic) ProfileViewModel *profileViewModel;
 @property(strong, nonatomic) User *user;
+@property(strong, nonatomic) id<DatePickerManagerDelegate> datePickeManager;
 
 @end
 
@@ -27,9 +29,6 @@ static NSInteger const SectionInTableView = 0;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    //    [self.profileViewModel loadUserFromUserDefaultWithKey:UserInforNameDefaults completionHandler:^{
-    //        [self.tableView reloadData];
-    //    }];
 }
 
 - (void)viewDidLoad {
@@ -51,7 +50,11 @@ static NSInteger const SectionInTableView = 0;
     //    [self configAvatarView];
     [self configTableView];
     
-    
+    [self configDatePickerManager];
+}
+
+-(void) configDatePickerManager{
+    self.datePickeManager = [[DatePickerManager alloc] init];
 }
 
 -(void) configViewModel{
@@ -150,6 +153,11 @@ static NSInteger const SectionInTableView = 0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     EditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[EditTableViewCell getReuseIdentifier] forIndexPath:indexPath];
     InforProfileType type = [self.profileViewModel inforProfileTypeForIndexPath:indexPath];
+    
+    if (type == birthday) {
+        cell.delegate = self;
+    }
+    
     UIImage *image = [self.profileViewModel imageForRowAtIndexPath:indexPath];
     [cell bindingData:self.user withInforType:type withImage:image];
     return cell;
@@ -171,5 +179,10 @@ static NSInteger const SectionInTableView = 0;
     return height;
 }
 
+- (void)didBirthdayLabelTapped{
+    [self.datePickeManager showDatePickerViewWithViewController:self withCompletion:^(NSDate * _Nonnull date) {
+        NSLog(@"%@", date);
+    }];
+}
 
 @end

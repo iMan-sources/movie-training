@@ -6,15 +6,16 @@
 //
 
 #import "EditTableViewCell.h"
-#import "BirthdayView.h"
 #import "EmailView.h"
 #import "GenderView.h"
-@interface EditTableViewCell()
+@interface EditTableViewCell()<BirthdayViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UIView *contentEditableView;
-@property (strong, nonatomic) BirthdayView *birthdayView;
 @property(strong, nonatomic) EmailView *emailView;
 @property (strong, nonatomic) GenderView *genderView;
+@property (strong, nonatomic) BirthdayView *birthdayView;
+//@property(strong, nonatomic) UIToolbar *toolbar;
+//@property(strong, nonatomic) UIDatePicker *datePicker;
 @end
 @implementation EditTableViewCell
 
@@ -106,6 +107,8 @@
 -(void) configBirthdayView{
     self.birthdayView = [[BirthdayView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.birthdayView.translatesAutoresizingMaskIntoConstraints = false;
+    
+    self.birthdayView.delegate = self.delegate;
 }
 
 -(void) configEmailView{
@@ -124,6 +127,20 @@
     [childView.leadingAnchor constraintEqualToAnchor:self.contentEditableView.leadingAnchor].active = true;
     [childView.trailingAnchor constraintEqualToAnchor:self.contentEditableView.trailingAnchor].active = true;
     [childView.bottomAnchor constraintEqualToAnchor:self.contentEditableView.bottomAnchor].active = true;
+}
+
+//-(void) configPickerView{
+//    self.datePicker = [[UIDatePicker alloc] init];
+//    self.datePicker.backgroundColor = [UIColor whiteColor];
+//    [self.datePicker setValue:[UIColor blackColor] forKey:@"textColor"];
+//    self.datePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    self.datePicker.datePickerMode = UIDatePickerModeDate;
+//    self.datePicker.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 300, [UIScreen mainScreen].bounds.size.width , 300);
+//}
+
+#pragma mark - Delegate
+- (void)didBirthdayLabelTapped{
+    NSLog(@"helo");
 }
 
 @end

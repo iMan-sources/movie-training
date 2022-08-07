@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ProfileViewModel.h"
+#import "BirthdayView.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EditTableViewCell : UITableViewCell
@@ -14,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString *) getNibName;
 -(void) bindingData: (User *)user withInforType: (InforProfileType)type withImage: (UIImage *)image;
 -(void) gettingDataWithInforType: (InforProfileType)type withUser: (User *)user;
+@property(weak, nonatomic) id<BirthdayViewDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

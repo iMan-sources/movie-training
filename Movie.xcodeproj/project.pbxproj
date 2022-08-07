@@ -18,6 +18,7 @@
 		0F8254BD289E13FC00B048C0 /* EmailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8254BC289E13FC00B048C0 /* EmailView.xib */; };
 		0F8254C4289E19FF00B048C0 /* GenderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8254C3289E19FF00B048C0 /* GenderView.xib */; };
 		0F8254C7289E1A1C00B048C0 /* GenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254C6289E1A1C00B048C0 /* GenderView.m */; };
+		0F8254CB289FF63500B048C0 /* DatePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254CA289FF63500B048C0 /* DatePickerManager.m */; };
 		0FF35D9C2894384000F6521E /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35D9B2894384000F6521E /* Parser.m */; };
 		0FF35D9F28943D7900F6521E /* MoviesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35D9E28943D7900F6521E /* MoviesViewModel.m */; };
 		0FF35DA528952ABB00F6521E /* Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35DA428952ABB00F6521E /* Fetcher.m */; };
@@ -134,6 +135,8 @@
 		0F8254C3289E19FF00B048C0 /* GenderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenderView.xib; sourceTree = "<group>"; };
 		0F8254C5289E1A1C00B048C0 /* GenderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GenderView.h; sourceTree = "<group>"; };
 		0F8254C6289E1A1C00B048C0 /* GenderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenderView.m; sourceTree = "<group>"; };
+		0F8254C9289FF63500B048C0 /* DatePickerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatePickerManager.h; sourceTree = "<group>"; };
+		0F8254CA289FF63500B048C0 /* DatePickerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerManager.m; sourceTree = "<group>"; };
 		0FF35D9A2894384000F6521E /* Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		0FF35D9B2894384000F6521E /* Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
 		0FF35D9D28943D7900F6521E /* MoviesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MoviesViewModel.h; path = "../iOS/Objective-C/FPT_Training_Movie/Movie/ViewModel/MoviesViewModel.h"; sourceTree = SOURCE_ROOT; };
@@ -387,6 +390,15 @@
 			path = "Gender View";
 			sourceTree = "<group>";
 		};
+		0F8254C8289FF61500B048C0 /* DatePicker Manager */ = {
+			isa = PBXGroup;
+			children = (
+				0F8254C9289FF63500B048C0 /* DatePickerManager.h */,
+				0F8254CA289FF63500B048C0 /* DatePickerManager.m */,
+			);
+			path = "DatePicker Manager";
+			sourceTree = "<group>";
+		};
 		0FF35DA028943D9700F6521E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +501,7 @@
 		372EAE41289903AF00D956D6 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				0F8254C8289FF61500B048C0 /* DatePicker Manager */,
 				372EAE47289922D600D956D6 /* Alert Manager */,
 				373B71C72893C73F00E5732B /* Network Manager */,
 				372EAE42289903BB00D956D6 /* CoreData Manager */,
@@ -678,6 +691,7 @@
 		37747CC32890E1D4000E82E5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				37BE81EC289CF91C004F54A6 /* UserDefaults */,
 				3731E197289A0F340037CD76 /* Notification Names */,
 				370D4C72289130E70040CE38 /* Images */,
 				37747CDD2890EC40000E82E5 /* Identifiers */,
@@ -686,7 +700,6 @@
 				0FF35DA92895859A00F6521E /* NSString+Extensions */,
 				373C666928976C7C00B5F55B /* UIView+Extensions */,
 				0F8254BE289E16DC00B048C0 /* NSDate+Extensions */,
-				37BE81EC289CF91C004F54A6 /* UserDefaults */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1202,6 +1215,7 @@
 				37235F87289B6A0000125AE8 /* ProfileTableViewCell.m in Sources */,
 				37235F7E289B5FE400125AE8 /* AvatarView.m in Sources */,
 				37747C892890E16F000E82E5 /* AppDelegate.m in Sources */,
+				0F8254CB289FF63500B048C0 /* DatePickerManager.m in Sources */,
 				37747CD72890E725000E82E5 /* UIViewController+Extensions.m in Sources */,
 				377A3839289236E800141288 /* MoviesViewController.m in Sources */,
 				37747CE02890EC6F000E82E5 /* ViewControllerIdentifiers.m in Sources */,
