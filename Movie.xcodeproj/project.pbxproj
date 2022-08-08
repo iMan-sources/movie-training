@@ -30,6 +30,13 @@
 		370D4C75289131060040CE38 /* Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D4C74289131060040CE38 /* Images.m */; };
 		370D4C7D28913C8D0040CE38 /* MovieListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 370D4C7B28913C8D0040CE38 /* MovieListViewCell.m */; };
 		370D4C7E28913C8D0040CE38 /* MovieListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 370D4C7C28913C8D0040CE38 /* MovieListViewCell.xib */; };
+		371CD51B28A0BC230079F7A7 /* SettingsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 371CD51A28A0BC230079F7A7 /* SettingsViewModel.m */; };
+		371CD52028A0C0610079F7A7 /* SettingsFilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 371CD51E28A0C0610079F7A7 /* SettingsFilterTableViewCell.m */; };
+		371CD52128A0C0610079F7A7 /* SettingsFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371CD51F28A0C0610079F7A7 /* SettingsFilterTableViewCell.xib */; };
+		371CD52528A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 371CD52328A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m */; };
+		371CD52628A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371CD52428A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.xib */; };
+		371CD52A28A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 371CD52828A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.m */; };
+		371CD52B28A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371CD52928A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.xib */; };
 		37235F7B289B5FD300125AE8 /* AvatarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37235F7A289B5FD300125AE8 /* AvatarView.xib */; };
 		37235F7E289B5FE400125AE8 /* AvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37235F7D289B5FE400125AE8 /* AvatarView.m */; };
 		37235F82289B641100125AE8 /* HeaderProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37235F81289B641100125AE8 /* HeaderProfileTableViewCell.m */; };
@@ -139,8 +146,8 @@
 		0F8254CA289FF63500B048C0 /* DatePickerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerManager.m; sourceTree = "<group>"; };
 		0FF35D9A2894384000F6521E /* Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		0FF35D9B2894384000F6521E /* Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
-		0FF35D9D28943D7900F6521E /* MoviesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MoviesViewModel.h; path = "../iOS/Objective-C/FPT_Training_Movie/Movie/ViewModel/MoviesViewModel.h"; sourceTree = SOURCE_ROOT; };
-		0FF35D9E28943D7900F6521E /* MoviesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MoviesViewModel.m; path = "../iOS/Objective-C/FPT_Training_Movie/Movie/ViewModel/MoviesViewModel.m"; sourceTree = SOURCE_ROOT; };
+		0FF35D9D28943D7900F6521E /* MoviesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MoviesViewModel.h; path = Movie/ViewModel/Movies/MoviesViewModel.h; sourceTree = SOURCE_ROOT; };
+		0FF35D9E28943D7900F6521E /* MoviesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MoviesViewModel.m; path = Movie/ViewModel/Movies/MoviesViewModel.m; sourceTree = SOURCE_ROOT; };
 		0FF35DA328952ABB00F6521E /* Fetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fetcher.h; sourceTree = "<group>"; };
 		0FF35DA428952ABB00F6521E /* Fetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fetcher.m; sourceTree = "<group>"; };
 		0FF35DA62895858E00F6521E /* NSString+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
@@ -157,6 +164,17 @@
 		370D4C7A28913C8D0040CE38 /* MovieListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieListViewCell.h; sourceTree = "<group>"; };
 		370D4C7B28913C8D0040CE38 /* MovieListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieListViewCell.m; sourceTree = "<group>"; };
 		370D4C7C28913C8D0040CE38 /* MovieListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieListViewCell.xib; sourceTree = "<group>"; };
+		371CD51928A0BC230079F7A7 /* SettingsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewModel.h; sourceTree = "<group>"; };
+		371CD51A28A0BC230079F7A7 /* SettingsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewModel.m; sourceTree = "<group>"; };
+		371CD51D28A0C0610079F7A7 /* SettingsFilterTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsFilterTableViewCell.h; sourceTree = "<group>"; };
+		371CD51E28A0C0610079F7A7 /* SettingsFilterTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsFilterTableViewCell.m; sourceTree = "<group>"; };
+		371CD51F28A0C0610079F7A7 /* SettingsFilterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsFilterTableViewCell.xib; sourceTree = "<group>"; };
+		371CD52228A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsYearsConditionTableViewCell.h; sourceTree = "<group>"; };
+		371CD52328A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsYearsConditionTableViewCell.m; sourceTree = "<group>"; };
+		371CD52428A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsYearsConditionTableViewCell.xib; sourceTree = "<group>"; };
+		371CD52728A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsRateConditionTableViewCell.h; sourceTree = "<group>"; };
+		371CD52828A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsRateConditionTableViewCell.m; sourceTree = "<group>"; };
+		371CD52928A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsRateConditionTableViewCell.xib; sourceTree = "<group>"; };
 		37235F7A289B5FD300125AE8 /* AvatarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvatarView.xib; sourceTree = "<group>"; };
 		37235F7C289B5FE400125AE8 /* AvatarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvatarView.h; sourceTree = "<group>"; };
 		37235F7D289B5FE400125AE8 /* AvatarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AvatarView.m; sourceTree = "<group>"; };
@@ -402,6 +420,7 @@
 		0FF35DA028943D9700F6521E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				371CD51828A0BC090079F7A7 /* Settings */,
 				0F8254AD289E04EE00B048C0 /* Movie Detail */,
 				0F8254AE289E04F600B048C0 /* Movies */,
 				0F8254AF289E051A00B048C0 /* Favorite */,
@@ -444,6 +463,43 @@
 				370D4C74289131060040CE38 /* Images.m */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		371CD51828A0BC090079F7A7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				371CD51928A0BC230079F7A7 /* SettingsViewModel.h */,
+				371CD51A28A0BC230079F7A7 /* SettingsViewModel.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		371CD51C28A0C0000079F7A7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				37358EB128A0F71A007A733A /* Filter */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		371CD52C28A0E7CE0079F7A7 /* Rate Condition */ = {
+			isa = PBXGroup;
+			children = (
+				371CD52728A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.h */,
+				371CD52828A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.m */,
+				371CD52928A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.xib */,
+			);
+			path = "Rate Condition";
+			sourceTree = "<group>";
+		};
+		371CD52D28A0E7DA0079F7A7 /* Year Condition */ = {
+			isa = PBXGroup;
+			children = (
+				371CD52228A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.h */,
+				371CD52328A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m */,
+				371CD52428A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.xib */,
+			);
+			path = "Year Condition";
 			sourceTree = "<group>";
 		};
 		37235F79289B5F9A00125AE8 /* Avatar View */ = {
@@ -534,6 +590,18 @@
 				3731E199289A0F5C0037CD76 /* NotificationNames.m */,
 			);
 			path = "Notification Names";
+			sourceTree = "<group>";
+		};
+		37358EB128A0F71A007A733A /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				371CD51D28A0C0610079F7A7 /* SettingsFilterTableViewCell.h */,
+				371CD51E28A0C0610079F7A7 /* SettingsFilterTableViewCell.m */,
+				371CD51F28A0C0610079F7A7 /* SettingsFilterTableViewCell.xib */,
+				371CD52D28A0E7DA0079F7A7 /* Year Condition */,
+				371CD52C28A0E7CE0079F7A7 /* Rate Condition */,
+			);
+			path = Filter;
 			sourceTree = "<group>";
 		};
 		373B71C12893B83F00E5732B /* Cell */ = {
@@ -727,6 +795,7 @@
 		37747CC62890E2F7000E82E5 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				371CD51C28A0C0000079F7A7 /* Cell */,
 				370D4C6C289111D10040CE38 /* SettingsViewController.h */,
 				370D4C6D289111D10040CE38 /* SettingsViewController.m */,
 			);
@@ -1057,8 +1126,10 @@
 				0F62E2E92894304D006ED111 /* LaunchScreen.storyboard in Resources */,
 				0F8254C4289E19FF00B048C0 /* GenderView.xib in Resources */,
 				0F8254AC289BFA3500B048C0 /* EditProfileViewController.xib in Resources */,
+				371CD52628A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.xib in Resources */,
 				0F62E2E728943031006ED111 /* Main.storyboard in Resources */,
 				0F8254B3289E0A9000B048C0 /* BirthdayView.xib in Resources */,
+				371CD52128A0C0610079F7A7 /* SettingsFilterTableViewCell.xib in Resources */,
 				37747C972890E172000E82E5 /* Assets.xcassets in Resources */,
 				37235F7B289B5FD300125AE8 /* AvatarView.xib in Resources */,
 				37FB8ED528929B9400FE5441 /* MovieDetailView.xib in Resources */,
@@ -1068,6 +1139,7 @@
 				377A38342892368900141288 /* MovieGridViewController.xib in Resources */,
 				3780D784289CC5C70021A16E /* EditTableViewCell.xib in Resources */,
 				37235F88289B6A0000125AE8 /* ProfileTableViewCell.xib in Resources */,
+				371CD52B28A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.xib in Resources */,
 				37798062289BBDA300F5B19A /* ProfileFooterTableViewCell.xib in Resources */,
 				0F8254BD289E13FC00B048C0 /* EmailView.xib in Resources */,
 				3780D779289CBE890021A16E /* EditView.xib in Resources */,
@@ -1202,10 +1274,12 @@
 				37FB8ED92892A3B500FE5441 /* MovieDetailView.m in Sources */,
 				3780D77C289CBEA40021A16E /* EditView.m in Sources */,
 				377A383D2892619800141288 /* MovieListViewController.m in Sources */,
+				371CD51B28A0BC230079F7A7 /* SettingsViewModel.m in Sources */,
 				377B18FC2897D3280004E707 /* FavoritesViewModel.m in Sources */,
 				37747CE32890F49E000E82E5 /* TabBarViewController.m in Sources */,
 				37747CDC2890EC0E000E82E5 /* Storyboard.m in Sources */,
 				377A38422892850000141288 /* MovieGridViewCell.m in Sources */,
+				371CD52028A0C0610079F7A7 /* SettingsFilterTableViewCell.m in Sources */,
 				370D4C7D28913C8D0040CE38 /* MovieListViewCell.m in Sources */,
 				370D4C6B289111BD0040CE38 /* FavoritesViewController.m in Sources */,
 				37235F8D289B6E2600125AE8 /* User.m in Sources */,
@@ -1240,6 +1314,7 @@
 				37235F82289B641100125AE8 /* HeaderProfileTableViewCell.m in Sources */,
 				0FF35D9F28943D7900F6521E /* MoviesViewModel.m in Sources */,
 				377A38332892368900141288 /* MovieGridViewController.m in Sources */,
+				371CD52A28A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.m in Sources */,
 				372EAE402898D5DF00D956D6 /* MovieCD+CoreDataProperties.m in Sources */,
 				0F8254BB289E13E600B048C0 /* EmailView.m in Sources */,
 				370D4C71289111DB0040CE38 /* AboutViewController.m in Sources */,
@@ -1250,6 +1325,7 @@
 				37747C8C2890E16F000E82E5 /* SceneDelegate.m in Sources */,
 				373B71D12893E19300E5732B /* NetworkManager.m in Sources */,
 				3780D783289CC5C70021A16E /* EditTableViewCell.m in Sources */,
+				371CD52528A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m in Sources */,
 				0F8254AB289BFA3500B048C0 /* EditProfileViewController.m in Sources */,
 				0FF35DA528952ABB00F6521E /* Fetcher.m in Sources */,
 				373B71D72893E60B00E5732B /* Movie.m in Sources */,

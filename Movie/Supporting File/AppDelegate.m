@@ -6,7 +6,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "UserDefaultsNames.h"
 @interface AppDelegate ()
 
 @end
@@ -15,15 +15,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //set navigationbar color
-//    [[UINavigationBar appearance] setBarTintColor:[UIColor systemBlueColor]];
 
+    [self setupSettingsDefault];
     [self configNavBar];
 
     [self configTabBar];
 
 
-    
+
     return YES;
 }
 
@@ -36,47 +35,46 @@
     NSDictionary *attrs = @{
         NSForegroundColorAttributeName: [UIColor whiteColor]
     };
-    
+
     navBarAppearance.titleTextAttributes = attrs;
-    
+
     [UINavigationBar appearance].standardAppearance = navBarAppearance;
     [UINavigationBar appearance].scrollEdgeAppearance = navBarAppearance;
 }
 
 -(void) configTabBar{
-    
+
     NSDictionary *normalAttrs = @{
         NSFontAttributeName: [UIFont systemFontOfSize:14],
-//        NSForegroundColorAttributeName: [UIColor  whiteColor],
     };
-    
-//    NSDictionary *selectedAttrs = @{
-//        NSFontAttributeName: [UIFont systemFontOfSize:14],
-//        NSForegroundColorAttributeName: [UIColor  whiteColor],
-//    };
-    
-    
-    
+
     UITabBarItemAppearance *tabBarItemAppearance = [[UITabBarItemAppearance alloc] init];
-//    [[UITabBarItem appearance] setTitleTextAttributes:attrs forState:UIControlStateNormal];
-//    [[UITabBarItem appearance] setTitleTextAttributes:attrs forState:UIControlStateSelected];
-    
+
+
     tabBarItemAppearance.normal.titleTextAttributes = normalAttrs;
     tabBarItemAppearance.selected.titleTextAttributes = normalAttrs;
-    
+
     UITabBarAppearance *tabbarAppearance = [[UITabBarAppearance alloc] init];
     tabbarAppearance.inlineLayoutAppearance = tabBarItemAppearance;
     tabbarAppearance.stackedLayoutAppearance = tabBarItemAppearance;
     tabbarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance;
-    
+
     [tabbarAppearance configureWithOpaqueBackground];
     tabbarAppearance.backgroundColor = [UIColor systemBlueColor];
-    
+
     [UITabBar appearance].standardAppearance = tabbarAppearance;
     [UITabBar appearance].scrollEdgeAppearance = tabbarAppearance;
 }
 
-
+-(void) setupSettingsDefault{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    if ([standardUserDefaults objectForKey:FilterTypeUserDefaults] == nil) {
+        [standardUserDefaults setObject:@"0" forKey:FilterTypeUserDefaults];
+    }
+    if ([standardUserDefaults objectForKey: SortTypeUserDefaults] == nil) {
+        [standardUserDefaults setObject:@"0" forKey:SortTypeUserDefaults];
+    }
+}
 
 #pragma mark - UISceneSession lifecycle
 
@@ -108,7 +106,7 @@
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    
+
                     /*
                      Typical reasons for an error here include:
                      * The parent directory does not exist, cannot be created, or disallows writing.
@@ -123,7 +121,7 @@
             }];
         }
     }
-    
+
     return _persistentContainer;
 }
 
