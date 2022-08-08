@@ -45,8 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
--(void) loadSettingsFilterTypeFromUserDefault;
--(void) loadSettingsSortTypeFromUserDefault;
+-(void) loadSettingsDefault;
 
 -(BOOL) checkIfRowIsFilterTypeDefault: (NSIndexPath *) indexPath;
 -(BOOL) checkIfRowIsSortTypeDefault: (NSIndexPath *) indexPath;

@@ -8,9 +8,9 @@
 #import <Foundation/Foundation.h>
 #import "Parser.h"
 NS_ASSUME_NONNULL_BEGIN
-@protocol FetcherPopularMoviesProtocol <NSObject>
+@protocol FetcherMoviesProtocol <NSObject>
 
--(void)fetchPopularMoviesWithPage: (NSInteger)page withSucess: (void(^)(NSArray<Movie *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
+-(void)fetchMoviesWithPage: (NSInteger)page withSucess: (void(^)(NSArray<Movie *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
 
 @end
 
@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) fetchCreditsMovieWithID: (NSInteger)movieId withSuccess: (void(^)(NSArray<Actor *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
 
 @end
-@interface Fetcher : NSObject<FetcherPopularMoviesProtocol, FetcherCreditsMovieProtocol>
--(instancetype) initWithParserPopularMovies: (id<ParserPopularMoviesProtocol>) parser;
+@interface Fetcher : NSObject<FetcherMoviesProtocol, FetcherCreditsMovieProtocol>
+-(instancetype) initWithParserPopularMovies: (id<ParserMoviesProtocol>) parser;
 -(instancetype) initWithParserCreditsMovies: (id<ParserCreditsMovieProtocol>) parser;
 @end
 

@@ -32,7 +32,7 @@
 }
 
 #pragma mark - ParserPopularMoviesProtocol
-- (void)parserPopularMovies:(NSDictionary *)dict withSuccess:(void (^)(NSArray<Movie *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+- (void)parserMovies:(NSDictionary *)dict withSuccess:(void (^)(NSArray<Movie *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     if (!dict) {
     }
     NSArray *results = [dict objectForKey:@"results"];

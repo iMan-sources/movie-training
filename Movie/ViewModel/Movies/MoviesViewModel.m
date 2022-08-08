@@ -10,13 +10,14 @@
 #import "Fetcher.h"
 #import "FavoritesViewModel.h"
 #import <UIKit/UIKit.h>
-
+#import "SettingsViewModel.h"
+#import "UserDefaultsNames.h"
 static NSInteger const itemsInPage = 20;
 
 @interface MoviesViewModel()
-@property(strong, nonatomic) id<FetcherPopularMoviesProtocol> fetcherPopularMovies;
+@property(strong, nonatomic) id<FetcherMoviesProtocol> fetcherPopularMovies;
 @property(strong, nonatomic) NSMutableArray<Movie *> *movies;
-@property(strong, nonatomic) NSArray<Movie *> *favoriteMovieArray;
+@property(nonatomic) SortType sortType;
 @property(nonatomic) BOOL isHasMoreMovies;
 @end
 @implementation MoviesViewModel
@@ -26,20 +27,53 @@ static NSInteger const itemsInPage = 20;
         self.fetcherPopularMovies = [[Fetcher alloc] initWithParserPopularMovies:[[Parser alloc] init]];
         self.isHasMoreMovies = true;
         self.movies = [[NSMutableArray alloc] init];
+        [self configSortType];
     }
     return self;
 }
 
-- (void)getPopularMoviesWithPage:(NSInteger)page withSucess:(void (^)(NSArray<Movie *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+- (void)getMoviesWithPage:(NSInteger)page withSucess:(void (^)(NSArray<Movie *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     __weak MoviesViewModel *weakSelf = self;
-    
-    [weakSelf.fetcherPopularMovies fetchPopularMoviesWithPage:page withSucess:^(NSArray<Movie *> * _Nonnull movies) {
+    [self configSortType];
+    [weakSelf.fetcherPopularMovies fetchMoviesWithPage:page withSucess:^(NSArray<Movie *> * _Nonnull movies) {
         
         [self.movies addObjectsFromArray:movies];
+        switch (self.sortType) {
+            case releaseDate:
+            {
+                [self sortMoviesArrayByReleaseDate];
+                break;
+            }
+            case rating:
+            {
+                [self sortMoviesArrayByRating];
+                break;
+            }
+                
+            default:
+                break;
+        }
         
         successCompletion(movies);
     } withError:errorCompletion];
 }
+-(void) sortMoviesArrayByReleaseDate{
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"release_date"
+                                               ascending:YES];
+    self.movies = [[NSMutableArray alloc] initWithArray:[[[self.movies sortedArrayUsingDescriptors:@[sortDescriptor]] reverseObjectEnumerator] allObjects]];
+}
+
+-(void) sortMoviesArrayByRating{
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"vote_average"
+                                               ascending:YES];
+    self.movies = [[NSMutableArray alloc] initWithArray:[self.movies sortedArrayUsingDescriptors:@[sortDescriptor]]];
+    //reversed array
+    self.movies = [[NSMutableArray alloc] initWithArray:[[[self.movies sortedArrayUsingDescriptors:@[sortDescriptor]] reverseObjectEnumerator] allObjects]];
+    
+}
+
 #pragma mark - TableView
 - (NSInteger)numberOfRowsInSection:(NSInteger)section{
     NSInteger rows = self.movies.count;
@@ -95,5 +129,28 @@ static NSInteger const itemsInPage = 20;
     }
     return nil;
 }
+#pragma mark - Helper
+-(void) resetArray{
+    [self.movies removeAllObjects];
+}
 
+-(void) configSortType{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger type = [[standardUserDefaults objectForKey: SortTypeUserDefaults] intValue];
+    switch (type) {
+        case releaseDate:
+        {
+            self.sortType = releaseDate;
+            break;
+        }
+        case rating:
+        {
+            self.sortType = rating;
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
 @end

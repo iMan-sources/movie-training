@@ -8,9 +8,13 @@
 #import "NetworkManager.h"
 #import "AFNetworking.h"
 #import "Configs.h"
+#import "SettingsViewModel.h"
+#import "UserDefaultsNames.h"
 @interface NetworkManager()
 @property(strong, nonatomic) AFHTTPSessionManager *networkManager;
 @property(strong, nonatomic) AFJSONRequestSerializer *jsonSerializer;
+@property (nonatomic) FilterType filterDefault;
+@property(strong, nonatomic) NSString *mainURL;
 @end
 @implementation NetworkManager
 
@@ -19,21 +23,49 @@
     if (self = [super init]) {
         self.networkManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
         self.jsonSerializer = [AFJSONRequestSerializer serializer];
+        self.filterDefault = popular;
+        self.mainURL = [[NSString alloc] init];
     }
     
     return self;
 }
-
+-(void) routeURL{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger type = [[standardUserDefaults objectForKey: FilterTypeUserDefaults] intValue];
+    switch (type) {
+        case popular:
+        {
+            self.mainURL = [NSString stringWithFormat:@"%@%@?api_key=%@",BaseDomain,PopularPath,BaseAPI];
+            break;
+        }
+        case topRated:
+        {
+            self.mainURL = [NSString stringWithFormat:@"%@%@?api_key=%@",BaseDomain,TopRatedPath,BaseAPI];
+            break;
+        }
+        case upcoming:
+        {
+            self.mainURL = [NSString stringWithFormat:@"%@%@?api_key=%@",BaseDomain,UpComingPath,BaseAPI];
+            break;
+        }
+        case nowPlaying:
+        {
+            self.mainURL = [NSString stringWithFormat:@"%@%@?api_key=%@",BaseDomain,NowComingPath,BaseAPI];
+            break;
+        }
+    }
+}
 #pragma mark - [GET]
 
 
-- (void)fetchPopularMoviesWithSuccess:(NSInteger)page withSuccess:(void (^)(NSDictionary * _Nonnull))successCompletion error:(void (^)(NSError * _Nonnull))errorCompletion{
-    NSString *popularStringURL = [NSString stringWithFormat:@"%@%@?api_key=%@&page=%ld",BaseDomain,PopularPath,BaseAPI,(long)page];
+- (void)fetchMoviesWithSuccess:(NSInteger)page withSuccess:(void (^)(NSDictionary * _Nonnull))successCompletion error:(void (^)(NSError * _Nonnull))errorCompletion{
+    [self routeURL];
+    NSString *fullURL = [NSString stringWithFormat:@"%@&page=%ld",self.mainURL,(long)page];
     
         self.networkManager.requestSerializer = self.jsonSerializer;
         [self.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        [self.networkManager GET:popularStringURL parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self.networkManager GET:fullURL parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             successCompletion(responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             errorCompletion(error);

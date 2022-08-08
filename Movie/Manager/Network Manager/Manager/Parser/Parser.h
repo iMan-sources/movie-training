@@ -9,9 +9,9 @@
 #import "Movie.h"
 #import "Actor.h"
 NS_ASSUME_NONNULL_BEGIN
-@protocol ParserPopularMoviesProtocol <NSObject>
+@protocol ParserMoviesProtocol <NSObject>
 
--(void) parserPopularMovies: (NSDictionary *)dict withSuccess: (void(^)(NSArray<Movie *> *)) successCompletion withError: (void(^)(NSError *)) errorCompletion;
+-(void) parserMovies: (NSDictionary *)dict withSuccess: (void(^)(NSArray<Movie *> *)) successCompletion withError: (void(^)(NSError *)) errorCompletion;
 @end
 
 @protocol ParserCreditsMovieProtocol <NSObject>
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) parserCreditsMovies: (NSDictionary *)dict withSuccess: (void (^)(NSArray<Actor *> *)) successCompletion withError: (void(^)(NSError *)) errorCompletion;
 @end
 
-@interface Parser : NSObject<ParserPopularMoviesProtocol, ParserCreditsMovieProtocol>
+@interface Parser : NSObject<ParserMoviesProtocol, ParserCreditsMovieProtocol>
 
 @end
 

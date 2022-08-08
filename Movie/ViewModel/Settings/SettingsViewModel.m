@@ -8,10 +8,10 @@
 #import "SettingsViewModel.h"
 #import "SettingsFilterTableViewCell.h"
 #import "UserDefaultsNames.h"
-
+#import "NotificationNames.h"
 @interface SettingsViewModel()
 @property(strong, nonatomic) NSMutableArray<NSIndexPath *> *indexPathSelected;
-
+@property(nonatomic) BOOL isSelectionExistInTableView;
 @end
 @implementation SettingsViewModel
 
@@ -20,6 +20,7 @@
 - (instancetype)init{
     if (self = [super init]) {
         self.indexPathSelected = [[NSMutableArray alloc] init];
+        self.isSelectionExistInTableView = false;
     }
     return self;
 }
@@ -33,7 +34,7 @@
     }
     return SetttingRowsInSortSection;
 }
-    
+
 - (NSString *)cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
@@ -64,31 +65,40 @@
             [beingSelectedCell setCheckImageDisplayHidden:YES];
             [cell setCheckImageDisplayHidden:NO];
             self.indexPathSelected[i] = indexPath;
-
-        }else{
-            [self.indexPathSelected addObject:indexPath];
-            [cell setCheckImageDisplayHidden:NO];
-     
+            
+            self.isSelectionExistInTableView = YES;
+            break;
         }
     }
-    //array have no section
-    if (self.indexPathSelected.count == 0) {
+
+    if (!self.isSelectionExistInTableView) {
         [self.indexPathSelected addObject:indexPath];
+        
         [cell setCheckImageDisplayHidden:NO];
     }
-    
     //save settings filter type in userDefault
-    if ([self settingType:indexPath.section] == filter) {
-        [self setSettingsFilterTypeInUserdefault:indexPath];
-    }
-    
-    //save settings sort type in userdefault
-    if ([self settingType:indexPath.section] == sort) {
-        [self setSettingsSortTypeInUserDefault:indexPath];
+    NSLog(@"%ld", (long)indexPath.section);
+    switch ([self settingType:indexPath.section]) {
+        case filter:
+        {
+            [self setSettingsFilterTypeInUserdefault:indexPath];
+            [self postDidFilterTypeChangedNotification];
+            break;
+        }
+        case sort:
+        {
+            [self setSettingsSortTypeInUserDefault:indexPath];
+            break;
+        }
+        default:
+            break;
     }
 }
 
 #pragma mark - Helper
+-(void) postDidFilterTypeChangedNotification{
+    [[NSNotificationCenter defaultCenter] postNotificationName:DidFilterTypeChangedNotification object:nil];
+}
 
 -(NSString *) filterTitleForCell: (FilterType)type{
     switch (type) {
@@ -190,7 +200,7 @@
 -(void) setSettingsFilterTypeInUserdefault: (NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *type = [NSString stringWithFormat:@"%li", row];
+    NSString *type = [NSString stringWithFormat:@"%ld", (long)row];
     [standardUserDefaults setObject:type forKey:FilterTypeUserDefaults];
     NSLog(@"%@", [standardUserDefaults objectForKey:FilterTypeUserDefaults]);
 }
@@ -198,29 +208,38 @@
 -(void) setSettingsSortTypeInUserDefault: (NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *type = [NSString stringWithFormat:@"%li", row];
+    NSString *type = [NSString stringWithFormat:@"%ld", (long)row];
     [standardUserDefaults setObject:type forKey:SortTypeUserDefaults];
 }
 
 
--(void) loadSettingsFilterTypeFromUserDefault{
-
+-(NSIndexPath *) loadSettingsFilterTypeFromUserDefault{
+    
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger type = [[standardUserDefaults objectForKey: FilterTypeUserDefaults] intValue];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:type inSection:filter];
-    if (![self.indexPathSelected containsObject:indexPath]) {
-        [self.indexPathSelected addObject:indexPath];
-    }
+    return indexPath;
+    
 }
 
--(void) loadSettingsSortTypeFromUserDefault{
+-(NSIndexPath *) loadSettingsSortTypeFromUserDefault{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger type = [[standardUserDefaults objectForKey: SortTypeUserDefaults] intValue];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:type inSection:sort];
-    if (![self.indexPathSelected containsObject:indexPath]) {
-        [self.indexPathSelected addObject:indexPath];
-    }
+    return indexPath;
+}
 
+-(void) loadSettingsDefault{
+    [self.indexPathSelected removeAllObjects];
+    
+    [self.indexPathSelected addObject:[self loadSettingsSortTypeFromUserDefault]];
+    [self.indexPathSelected addObject:[self loadSettingsFilterTypeFromUserDefault]];
+    
+    [self.indexPathSelected enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSLog(@"%@", obj);
+    }];
+    
+    NSLog(@"-----------------");
 }
 
 -(BOOL) checkIfRowIsFilterTypeDefault: (NSIndexPath *) indexPath{

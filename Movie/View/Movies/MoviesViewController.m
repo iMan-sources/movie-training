@@ -17,6 +17,7 @@
 #import "ViewControllerIdentifiers.h"
 #import "UIViewController+Extensions.h"
 #import "NotificationNames.h"
+#import "UserDefaultsNames.h"
 
 typedef NS_ENUM(NSInteger, ContentDisplayState){
     tableView_state,
@@ -45,7 +46,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     
     [self setup];
     
-    [self fetchPopularMovies];
+    [self fetchMovies];
     
     // Do any additional setup after loading the view.
 }
@@ -56,7 +57,17 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 
 #pragma mark - Action
 
+-(void) didFilterTypeChanged: (NSNotification *)sender{
+    //reload view, call api again
+    [self.moviesViewModel resetArray];
+    [self resetPage];
+    [self fetchMovies];
+}
 
+-(void) resetPage{
+    self.page = 1;
+    
+}
 
 -(void) didGridButtonTapped: (UIButton *) sender{
     NSLog(@"🛑 didGridButtonTapped");
@@ -96,12 +107,11 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 
 
 #pragma mark - API
--(void) fetchPopularMovies{
+-(void) fetchMovies{
     __weak MoviesViewController *weakSelf = self;
-    [self.moviesViewModel getPopularMoviesWithPage:self.page withSucess:^(NSArray<Movie *> * _Nonnull movies) {
+    [self.moviesViewModel getMoviesWithPage:self.page withSucess:^(NSArray<Movie *> * _Nonnull movies) {
         [weakSelf.movieListVC reloadData];
         [weakSelf.movieListVC endRefreshing];
-        
         
         [weakSelf.movieGridVC reloadData];
         [weakSelf.movieGridVC endRefreshing];
@@ -117,6 +127,8 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
     self.displayState = tableView_state;
     [self configDefaultDisplayView];
+    
+    [self regsiterDidFilterTypeChangedNotification];
 }
 
 -(void) configViewModel{
@@ -156,20 +168,24 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self.view addSubview:toView];
 }
 
+-(void) regsiterDidFilterTypeChangedNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFilterTypeChanged:) name:DidFilterTypeChangedNotification object:nil];
+}
+
 
 
 #pragma mark - MovieVCChildViewDelegate
 - (void)scrollViewDidEndDragging{
     if ([self.moviesViewModel checkHaveMoreMovies]) {
         self.page += 1;
-        [self fetchPopularMovies];
+        [self fetchMovies];
     }
 }
 
 - (void)didRefreshControlCalled{
     if ([self.moviesViewModel checkHaveMoreMovies]) {
         self.page += 1;
-        [self fetchPopularMovies];
+        [self fetchMovies];
     }
 }
 

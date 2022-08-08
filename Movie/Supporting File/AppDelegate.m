@@ -67,6 +67,7 @@
 }
 
 -(void) setupSettingsDefault{
+    
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     if ([standardUserDefaults objectForKey:FilterTypeUserDefaults] == nil) {
         [standardUserDefaults setObject:@"0" forKey:FilterTypeUserDefaults];

@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NetworkManager : NSObject
--(void) fetchPopularMoviesWithSuccess: (NSInteger) page withSuccess: (void(^)(NSDictionary *)) successCompletion error: (void(^)(NSError *error)) errorCompletion;
+-(void) fetchMoviesWithSuccess: (NSInteger) page withSuccess: (void(^)(NSDictionary *)) successCompletion error: (void(^)(NSError *error)) errorCompletion;
 
 -(void) fetchCreditsMovieWithSuccess: (NSInteger)movieId withSuccess: (void(^)(NSDictionary *)) successCompletion error: (void(^)(NSError * error)) errorCompletion;
 

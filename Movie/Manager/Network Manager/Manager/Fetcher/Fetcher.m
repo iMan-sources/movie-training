@@ -9,12 +9,12 @@
 #import "NetworkManager.h"
 @interface Fetcher()
 @property(strong, nonatomic) NetworkManager *networkManager;
-@property(strong, nonatomic) id<ParserPopularMoviesProtocol> popularMoviesParser;
+@property(strong, nonatomic) id<ParserMoviesProtocol> popularMoviesParser;
 @property(strong, nonatomic) id<ParserCreditsMovieProtocol> creditsMovieParser;
 @end
 @implementation Fetcher
 
-- (instancetype)initWithParserPopularMovies:(id<ParserPopularMoviesProtocol>)parser{
+- (instancetype)initWithParserPopularMovies:(id<ParserMoviesProtocol>)parser{
     if (self = [super init]) {
         self.popularMoviesParser = parser;
         self.networkManager = [[NetworkManager alloc] init];
@@ -30,15 +30,15 @@
     return self;
 }
 #pragma mark - ParserPopularMoviesProtocol
-- (void)fetchPopularMoviesWithPage:(NSInteger)page withSucess:(void (^)(NSArray<Movie *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+- (void)fetchMoviesWithPage:(NSInteger)page withSucess:(void (^)(NSArray<Movie *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     __weak Fetcher *weakSelf = self;
     
     void(^networkResponse)(NSDictionary *) = ^(NSDictionary *dict){
-        [weakSelf.popularMoviesParser parserPopularMovies:dict withSuccess:successCompletion withError:errorCompletion];
+        [weakSelf.popularMoviesParser parserMovies:dict withSuccess:successCompletion withError:errorCompletion];
     };
     
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0), ^{
-        [weakSelf.networkManager fetchPopularMoviesWithSuccess:page withSuccess:networkResponse error:errorCompletion];
+        [weakSelf.networkManager fetchMoviesWithSuccess:page withSuccess:networkResponse error:errorCompletion];
     });
     
 }

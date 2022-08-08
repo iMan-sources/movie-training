@@ -10,7 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MoviesViewModel : NSObject
--(void)getPopularMoviesWithPage: (NSInteger)page withSucess: (void(^)(NSArray<Movie *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
+-(void)getMoviesWithPage: (NSInteger)page withSucess: (void(^)(NSArray<Movie *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
+-(void) resetArray;
 #pragma mark -TableView
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 

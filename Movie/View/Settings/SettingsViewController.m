@@ -42,9 +42,9 @@
     if (@available(iOS 15.0, *)) {
         [self.tableView setSectionHeaderTopPadding:0.0f];
     }
+    [self.settingsViewModel loadSettingsDefault];
+
     
-    [self.settingsViewModel loadSettingsFilterTypeFromUserDefault];
-    [self.settingsViewModel loadSettingsSortTypeFromUserDefault];
 }
 
 -(void) setup{
