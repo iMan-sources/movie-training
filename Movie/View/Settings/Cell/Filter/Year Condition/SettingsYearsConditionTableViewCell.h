@@ -8,12 +8,17 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol SettingsYearsConditionTableViewCellDelegate <NSObject>
 
+-(void) didYearLabelSelected;
+
+@end
 @interface SettingsYearsConditionTableViewCell : UITableViewCell
 +(NSString *) getReuseIdentifer;
 +(NSString *) getNibName;
 +(CGFloat) getRowHeight;
 - (void)bindingData:(NSString *)content;
+@property(weak, nonatomic) id<SettingsYearsConditionTableViewCellDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

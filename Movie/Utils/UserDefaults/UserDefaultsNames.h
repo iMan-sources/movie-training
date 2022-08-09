@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 static NSString * const UserInforNameDefaults = @"userDefault";
 static NSString * const FilterTypeUserDefaults = @"filterInUserDefault";
 static NSString * const SortTypeUserDefaults = @"sortInUserDefault";
+static NSString * const MovieRateUserDefaults = @"movieRateUserDefault";
+static NSString * const ReleaseYearUserDefaults = @"releaseYearUserDefault";
+
 @interface UserDefaultsNames : NSObject
 
 @end

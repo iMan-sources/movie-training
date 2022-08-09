@@ -10,7 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MoviesViewModel : NSObject
--(void)getMoviesWithPage: (NSInteger)page withSucess: (void(^)(NSArray<Movie *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
+-(void)getMoviesWithPage: (NSInteger)page withSucess: (void(^)(void))successCompletion withError: (void(^)(NSError *)) errorCompletion;
+-(void) sortMovieWithSuccess: (void(^)(void))completionHandler;
 -(void) resetArray;
 #pragma mark -TableView
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
@@ -28,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOOL) checkHaveMoreMovies;
 
 -(Movie *)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+-(void) filterMoviesArrayWithSettingDefault: (void(^)(void)) completionHandler;
 
 @end
 

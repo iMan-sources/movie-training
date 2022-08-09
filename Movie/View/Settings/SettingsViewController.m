@@ -10,10 +10,11 @@
 #import "SettingsFilterTableViewCell.h"
 #import "SettingsYearsConditionTableViewCell.h"
 #import "SettingsRateConditionTableViewCell.h"
-
-@interface SettingsViewController ()<UITableViewDelegate, UITableViewDataSource>
+#import "DatePickerManager.h"
+@interface SettingsViewController ()<UITableViewDelegate, UITableViewDataSource, SettingsYearsConditionTableViewCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(strong, nonatomic) SettingsViewModel *settingsViewModel;
+@property(strong, nonatomic) id<DatePickerManagerDelegate> datePickerManager;
 @end
 
 @implementation SettingsViewController
@@ -50,10 +51,15 @@
 -(void) setup{
     [self configViewModel];
     [self configTableView];
+    [self configDatePickerManager];
 }
 
 -(void) configViewModel{
     self.settingsViewModel = [[SettingsViewModel alloc] init];
+}
+
+-(void) configDatePickerManager{
+    self.datePickerManager = [[DatePickerManager alloc] init];
 }
 
 #pragma mark - Delegate	
@@ -63,6 +69,13 @@
         return;
     }
     [self.settingsViewModel tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
+
+- (void)didYearLabelSelected{
+   
+    [self.datePickerManager showDatePickerViewWithViewController:self withCompletion:^(NSDate * _Nonnull date) {
+        NSLog(@"didYearLabelSelected");
+    }];
 }
 
 #pragma mark - Datasource
@@ -85,13 +98,19 @@
         SettingsYearsConditionTableViewCell *yearConditionCell = [tableView dequeueReusableCellWithIdentifier:[SettingsYearsConditionTableViewCell getReuseIdentifer] forIndexPath:indexPath];
         
         [yearConditionCell bindingData:title];
+        
+        yearConditionCell.delegate = self;
+        
         return yearConditionCell;
     }
     
     if ([self.settingsViewModel isMovieWithRateFromType:indexPath]) {
         
         SettingsRateConditionTableViewCell *rateConditionCell = [tableView dequeueReusableCellWithIdentifier:[SettingsRateConditionTableViewCell getReuseIdentifer] forIndexPath:indexPath];
-        [rateConditionCell bindingData:title];
+        
+        double rating = [self.settingsViewModel loadMovieRateSettingFromUserDefault];
+        [rateConditionCell bindingData:title withRating:rating];
+        
         return rateConditionCell;
     }
     

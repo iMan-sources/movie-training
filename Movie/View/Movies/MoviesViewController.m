@@ -64,6 +64,16 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self fetchMovies];
 }
 
+-(void) didSortTypeChanged: (NSNotification *) sender{
+    [self sortMovies];
+}
+
+-(void) didMovieRateSlided: (NSNotification *) sender{
+//    NSLog(@"slide noti");
+    [self filterMovies];
+
+}
+
 -(void) resetPage{
     self.page = 1;
     
@@ -109,7 +119,8 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 #pragma mark - API
 -(void) fetchMovies{
     __weak MoviesViewController *weakSelf = self;
-    [self.moviesViewModel getMoviesWithPage:self.page withSucess:^(NSArray<Movie *> * _Nonnull movies) {
+    
+    [self.moviesViewModel getMoviesWithPage:self.page withSucess:^{
         [weakSelf.movieListVC reloadData];
         [weakSelf.movieListVC endRefreshing];
         
@@ -117,6 +128,22 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
         [weakSelf.movieGridVC endRefreshing];
     } withError:^(NSError * _Nonnull error) {
         NSLog(@"%@", error);
+    }];
+}
+
+-(void) sortMovies{
+    __weak MoviesViewController *weakSelf = self;
+    [self.moviesViewModel sortMovieWithSuccess:^{
+        [weakSelf.movieListVC reloadData];
+        [weakSelf.movieGridVC reloadData];
+    }];
+}
+
+-(void) filterMovies{
+    __weak MoviesViewController *weakSelf = self;
+    [self.moviesViewModel filterMoviesArrayWithSettingDefault:^{
+        [weakSelf.movieListVC reloadData];
+        [weakSelf.movieGridVC reloadData];
     }];
 }
 #pragma mark - Helpers
@@ -129,6 +156,8 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self configDefaultDisplayView];
     
     [self regsiterDidFilterTypeChangedNotification];
+    [self registerDidSortTypeChangedNotification];
+    [self registerDidMovieRateChangedNotification];
 }
 
 -(void) configViewModel{
@@ -170,6 +199,14 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 
 -(void) regsiterDidFilterTypeChangedNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFilterTypeChanged:) name:DidFilterTypeChangedNotification object:nil];
+}
+
+-(void) registerDidSortTypeChangedNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSortTypeChanged:) name:DidSortTypeChangedNotification object:nil];
+}
+
+-(void) registerDidMovieRateChangedNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didMovieRateSlided:) name:DidMovieRateChangedNotification object:nil];
 }
 
 

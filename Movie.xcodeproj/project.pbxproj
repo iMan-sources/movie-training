@@ -59,6 +59,9 @@
 		373C666828976C7600B5F55B /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C666728976C7600B5F55B /* UIView+Extensions.m */; };
 		373C666C289778E200B5F55B /* Actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C666B289778E200B5F55B /* Actor.m */; };
 		373C666F289781EE00B5F55B /* MovieDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C666E289781EE00B5F55B /* MovieDetailViewModel.m */; };
+		3759B7AA28A24E59000F2D2A /* ActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3759B7A928A24E59000F2D2A /* ActionTableViewCell.m */; };
+		3759B7AD28A25C77000F2D2A /* ActionFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3759B7AC28A25C77000F2D2A /* ActionFooterTableViewCell.m */; };
+		3759B7AF28A25DEA000F2D2A /* ActionFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3759B7AE28A25DEA000F2D2A /* ActionFooterTableViewCell.xib */; };
 		37747C892890E16F000E82E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37747C882890E16F000E82E5 /* AppDelegate.m */; };
 		37747C8C2890E16F000E82E5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37747C8B2890E16F000E82E5 /* SceneDelegate.m */; };
 		37747C972890E172000E82E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37747C962890E172000E82E5 /* Assets.xcassets */; };
@@ -215,6 +218,11 @@
 		373C666B289778E200B5F55B /* Actor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Actor.m; sourceTree = "<group>"; };
 		373C666D289781EE00B5F55B /* MovieDetailViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailViewModel.h; sourceTree = "<group>"; };
 		373C666E289781EE00B5F55B /* MovieDetailViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDetailViewModel.m; sourceTree = "<group>"; };
+		3759B7A828A24E59000F2D2A /* ActionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionTableViewCell.h; sourceTree = "<group>"; };
+		3759B7A928A24E59000F2D2A /* ActionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionTableViewCell.m; sourceTree = "<group>"; };
+		3759B7AB28A25C77000F2D2A /* ActionFooterTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionFooterTableViewCell.h; sourceTree = "<group>"; };
+		3759B7AC28A25C77000F2D2A /* ActionFooterTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionFooterTableViewCell.m; sourceTree = "<group>"; };
+		3759B7AE28A25DEA000F2D2A /* ActionFooterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionFooterTableViewCell.xib; sourceTree = "<group>"; };
 		37747C842890E16F000E82E5 /* Movie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37747C872890E16F000E82E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		37747C882890E16F000E82E5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -411,6 +419,7 @@
 		0F8254C8289FF61500B048C0 /* DatePicker Manager */ = {
 			isa = PBXGroup;
 			children = (
+				3759B7A728A24E12000F2D2A /* ActionCell */,
 				0F8254C9289FF63500B048C0 /* DatePickerManager.h */,
 				0F8254CA289FF63500B048C0 /* DatePickerManager.m */,
 			);
@@ -660,6 +669,26 @@
 				373C666728976C7600B5F55B /* UIView+Extensions.m */,
 			);
 			path = "UIView+Extensions";
+			sourceTree = "<group>";
+		};
+		3759B7A728A24E12000F2D2A /* ActionCell */ = {
+			isa = PBXGroup;
+			children = (
+				3759B7A828A24E59000F2D2A /* ActionTableViewCell.h */,
+				3759B7A928A24E59000F2D2A /* ActionTableViewCell.m */,
+				3759B7B028A26AE3000F2D2A /* Footer Cell */,
+			);
+			path = ActionCell;
+			sourceTree = "<group>";
+		};
+		3759B7B028A26AE3000F2D2A /* Footer Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3759B7AB28A25C77000F2D2A /* ActionFooterTableViewCell.h */,
+				3759B7AC28A25C77000F2D2A /* ActionFooterTableViewCell.m */,
+				3759B7AE28A25DEA000F2D2A /* ActionFooterTableViewCell.xib */,
+			);
+			path = "Footer Cell";
 			sourceTree = "<group>";
 		};
 		37747C7B2890E16F000E82E5 = {
@@ -1125,6 +1154,7 @@
 			files = (
 				0F62E2E92894304D006ED111 /* LaunchScreen.storyboard in Resources */,
 				0F8254C4289E19FF00B048C0 /* GenderView.xib in Resources */,
+				3759B7AF28A25DEA000F2D2A /* ActionFooterTableViewCell.xib in Resources */,
 				0F8254AC289BFA3500B048C0 /* EditProfileViewController.xib in Resources */,
 				371CD52628A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.xib in Resources */,
 				0F62E2E728943031006ED111 /* Main.storyboard in Resources */,
@@ -1278,6 +1308,7 @@
 				377B18FC2897D3280004E707 /* FavoritesViewModel.m in Sources */,
 				37747CE32890F49E000E82E5 /* TabBarViewController.m in Sources */,
 				37747CDC2890EC0E000E82E5 /* Storyboard.m in Sources */,
+				3759B7AD28A25C77000F2D2A /* ActionFooterTableViewCell.m in Sources */,
 				377A38422892850000141288 /* MovieGridViewCell.m in Sources */,
 				371CD52028A0C0610079F7A7 /* SettingsFilterTableViewCell.m in Sources */,
 				370D4C7D28913C8D0040CE38 /* MovieListViewCell.m in Sources */,
@@ -1328,6 +1359,7 @@
 				371CD52528A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m in Sources */,
 				0F8254AB289BFA3500B048C0 /* EditProfileViewController.m in Sources */,
 				0FF35DA528952ABB00F6521E /* Fetcher.m in Sources */,
+				3759B7AA28A24E59000F2D2A /* ActionTableViewCell.m in Sources */,
 				373B71D72893E60B00E5732B /* Movie.m in Sources */,
 				370D4C6E289111D10040CE38 /* SettingsViewController.m in Sources */,
 			);

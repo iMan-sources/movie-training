@@ -44,6 +44,19 @@
 }
 -(void) setup{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self configYearLabel];
+}
+
+-(void) configYearLabel{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didYearLabelTapped:)];
+    [self.yearLabel setUserInteractionEnabled:YES];
+    [self.yearLabel addGestureRecognizer:tapGesture];
+    
+}
+#pragma mark - Action
+
+-(void)didYearLabelTapped: (UITapGestureRecognizer *) sender{
+    [self.delegate didYearLabelSelected];
 }
 
 @end

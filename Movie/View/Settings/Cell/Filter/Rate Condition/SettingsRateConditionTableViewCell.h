@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString *) getNibName;
 +(CGFloat) getRowHeight;
 
-- (void)bindingData:(NSString *)content;
+- (void)bindingData:(NSString *)content withRating: (double)rating;
 @end
 
 NS_ASSUME_NONNULL_END

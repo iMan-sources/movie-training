@@ -6,100 +6,151 @@
 //
 
 #import "DatePickerManager.h"
+#import "ActionCell/ActionTableViewCell.h"
+#import "ActionFooterTableViewCell.h"
 static NSInteger const DatePickerHeight = 300;
-@interface DatePickerManager()
+@interface DatePickerManager()<UITableViewDelegate, UITableViewDataSource, ActionFooterTableViewCellDelegate>
 @property(strong, nonatomic) UIToolbar *toolbar;
 @property(strong, nonatomic) UIDatePicker *datePicker;
 @property(strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) UIView *maskView;
-//@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow *window;
+@property(strong, nonatomic) UITableView *actionSheetTableView;
 @end
 
 @implementation DatePickerManager
+#pragma mark - Helper
+
+#pragma mark - Config Views
 -(void) configMaskView{
     self.maskView = [[UIView alloc] init];
     self.maskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     self.maskView.alpha = 0;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDismissal:)];
+    [self.maskView setUserInteractionEnabled:YES];
+    [self.maskView addGestureRecognizer:tapGesture];
 }
 
-//-(void) configWindow{
-//    UIScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
-//
-//    if([scene.delegate conformsToProtocol:@protocol(UIWindowSceneDelegate)]){
-//        self.window = [(id <UIWindowSceneDelegate>)scene.delegate window];
-//    }
-//    [self.window makeKeyAndVisible];
-//
-//}
-
--(void) configDatePicker{
-    self.datePicker = [[UIDatePicker alloc] init];
-    	
-    [self.datePicker setValue:[UIColor blackColor] forKey:@"textColor"];
-    self.datePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.datePicker.datePickerMode = UIDatePickerModeDate;
-    self.datePicker.translatesAutoresizingMaskIntoConstraints = false;
-    [self.datePicker addTarget:self action:@selector(dueDateChanged:) forControlEvents:UIControlEventValueChanged];
-        if (@available(iOS 13.4, *)) {
-            self.datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
-        }
-}
-
--(void) layoutWithVC: (EditProfileViewController *)vc{
-    [self.datePicker.leadingAnchor constraintEqualToAnchor:vc.view.leadingAnchor].active = true;
-    [self.datePicker.trailingAnchor constraintEqualToAnchor:vc.view.trailingAnchor].active = true;
-    [self.datePicker.bottomAnchor constraintEqualToAnchor:vc.view.safeAreaLayoutGuide.bottomAnchor constant:999].active = true;
-    [self.datePicker.heightAnchor constraintEqualToConstant:300].active = true;
+-(void) configWindow{
+    UIScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
+    
+    if([scene.delegate conformsToProtocol:@protocol(UIWindowSceneDelegate)]){
+        self.window = [(id <UIWindowSceneDelegate>)scene.delegate window];
+    }
     
 }
 
-//-(void) showDatePicker: (BOOL) isShow{
-//
-//    CGRect datePickerFrame = self.datePicker.frame;
-//    datePickerFrame.origin.y = isShow ? self.window.frame.size.height - DatePickerHeight : self.window.frame.size.height;
-//
-//    self.datePicker.frame = datePickerFrame;
-//
-//}ß
--(void) showWithVC: (EditProfileViewController *)vc{
+-(void) configActionSheetTableView{
+    self.actionSheetTableView = [[UITableView alloc] init];
+    [self.actionSheetTableView registerClass:[ActionTableViewCell class] forCellReuseIdentifier:[ActionTableViewCell getReuseIdentifier]];
+    [self.actionSheetTableView registerNib:[UINib nibWithNibName:[ActionFooterTableViewCell getNibName] bundle:nil] forHeaderFooterViewReuseIdentifier:[ActionFooterTableViewCell getReuseIdentifier]];
+    
+    self.actionSheetTableView.backgroundColor = [UIColor clearColor];
+    self.actionSheetTableView.rowHeight = UITableViewAutomaticDimension;
+    self.actionSheetTableView.delegate = self;
+    self.actionSheetTableView.dataSource = self;
+    self.actionSheetTableView.estimatedRowHeight = 200.0;
+    self.actionSheetTableView.scrollEnabled = NO;
+    
+    if (@available(iOS 15.0, *)) {
+        [self.actionSheetTableView setSectionHeaderTopPadding:0.0f];
+    }
+    
+}
+
+-(void) setup{
+    [self configWindow];
     [self configMaskView];
-    [vc.view addSubview:self.maskView];
-    [self.maskView setFrame:vc.view.frame];
+    [self.maskView setFrame:self.window.frame];
+    [self.window addSubview:self.maskView];
     
-    [self configDatePicker];
-    [self layoutWithVC:vc];
-
+    [self configActionSheetTableView];
+    
+    [self.window addSubview:self.actionSheetTableView];
+    [self.actionSheetTableView setFrame:CGRectMake(0, self.window.bounds.size.height, self.window.bounds.size.width, DatePickerHeight)];
 
 }
-    
 
-- (void)showDatePickerViewWithViewController:(EditProfileViewController *)vc withCompletion:(void (^)(NSDate * _Nonnull))completionHandler{
+#pragma mark - Show & Dimiss Actionsheet
+-(void) showActionSheet: (BOOL) shouldShow{
+    CGRect rect = self.actionSheetTableView.frame;
+    rect.origin.y = shouldShow ? self.window.bounds.size.height - DatePickerHeight : self.window.bounds.size.height;
+    self.actionSheetTableView.frame = rect;
+}
+
+-(void) dismissActionSheet{
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.maskView.alpha = 0;
+        [self showActionSheet:NO];
+    } completion:nil];
+}
+
+#pragma mark - Blocks
+- (void)showDatePickerViewWithViewController:(UIViewController *)vc withCompletion:(void (^)(NSDate * _Nonnull))completionHandler{
     
-//    [self showWithVC:vc];
-    [self configMaskView];
-    [vc.view addSubview:self.maskView];
-    [UIView animateWithDuration:0.3 animations:^{
+    [self setup];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.maskView.alpha = 1;
-        
-    }];
-
-    completionHandler(self.date);
-
-}
-#pragma mark - Action
--(void) dueDateChanged: (UIDatePicker *) sender{
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        [self showActionSheet:YES];
+    } completion:nil];
     
-    NSLog(@"Picked the date %@", [dateFormatter stringFromDate:[sender date]]);
-    self.date = [sender date];
-
 }
 
--(void)onDoneButtonClick {
-    [self.toolbar removeFromSuperview];
-    [self.datePicker removeFromSuperview];
+
+- (void)showYearPickerViewWithViewController:(UIViewController *)vc withCompletion:(void (^)(NSDate * _Nonnull))completionHandler{
+    [self setup];
+    
+}
+
+
+#pragma mark - Delegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (void)didCancelButtonTapped{
+    [self dismissActionSheet];
+}
+
+- (void)didSelectButtonTapped{
+    
+    [self dismissActionSheet];
+}
+
+#pragma mark - Datasource
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ActionTableViewCell getReuseIdentifier] forIndexPath:indexPath];
+    
+    
+    [self.actionSheetTableView setNeedsLayout];
+    [self.actionSheetTableView layoutIfNeeded];
+    
+    return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    ActionFooterTableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[ActionFooterTableViewCell getReuseIdentifier]];
+//    cell.tintColor = [UIColor whiteColor];
+    cell.delegate = self;
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 50.0;
+}
+
+
+
+
+#pragma mark - Action
+
+-(void) handleDismissal: (UITapGestureRecognizer *) sender{
+    [self dismissActionSheet];
 }
 
 @end

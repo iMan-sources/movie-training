@@ -12,6 +12,8 @@ static NSString * const LikeButtonTappedNotification = @"like_button_tapped_noti
 static NSString * const UnlikeButtonTappedNotification = @"unlike_button_tapped_notification";
 static NSString * const SideMenuNotification = @"side_menu_notification";
 static NSString * const DidFilterTypeChangedNotification = @"did_filter_type_changed";
+static NSString * const DidSortTypeChangedNotification = @"did_sort_type_changed";
+static NSString * const DidMovieRateChangedNotification = @"did_movie_rate_slided";
 @interface NotificationNames : NSObject
 
 @end

@@ -19,6 +19,9 @@ static NSInteger const itemsInPage = 20;
 @property(strong, nonatomic) NSMutableArray<Movie *> *movies;
 @property(nonatomic) SortType sortType;
 @property(nonatomic) BOOL isHasMoreMovies;
+@property(nonatomic) double movieRate;
+@property(strong, nonatomic) NSArray<Movie *> *filteredArray;
+@property(nonatomic) BOOL isFiltered;
 @end
 @implementation MoviesViewModel
 
@@ -27,56 +30,72 @@ static NSInteger const itemsInPage = 20;
         self.fetcherPopularMovies = [[Fetcher alloc] initWithParserPopularMovies:[[Parser alloc] init]];
         self.isHasMoreMovies = true;
         self.movies = [[NSMutableArray alloc] init];
+        self.filteredArray = @[];
         [self configSortType];
+        [self configMovieRateFromUserDefault];
     }
     return self;
 }
 
-- (void)getMoviesWithPage:(NSInteger)page withSucess:(void (^)(NSArray<Movie *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+- (void)getMoviesWithPage:(NSInteger)page withSucess:(void (^)(void))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     __weak MoviesViewModel *weakSelf = self;
-    [self configSortType];
+    //    [self configSortType];
     [weakSelf.fetcherPopularMovies fetchMoviesWithPage:page withSucess:^(NSArray<Movie *> * _Nonnull movies) {
         
         [self.movies addObjectsFromArray:movies];
-        switch (self.sortType) {
-            case releaseDate:
-            {
-                [self sortMoviesArrayByReleaseDate];
-                break;
-            }
-            case rating:
-            {
-                [self sortMoviesArrayByRating];
-                break;
-            }
-                
-            default:
-                break;
-        }
         
-        successCompletion(movies);
+        [self filterMoviesArrayWithSettingDefault:^{
+            [self sortMovieWithSuccess:successCompletion];
+        }];
+
     } withError:errorCompletion];
 }
+
+-(void) sortMovieWithSuccess: (void(^)(void))completionHandler{
+    [self configSortType];
+    switch (self.sortType) {
+        case releaseDate:
+        {
+            [self sortMoviesArrayByReleaseDate];
+            break;
+        }
+        case rating:
+        {
+            [self sortMoviesArrayByRating];
+            break;
+        }
+        default:
+            break;
+    }
+    completionHandler();
+}
+
 -(void) sortMoviesArrayByReleaseDate{
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"release_date"
-                                               ascending:YES];
-    self.movies = [[NSMutableArray alloc] initWithArray:[[[self.movies sortedArrayUsingDescriptors:@[sortDescriptor]] reverseObjectEnumerator] allObjects]];
+                                                 ascending:NO];
+    if (self.isFiltered) {
+        self.filteredArray = [self.filteredArray sortedArrayUsingDescriptors:@[sortDescriptor]];
+        return;
+    }
+    self.movies = [[NSMutableArray alloc] initWithArray:[self.movies sortedArrayUsingDescriptors:@[sortDescriptor]]];
 }
 
 -(void) sortMoviesArrayByRating{
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"vote_average"
-                                               ascending:YES];
+                                                 ascending:NO];
+    if (self.isFiltered) {
+        self.filteredArray = [self.filteredArray sortedArrayUsingDescriptors:@[sortDescriptor]];
+        return;
+    }
     self.movies = [[NSMutableArray alloc] initWithArray:[self.movies sortedArrayUsingDescriptors:@[sortDescriptor]]];
-    //reversed array
-    self.movies = [[NSMutableArray alloc] initWithArray:[[[self.movies sortedArrayUsingDescriptors:@[sortDescriptor]] reverseObjectEnumerator] allObjects]];
-    
 }
 
 #pragma mark - TableView
 - (NSInteger)numberOfRowsInSection:(NSInteger)section{
-    NSInteger rows = self.movies.count;
+    NSInteger rows = self.isFiltered ? self.filteredArray.count : self.movies.count;
+    NSLog(@"%ld rows", rows);
     return rows;
 }
 
@@ -86,7 +105,7 @@ static NSInteger const itemsInPage = 20;
 
 - (Movie *)cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
-    Movie *movie = self.movies[row];
+    Movie *movie = self.isFiltered ? self.filteredArray[row] : self.movies[row];
     if (movie != nil) {
         return movie;
     }
@@ -99,14 +118,13 @@ static NSInteger const itemsInPage = 20;
 }
 
 -(NSInteger )numberOfItemsInSection:(NSInteger)section{
-    NSInteger rows = self.movies.count;
-    
+    NSInteger rows = self.isFiltered ? self.filteredArray.count : self.movies.count;
     return rows;
 }
 
 -(Movie *)cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
-    Movie *movie = self.movies[row];
+    Movie *movie = self.isFiltered ? self.filteredArray[row] : self.movies[row];
     if ( movie != nil) {
         return movie;
     }
@@ -123,7 +141,7 @@ static NSInteger const itemsInPage = 20;
 
 -(Movie *)didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
-    Movie *movie = self.movies[row];
+    Movie *movie = self.isFiltered ? self.filteredArray[row] : self.movies[row];
     if (movie != nil) {
         return movie;
     }
@@ -152,5 +170,23 @@ static NSInteger const itemsInPage = 20;
         default:
             break;
     }
+}
+
+-(void) configMovieRateFromUserDefault{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    double rate = [[standardUserDefaults objectForKey: MovieRateUserDefaults] doubleValue];
+    self.movieRate = rate;
+    self.isFiltered = YES;
+}
+
+-(void) filterMoviesArrayWithSettingDefault: (void(^)(void)) completionHandler{
+    [self configMovieRateFromUserDefault];
+    self.filteredArray = [self.movies filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        Movie *movie = (Movie *) evaluatedObject;
+        double rate = [[movie getVoteAverage] doubleValue];
+        return rate >= self.movieRate;
+    }]];
+    NSLog(@"%ld", self.filteredArray.count);
+    completionHandler();
 }
 @end

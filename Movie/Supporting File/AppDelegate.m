@@ -75,6 +75,17 @@
     if ([standardUserDefaults objectForKey: SortTypeUserDefaults] == nil) {
         [standardUserDefaults setObject:@"0" forKey:SortTypeUserDefaults];
     }
+    
+    [self setupFilterMovieRateAndReleaseYear:standardUserDefaults];
+}
+
+-(void) setupFilterMovieRateAndReleaseYear: (NSUserDefaults *) standardUserDefaults{
+    if ([standardUserDefaults objectForKey:MovieRateUserDefaults] == nil) {
+        [standardUserDefaults setObject:@"0.0" forKey:MovieRateUserDefaults];
+    }
+    if ([standardUserDefaults objectForKey: ReleaseYearUserDefaults] == nil) {
+        [standardUserDefaults setObject:@"1970" forKey:ReleaseYearUserDefaults];
+    }
 }
 
 #pragma mark - UISceneSession lifecycle

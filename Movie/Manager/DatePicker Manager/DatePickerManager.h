@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol DatePickerManagerDelegate <NSObject>
 
--(void) showDatePickerViewWithViewController: (EditProfileViewController *)vc withCompletion: (void (^)(NSDate *)) completionHandler;
+-(void) showDatePickerViewWithViewController: (UIViewController *)vc withCompletion: (void (^)(NSDate *)) completionHandler;
+
+-(void) showYearPickerViewWithViewController:(UIViewController *)vc withCompletion: (void (^)(NSDate *)) completionHandler;
 
 @end
 @interface DatePickerManager : NSObject<DatePickerManagerDelegate>

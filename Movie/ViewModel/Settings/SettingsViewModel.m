@@ -12,6 +12,7 @@
 @interface SettingsViewModel()
 @property(strong, nonatomic) NSMutableArray<NSIndexPath *> *indexPathSelected;
 @property(nonatomic) BOOL isSelectionExistInTableView;
+@property(strong, nonatomic) NSUserDefaults *standardUserDefaults;
 @end
 @implementation SettingsViewModel
 
@@ -21,6 +22,7 @@
     if (self = [super init]) {
         self.indexPathSelected = [[NSMutableArray alloc] init];
         self.isSelectionExistInTableView = false;
+        self.standardUserDefaults = [NSUserDefaults standardUserDefaults];
     }
     return self;
 }
@@ -88,6 +90,7 @@
         case sort:
         {
             [self setSettingsSortTypeInUserDefault:indexPath];
+            [self postDidSortTypeChangedNotification];
             break;
         }
         default:
@@ -95,11 +98,16 @@
     }
 }
 
-#pragma mark - Helper
+#pragma mark - Action
 -(void) postDidFilterTypeChangedNotification{
     [[NSNotificationCenter defaultCenter] postNotificationName:DidFilterTypeChangedNotification object:nil];
 }
+-(void) postDidSortTypeChangedNotification{
+    [[NSNotificationCenter defaultCenter] postNotificationName:DidSortTypeChangedNotification object:nil];
+}
+#pragma mark - Helper
 
+#pragma mark - Filter & Sort Populate
 -(NSString *) filterTitleForCell: (FilterType)type{
     switch (type) {
         case popular:
@@ -197,50 +205,6 @@
     }
     return NO;
 }
--(void) setSettingsFilterTypeInUserdefault: (NSIndexPath *)indexPath{
-    NSInteger row = indexPath.row;
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *type = [NSString stringWithFormat:@"%ld", (long)row];
-    [standardUserDefaults setObject:type forKey:FilterTypeUserDefaults];
-    NSLog(@"%@", [standardUserDefaults objectForKey:FilterTypeUserDefaults]);
-}
-
--(void) setSettingsSortTypeInUserDefault: (NSIndexPath *)indexPath{
-    NSInteger row = indexPath.row;
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *type = [NSString stringWithFormat:@"%ld", (long)row];
-    [standardUserDefaults setObject:type forKey:SortTypeUserDefaults];
-}
-
-
--(NSIndexPath *) loadSettingsFilterTypeFromUserDefault{
-    
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSInteger type = [[standardUserDefaults objectForKey: FilterTypeUserDefaults] intValue];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:type inSection:filter];
-    return indexPath;
-    
-}
-
--(NSIndexPath *) loadSettingsSortTypeFromUserDefault{
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSInteger type = [[standardUserDefaults objectForKey: SortTypeUserDefaults] intValue];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:type inSection:sort];
-    return indexPath;
-}
-
--(void) loadSettingsDefault{
-    [self.indexPathSelected removeAllObjects];
-    
-    [self.indexPathSelected addObject:[self loadSettingsSortTypeFromUserDefault]];
-    [self.indexPathSelected addObject:[self loadSettingsFilterTypeFromUserDefault]];
-    
-    [self.indexPathSelected enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSLog(@"%@", obj);
-    }];
-    
-    NSLog(@"-----------------");
-}
 
 -(BOOL) checkIfRowIsFilterTypeDefault: (NSIndexPath *) indexPath{
     if ([self.indexPathSelected containsObject:indexPath]) {
@@ -255,5 +219,59 @@
     }
     return NO;
 }
+
+#pragma mark - User defaults
+
+#pragma mark - Filter & Sort User default
+-(void) setSettingsFilterTypeInUserdefault: (NSIndexPath *)indexPath{
+    NSInteger row = indexPath.row;
+    NSString *type = [NSString stringWithFormat:@"%ld", (long)row];
+    [self.standardUserDefaults setObject:type forKey:FilterTypeUserDefaults];
+//    NSLog(@"%@", [standardUserDefaults objectForKey:FilterTypeUserDefaults]);
+}
+
+-(void) setSettingsSortTypeInUserDefault: (NSIndexPath *)indexPath{
+    NSInteger row = indexPath.row;
+    NSString *type = [NSString stringWithFormat:@"%ld", (long)row];
+    [self.standardUserDefaults setObject:type forKey:SortTypeUserDefaults];
+}
+
+-(NSIndexPath *) loadSettingsFilterTypeFromUserDefault{
+    
+    NSInteger type = [[self.standardUserDefaults objectForKey: FilterTypeUserDefaults] intValue];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:type inSection:filter];
+    return indexPath;
+    
+}
+
+-(NSIndexPath *) loadSettingsSortTypeFromUserDefault{
+    NSInteger type = [[self.standardUserDefaults objectForKey: SortTypeUserDefaults] intValue];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:type inSection:sort];
+    return indexPath;
+}
+
+
+-(void) loadSettingsDefault{
+    [self.indexPathSelected removeAllObjects];
+    
+    [self.indexPathSelected addObject:[self loadSettingsSortTypeFromUserDefault]];
+    [self.indexPathSelected addObject:[self loadSettingsFilterTypeFromUserDefault]];
+    
+}
+
+#pragma mark - Movie Rate & Release Year User default
+-(double) loadMovieRateSettingFromUserDefault{
+    double rate = [[self.standardUserDefaults objectForKey:MovieRateUserDefaults] doubleValue];
+    return rate;
+}
+
+-(void) setMovieRatingInUserDefault: (double) rating{
+    NSString *ratingString = [NSString stringWithFormat:@"%.1f", rating];
+    [self.standardUserDefaults setObject:ratingString forKey:MovieRateUserDefaults];
+    
+    //postNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:DidMovieRateChangedNotification object:nil];
+}
+
 
 @end

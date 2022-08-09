@@ -45,10 +45,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
--(void) loadSettingsDefault;
+
 
 -(BOOL) checkIfRowIsFilterTypeDefault: (NSIndexPath *) indexPath;
 -(BOOL) checkIfRowIsSortTypeDefault: (NSIndexPath *) indexPath;
+#pragma mark - User default
+
+-(double) loadMovieRateSettingFromUserDefault;
+-(void) loadSettingsDefault;
+
+-(void) setMovieRatingInUserDefault: (double) rating;
 @end
 
 NS_ASSUME_NONNULL_END
