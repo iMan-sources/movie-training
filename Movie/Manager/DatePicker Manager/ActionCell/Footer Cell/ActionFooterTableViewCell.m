@@ -52,7 +52,7 @@
     self.selectButton.layer.cornerRadius = 10;
     self.selectButton.clipsToBounds = YES;
     self.selectButton.layer.maskedCorners = kCALayerMaxXMaxYCorner | kCALayerMaxXMinYCorner;
-    [self.selectButton addTarget:self action:@selector(didCancelButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.selectButton addTarget:self action:@selector(didSelectButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
 }
 

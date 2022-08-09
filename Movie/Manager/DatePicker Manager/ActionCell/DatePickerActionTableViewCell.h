@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ActionTableViewCell : UITableViewCell
+@interface DatePickerActionTableViewCell : UITableViewCell
 +(NSString *) getReuseIdentifier;
 @end
 

@@ -19,6 +19,7 @@
 		0F8254C4289E19FF00B048C0 /* GenderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F8254C3289E19FF00B048C0 /* GenderView.xib */; };
 		0F8254C7289E1A1C00B048C0 /* GenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254C6289E1A1C00B048C0 /* GenderView.m */; };
 		0F8254CB289FF63500B048C0 /* DatePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254CA289FF63500B048C0 /* DatePickerManager.m */; };
+		0F8254CE28A296A400B048C0 /* YearPickerActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254CD28A296A400B048C0 /* YearPickerActionTableViewCell.m */; };
 		0FF35D9C2894384000F6521E /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35D9B2894384000F6521E /* Parser.m */; };
 		0FF35D9F28943D7900F6521E /* MoviesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35D9E28943D7900F6521E /* MoviesViewModel.m */; };
 		0FF35DA528952ABB00F6521E /* Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35DA428952ABB00F6521E /* Fetcher.m */; };
@@ -59,7 +60,7 @@
 		373C666828976C7600B5F55B /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C666728976C7600B5F55B /* UIView+Extensions.m */; };
 		373C666C289778E200B5F55B /* Actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C666B289778E200B5F55B /* Actor.m */; };
 		373C666F289781EE00B5F55B /* MovieDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C666E289781EE00B5F55B /* MovieDetailViewModel.m */; };
-		3759B7AA28A24E59000F2D2A /* ActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3759B7A928A24E59000F2D2A /* ActionTableViewCell.m */; };
+		3759B7AA28A24E59000F2D2A /* DatePickerActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3759B7A928A24E59000F2D2A /* DatePickerActionTableViewCell.m */; };
 		3759B7AD28A25C77000F2D2A /* ActionFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3759B7AC28A25C77000F2D2A /* ActionFooterTableViewCell.m */; };
 		3759B7AF28A25DEA000F2D2A /* ActionFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3759B7AE28A25DEA000F2D2A /* ActionFooterTableViewCell.xib */; };
 		37747C892890E16F000E82E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37747C882890E16F000E82E5 /* AppDelegate.m */; };
@@ -147,6 +148,8 @@
 		0F8254C6289E1A1C00B048C0 /* GenderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenderView.m; sourceTree = "<group>"; };
 		0F8254C9289FF63500B048C0 /* DatePickerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatePickerManager.h; sourceTree = "<group>"; };
 		0F8254CA289FF63500B048C0 /* DatePickerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerManager.m; sourceTree = "<group>"; };
+		0F8254CC28A296A400B048C0 /* YearPickerActionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YearPickerActionTableViewCell.h; sourceTree = "<group>"; };
+		0F8254CD28A296A400B048C0 /* YearPickerActionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YearPickerActionTableViewCell.m; sourceTree = "<group>"; };
 		0FF35D9A2894384000F6521E /* Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		0FF35D9B2894384000F6521E /* Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
 		0FF35D9D28943D7900F6521E /* MoviesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MoviesViewModel.h; path = Movie/ViewModel/Movies/MoviesViewModel.h; sourceTree = SOURCE_ROOT; };
@@ -218,8 +221,8 @@
 		373C666B289778E200B5F55B /* Actor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Actor.m; sourceTree = "<group>"; };
 		373C666D289781EE00B5F55B /* MovieDetailViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailViewModel.h; sourceTree = "<group>"; };
 		373C666E289781EE00B5F55B /* MovieDetailViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDetailViewModel.m; sourceTree = "<group>"; };
-		3759B7A828A24E59000F2D2A /* ActionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionTableViewCell.h; sourceTree = "<group>"; };
-		3759B7A928A24E59000F2D2A /* ActionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionTableViewCell.m; sourceTree = "<group>"; };
+		3759B7A828A24E59000F2D2A /* DatePickerActionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatePickerActionTableViewCell.h; sourceTree = "<group>"; };
+		3759B7A928A24E59000F2D2A /* DatePickerActionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerActionTableViewCell.m; sourceTree = "<group>"; };
 		3759B7AB28A25C77000F2D2A /* ActionFooterTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionFooterTableViewCell.h; sourceTree = "<group>"; };
 		3759B7AC28A25C77000F2D2A /* ActionFooterTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionFooterTableViewCell.m; sourceTree = "<group>"; };
 		3759B7AE28A25DEA000F2D2A /* ActionFooterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionFooterTableViewCell.xib; sourceTree = "<group>"; };
@@ -674,9 +677,11 @@
 		3759B7A728A24E12000F2D2A /* ActionCell */ = {
 			isa = PBXGroup;
 			children = (
-				3759B7A828A24E59000F2D2A /* ActionTableViewCell.h */,
-				3759B7A928A24E59000F2D2A /* ActionTableViewCell.m */,
+				3759B7A828A24E59000F2D2A /* DatePickerActionTableViewCell.h */,
+				3759B7A928A24E59000F2D2A /* DatePickerActionTableViewCell.m */,
 				3759B7B028A26AE3000F2D2A /* Footer Cell */,
+				0F8254CC28A296A400B048C0 /* YearPickerActionTableViewCell.h */,
+				0F8254CD28A296A400B048C0 /* YearPickerActionTableViewCell.m */,
 			);
 			path = ActionCell;
 			sourceTree = "<group>";
@@ -1337,6 +1342,7 @@
 				37FB8ED328929A7800FE5441 /* MovieDetailViewController.m in Sources */,
 				37BE81EF289CFAFD004F54A6 /* EditProfileHeaderTableViewCell.m in Sources */,
 				3731E19A289A0F5C0037CD76 /* NotificationNames.m in Sources */,
+				0F8254CE28A296A400B048C0 /* YearPickerActionTableViewCell.m in Sources */,
 				0FF35D9C2894384000F6521E /* Parser.m in Sources */,
 				0F8254C7289E1A1C00B048C0 /* GenderView.m in Sources */,
 				372EAE2E2898D2EA00D956D6 /* Coredata.xcdatamodeld in Sources */,
@@ -1359,7 +1365,7 @@
 				371CD52528A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m in Sources */,
 				0F8254AB289BFA3500B048C0 /* EditProfileViewController.m in Sources */,
 				0FF35DA528952ABB00F6521E /* Fetcher.m in Sources */,
-				3759B7AA28A24E59000F2D2A /* ActionTableViewCell.m in Sources */,
+				3759B7AA28A24E59000F2D2A /* DatePickerActionTableViewCell.m in Sources */,
 				373B71D72893E60B00E5732B /* Movie.m in Sources */,
 				370D4C6E289111D10040CE38 /* SettingsViewController.m in Sources */,
 			);

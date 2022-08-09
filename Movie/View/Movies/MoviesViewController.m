@@ -50,9 +50,8 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     
     // Do any additional setup after loading the view.
 }
-- (void)viewDidAppear:(BOOL)animated{
-   
-
+- (void)viewWillAppear:(BOOL)animated{
+    
 }
 
 #pragma mark - Action
@@ -72,6 +71,11 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 //    NSLog(@"slide noti");
     [self filterMovies];
 
+}
+
+-(void) didReleaseYearChanged: (NSNotification *) sender{
+    [self filterMovies];
+    NSLog(@"did releas year");
 }
 
 -(void) resetPage{
@@ -158,6 +162,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self regsiterDidFilterTypeChangedNotification];
     [self registerDidSortTypeChangedNotification];
     [self registerDidMovieRateChangedNotification];
+    [self registerReleaseYearChangedNotification];
 }
 
 -(void) configViewModel{
@@ -207,6 +212,10 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 
 -(void) registerDidMovieRateChangedNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didMovieRateSlided:) name:DidMovieRateChangedNotification object:nil];
+}
+
+-(void) registerReleaseYearChangedNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReleaseYearChanged:) name:DidReleaseYearChangedNotification object:nil];
 }
 
 

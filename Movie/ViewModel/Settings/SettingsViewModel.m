@@ -265,12 +265,24 @@
     return rate;
 }
 
+-(int) loadReleaseYearSettingFromUserDefault{
+    int releaseYear = [[self.standardUserDefaults objectForKey:ReleaseYearUserDefaults]intValue];
+    NSLog(@"%d", releaseYear);
+    return releaseYear;
+}
+
 -(void) setMovieRatingInUserDefault: (double) rating{
     NSString *ratingString = [NSString stringWithFormat:@"%.1f", rating];
     [self.standardUserDefaults setObject:ratingString forKey:MovieRateUserDefaults];
     
     //postNotification
     [[NSNotificationCenter defaultCenter] postNotificationName:DidMovieRateChangedNotification object:nil];
+}
+
+-(void) setFromReleaseyearInUserDefault: (NSString *)year{
+    [self.standardUserDefaults setObject:year forKey:ReleaseYearUserDefaults];
+    NSLog(@"%@", year);
+    [[NSNotificationCenter defaultCenter] postNotificationName:DidReleaseYearChangedNotification object:nil];
 }
 
 

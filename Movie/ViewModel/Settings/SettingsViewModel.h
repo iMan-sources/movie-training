@@ -52,9 +52,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - User default
 
 -(double) loadMovieRateSettingFromUserDefault;
+-(int) loadReleaseYearSettingFromUserDefault;
+
 -(void) loadSettingsDefault;
 
 -(void) setMovieRatingInUserDefault: (double) rating;
+-(void) setFromReleaseyearInUserDefault: (NSString *)year;
 @end
 
 NS_ASSUME_NONNULL_END

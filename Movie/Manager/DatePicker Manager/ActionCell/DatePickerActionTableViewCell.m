@@ -5,15 +5,15 @@
 //  Created by AnhVT12.REC on 8/9/22.
 //
 
-#import "ActionTableViewCell.h"
+#import "DatePickerActionTableViewCell.h"
 #import <UIKit/UIKit.h>
 
-@interface ActionTableViewCell()
+@interface DatePickerActionTableViewCell()
 @property(strong, nonatomic) UIDatePicker *datePicker;
 @property(strong, nonatomic) NSDate *date;
 @end
 
-@implementation ActionTableViewCell
+@implementation DatePickerActionTableViewCell
 
 #pragma mark - Init
 
@@ -24,7 +24,6 @@
         [self layout];
         
     }
-    NSLog(@"action cell");
     return self;
     
 }

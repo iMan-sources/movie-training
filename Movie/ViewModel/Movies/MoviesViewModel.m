@@ -12,6 +12,8 @@
 #import <UIKit/UIKit.h>
 #import "SettingsViewModel.h"
 #import "UserDefaultsNames.h"
+#import "NSString+Extensions.h"
+#import "NSDate+Extensions.h"
 static NSInteger const itemsInPage = 20;
 
 @interface MoviesViewModel()
@@ -20,8 +22,10 @@ static NSInteger const itemsInPage = 20;
 @property(nonatomic) SortType sortType;
 @property(nonatomic) BOOL isHasMoreMovies;
 @property(nonatomic) double movieRate;
+@property(nonatomic, strong) NSDate *year;
 @property(strong, nonatomic) NSArray<Movie *> *filteredArray;
 @property(nonatomic) BOOL isFiltered;
+
 @end
 @implementation MoviesViewModel
 
@@ -31,8 +35,10 @@ static NSInteger const itemsInPage = 20;
         self.isHasMoreMovies = true;
         self.movies = [[NSMutableArray alloc] init];
         self.filteredArray = @[];
+        
         [self configSortType];
         [self configMovieRateFromUserDefault];
+        [self configReleaseYearFromUserDefault];
     }
     return self;
 }
@@ -166,12 +172,11 @@ static NSInteger const itemsInPage = 20;
             self.sortType = rating;
             break;
         }
-            
         default:
             break;
     }
 }
-
+#pragma mark - User default
 -(void) configMovieRateFromUserDefault{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     double rate = [[standardUserDefaults objectForKey: MovieRateUserDefaults] doubleValue];
@@ -179,14 +184,25 @@ static NSInteger const itemsInPage = 20;
     self.isFiltered = YES;
 }
 
+-(void) configReleaseYearFromUserDefault{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *year = [standardUserDefaults objectForKey: ReleaseYearUserDefaults];
+    self.year = [year convertStringToYear];
+}
+
 -(void) filterMoviesArrayWithSettingDefault: (void(^)(void)) completionHandler{
     [self configMovieRateFromUserDefault];
+    [self configReleaseYearFromUserDefault];
+    
     self.filteredArray = [self.movies filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
         Movie *movie = (Movie *) evaluatedObject;
         double rate = [[movie getVoteAverage] doubleValue];
-        return rate >= self.movieRate;
+        NSDate *date = [[movie getReleaseDate] convertYYYYmmddToYYYY];
+
+        return rate >= self.movieRate && [date isLaterThanOrEqualTo:self.year];
+        
     }]];
-    NSLog(@"%ld", self.filteredArray.count);
     completionHandler();
 }
+
 @end

@@ -180,9 +180,7 @@ static NSInteger const SectionInTableView = 0;
 }
 
 - (void)didBirthdayLabelTapped{
-    [self.datePickeManager showDatePickerViewWithViewController:self withCompletion:^(NSDate * _Nonnull date) {
-        NSLog(@"%@", date);
-    }];
+    [self.datePickeManager showPickerViewWithViewController:self withPickerType:datePicker];
 }
 
 @end

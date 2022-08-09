@@ -11,7 +11,8 @@
 #import "SettingsYearsConditionTableViewCell.h"
 #import "SettingsRateConditionTableViewCell.h"
 #import "DatePickerManager.h"
-@interface SettingsViewController ()<UITableViewDelegate, UITableViewDataSource, SettingsYearsConditionTableViewCellDelegate>
+#import "NSDate+Extensions.h"
+@interface SettingsViewController ()<UITableViewDelegate, UITableViewDataSource, SettingsYearsConditionTableViewCellDelegate, DidDateSelectedDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(strong, nonatomic) SettingsViewModel *settingsViewModel;
 @property(strong, nonatomic) id<DatePickerManagerDelegate> datePickerManager;
@@ -60,6 +61,7 @@
 
 -(void) configDatePickerManager{
     self.datePickerManager = [[DatePickerManager alloc] init];
+    self.datePickerManager.delegate = self;
 }
 
 #pragma mark - Delegate	
@@ -72,11 +74,25 @@
 }
 
 - (void)didYearLabelSelected{
-   
-    [self.datePickerManager showDatePickerViewWithViewController:self withCompletion:^(NSDate * _Nonnull date) {
-        NSLog(@"didYearLabelSelected");
-    }];
+    [self.datePickerManager showPickerViewWithViewController:self withPickerType:yearPicker];
+
 }
+
+- (void)didDateSelected:(NSDate *)date{
+    NSString *year = [date convertYearToString];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:fromReleaseYear inSection:filter];
+    SettingsYearsConditionTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (indexPath == nil) {
+        return;
+    }
+    //change year label
+    [cell setReleaseYearWhenPickerSelected:year];
+    
+    //save to userDefault
+    [self.settingsViewModel setFromReleaseyearInUserDefault:year];
+   
+}
+
 
 #pragma mark - Datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -97,7 +113,8 @@
     if ([self.settingsViewModel isFromYearReleaseType:indexPath]) {
         SettingsYearsConditionTableViewCell *yearConditionCell = [tableView dequeueReusableCellWithIdentifier:[SettingsYearsConditionTableViewCell getReuseIdentifer] forIndexPath:indexPath];
         
-        [yearConditionCell bindingData:title];
+        int year = [self.settingsViewModel loadReleaseYearSettingFromUserDefault];
+        [yearConditionCell bindingData:title withReleaseYear:year];
         
         yearConditionCell.delegate = self;
         

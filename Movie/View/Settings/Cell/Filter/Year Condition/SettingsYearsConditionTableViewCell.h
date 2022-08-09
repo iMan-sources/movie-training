@@ -17,7 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString *) getReuseIdentifer;
 +(NSString *) getNibName;
 +(CGFloat) getRowHeight;
-- (void)bindingData:(NSString *)content;
+- (void)bindingData:(NSString *)content withReleaseYear: (int) year;
+-(void) setReleaseYearWhenPickerSelected: (NSString *) year;
 @property(weak, nonatomic) id<SettingsYearsConditionTableViewCellDelegate> delegate;
 @end
 

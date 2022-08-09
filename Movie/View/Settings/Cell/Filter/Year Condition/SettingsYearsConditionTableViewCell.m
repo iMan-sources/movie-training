@@ -38,10 +38,16 @@
 }
 
 #pragma mark - Helper
-
-- (void)bindingData:(NSString *)content{
+- (void)bindingData:(NSString *)content withReleaseYear:(int)year{
     self.titleLabel.text = content;
+    NSString *yearTitle = [NSString stringWithFormat:@"%d", year];
+    self.yearLabel.text = yearTitle;
 }
+
+-(void) setReleaseYearWhenPickerSelected: (NSString *) year{
+    self.yearLabel.text = year;
+}
+
 -(void) setup{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self configYearLabel];

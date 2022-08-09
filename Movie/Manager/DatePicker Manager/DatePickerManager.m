@@ -6,16 +6,17 @@
 //
 
 #import "DatePickerManager.h"
-#import "ActionCell/ActionTableViewCell.h"
+#import "NSString+Extensions.h"
 #import "ActionFooterTableViewCell.h"
 static NSInteger const DatePickerHeight = 300;
-@interface DatePickerManager()<UITableViewDelegate, UITableViewDataSource, ActionFooterTableViewCellDelegate>
-@property(strong, nonatomic) UIToolbar *toolbar;
-@property(strong, nonatomic) UIDatePicker *datePicker;
+@interface DatePickerManager()<UITableViewDelegate, UITableViewDataSource, ActionFooterTableViewCellDelegate, YearPickerActionTableViewCellDelegate>
+
 @property(strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) UIView *maskView;
 @property (strong, nonatomic) UIWindow *window;
 @property(strong, nonatomic) UITableView *actionSheetTableView;
+@property(nonatomic) PickerType pickerType;
+
 @end
 
 @implementation DatePickerManager
@@ -42,7 +43,10 @@ static NSInteger const DatePickerHeight = 300;
 
 -(void) configActionSheetTableView{
     self.actionSheetTableView = [[UITableView alloc] init];
-    [self.actionSheetTableView registerClass:[ActionTableViewCell class] forCellReuseIdentifier:[ActionTableViewCell getReuseIdentifier]];
+    [self.actionSheetTableView registerClass:[DatePickerActionTableViewCell class] forCellReuseIdentifier:[DatePickerActionTableViewCell getReuseIdentifier]];
+    
+    [self.actionSheetTableView registerClass:[YearPickerActionTableViewCell class] forCellReuseIdentifier:[YearPickerActionTableViewCell getReuseIdentifier]];
+    
     [self.actionSheetTableView registerNib:[UINib nibWithNibName:[ActionFooterTableViewCell getNibName] bundle:nil] forHeaderFooterViewReuseIdentifier:[ActionFooterTableViewCell getReuseIdentifier]];
     
     self.actionSheetTableView.backgroundColor = [UIColor clearColor];
@@ -68,7 +72,7 @@ static NSInteger const DatePickerHeight = 300;
     
     [self.window addSubview:self.actionSheetTableView];
     [self.actionSheetTableView setFrame:CGRectMake(0, self.window.bounds.size.height, self.window.bounds.size.width, DatePickerHeight)];
-
+    
 }
 
 #pragma mark - Show & Dimiss Actionsheet
@@ -86,23 +90,20 @@ static NSInteger const DatePickerHeight = 300;
 }
 
 #pragma mark - Blocks
-- (void)showDatePickerViewWithViewController:(UIViewController *)vc withCompletion:(void (^)(NSDate * _Nonnull))completionHandler{
-    
+
+- (void)showPickerViewWithViewController:(UIViewController *)vc withPickerType:(PickerType)pickerType{
     [self setup];
-    
+    self.pickerType = pickerType;
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.maskView.alpha = 1;
         [self showActionSheet:YES];
     } completion:nil];
-    
 }
-
 
 - (void)showYearPickerViewWithViewController:(UIViewController *)vc withCompletion:(void (^)(NSDate * _Nonnull))completionHandler{
     [self setup];
     
 }
-
 
 #pragma mark - Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -115,27 +116,50 @@ static NSInteger const DatePickerHeight = 300;
 
 - (void)didCancelButtonTapped{
     [self dismissActionSheet];
+   
 }
 
 - (void)didSelectButtonTapped{
-    
+    [self.delegate didDateSelected: self.date];
     [self dismissActionSheet];
+    
 }
+
+- (void)didYearPickerSelectedWithYear:(NSString *)year{
+    //convert year to date
+    self.date = [year convertStringToYear];
+}
+
 
 #pragma mark - Datasource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    ActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ActionTableViewCell getReuseIdentifier] forIndexPath:indexPath];
+    switch(self.pickerType){
+        case datePicker:
+        {
+            DatePickerActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[DatePickerActionTableViewCell getReuseIdentifier] forIndexPath:indexPath];
+            [self.actionSheetTableView setNeedsLayout];
+            [self.actionSheetTableView layoutIfNeeded];
+            
+            return cell;
+        }
+        case yearPicker:
+        {
+            YearPickerActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[YearPickerActionTableViewCell getReuseIdentifier] forIndexPath:indexPath];
+            [self.actionSheetTableView setNeedsLayout];
+            [self.actionSheetTableView layoutIfNeeded];
+            cell.delegate = self;
+            return cell;
+            
+        }
+    }
     
-    
-    [self.actionSheetTableView setNeedsLayout];
-    [self.actionSheetTableView layoutIfNeeded];
-    
-    return cell;
+    return [[UITableViewCell alloc] init];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    
     ActionFooterTableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[ActionFooterTableViewCell getReuseIdentifier]];
-//    cell.tintColor = [UIColor whiteColor];
+    //    cell.tintColor = [UIColor whiteColor];
     cell.delegate = self;
     return cell;
 }
@@ -145,12 +169,13 @@ static NSInteger const DatePickerHeight = 300;
 }
 
 
-
-
 #pragma mark - Action
 
 -(void) handleDismissal: (UITapGestureRecognizer *) sender{
     [self dismissActionSheet];
 }
+
+
+@synthesize delegate;
 
 @end
