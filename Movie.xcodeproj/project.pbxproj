@@ -20,6 +20,7 @@
 		0F8254C7289E1A1C00B048C0 /* GenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254C6289E1A1C00B048C0 /* GenderView.m */; };
 		0F8254CB289FF63500B048C0 /* DatePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254CA289FF63500B048C0 /* DatePickerManager.m */; };
 		0F8254CE28A296A400B048C0 /* YearPickerActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254CD28A296A400B048C0 /* YearPickerActionTableViewCell.m */; };
+		0F8254D128A4713400B048C0 /* ReminderViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8254D028A4713400B048C0 /* ReminderViewModel.m */; };
 		0FF35D9C2894384000F6521E /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35D9B2894384000F6521E /* Parser.m */; };
 		0FF35D9F28943D7900F6521E /* MoviesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35D9E28943D7900F6521E /* MoviesViewModel.m */; };
 		0FF35DA528952ABB00F6521E /* Fetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF35DA428952ABB00F6521E /* Fetcher.m */; };
@@ -151,6 +152,8 @@
 		0F8254CA289FF63500B048C0 /* DatePickerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerManager.m; sourceTree = "<group>"; };
 		0F8254CC28A296A400B048C0 /* YearPickerActionTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YearPickerActionTableViewCell.h; sourceTree = "<group>"; };
 		0F8254CD28A296A400B048C0 /* YearPickerActionTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YearPickerActionTableViewCell.m; sourceTree = "<group>"; };
+		0F8254CF28A4713400B048C0 /* ReminderViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderViewModel.h; sourceTree = "<group>"; };
+		0F8254D028A4713400B048C0 /* ReminderViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderViewModel.m; sourceTree = "<group>"; };
 		0FF35D9A2894384000F6521E /* Parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		0FF35D9B2894384000F6521E /* Parser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
 		0FF35D9D28943D7900F6521E /* MoviesViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MoviesViewModel.h; path = Movie/ViewModel/Movies/MoviesViewModel.h; sourceTree = SOURCE_ROOT; };
@@ -433,6 +436,15 @@
 			path = "DatePicker Manager";
 			sourceTree = "<group>";
 		};
+		0F8254D228A4713900B048C0 /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				0F8254CF28A4713400B048C0 /* ReminderViewModel.h */,
+				0F8254D028A4713400B048C0 /* ReminderViewModel.m */,
+			);
+			path = Reminder;
+			sourceTree = "<group>";
+		};
 		0FF35DA028943D9700F6521E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,6 +453,7 @@
 				0F8254AE289E04F600B048C0 /* Movies */,
 				0F8254AF289E051A00B048C0 /* Favorite */,
 				0F8254B0289E052400B048C0 /* Profile */,
+				0F8254D228A4713900B048C0 /* Reminder */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1375,6 +1388,7 @@
 				375B936D28A3B1DB00432807 /* Reminder+CoreDataProperties.m in Sources */,
 				371CD52A28A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.m in Sources */,
 				372EAE402898D5DF00D956D6 /* MovieCD+CoreDataProperties.m in Sources */,
+				0F8254D128A4713400B048C0 /* ReminderViewModel.m in Sources */,
 				0F8254BB289E13E600B048C0 /* EmailView.m in Sources */,
 				370D4C71289111DB0040CE38 /* AboutViewController.m in Sources */,
 				0FF35DA82895858E00F6521E /* NSString+Extensions.m in Sources */,

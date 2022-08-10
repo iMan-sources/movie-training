@@ -122,6 +122,7 @@
         return cell;
     }
     RemindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RemindTableViewCell getReuseIdentifier] forIndexPath:indexPath];
+    
     return cell;
 }
 
@@ -141,13 +142,15 @@
     footerCell.delegate = self;
     if (section == 0) {
         [footerCell bindingLabelButton:@"Edit"];
+        [footerCell setButtonTag:0];
         return footerCell;
     }
     if ([self.profileViewModel checkIfHaveReminderList]) {
         [footerCell bindingLabelButton:@"Show All"];
+        [footerCell setButtonTag:1];
         return footerCell;
     }
-    [footerCell setButtonTag:section];
+   
     //return empty view
     UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     return tmpView;

@@ -33,6 +33,8 @@
     NSInteger tag = sender.tag;
     NSLog(@"DID BUTTON TAPPED");
     [self.delegate didFooterButtonTapped:tag];
+    return;
+    
 }
 
 #pragma mark - Helper
