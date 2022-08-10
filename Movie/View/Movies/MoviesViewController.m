@@ -18,7 +18,6 @@
 #import "UIViewController+Extensions.h"
 #import "NotificationNames.h"
 #import "UserDefaultsNames.h"
-
 typedef NS_ENUM(NSInteger, ContentDisplayState){
     tableView_state,
     collectionView_state
@@ -42,7 +41,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self configNavigationBar];
+    
     
     [self setup];
     
@@ -51,7 +50,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated{
-    
+    [self configNavigationBar];
 }
 
 #pragma mark - Action
@@ -99,7 +98,8 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 #pragma mark - Navigation
 -(void) configNavigationBar{
     self.tabBarItem.title = @"Movies";
-    self.navigationItem.title = @"Popular Movies";
+    NSString *title = [self.moviesViewModel loadFilterTypeFromUserDefault];
+    self.navigationItem.title = title;
     
     [self configLeftBarItemButtons];
     [self configRightBarItemButtons];
@@ -217,8 +217,6 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 -(void) registerReleaseYearChangedNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReleaseYearChanged:) name:DidReleaseYearChangedNotification object:nil];
 }
-
-
 
 #pragma mark - MovieVCChildViewDelegate
 - (void)scrollViewDidEndDragging{

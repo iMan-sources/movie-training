@@ -24,16 +24,12 @@ typedef NS_ENUM(NSInteger, PickerType){
 @protocol DatePickerManagerDelegate <NSObject>
 
 -(void) showPickerViewWithViewController: (UIViewController *)vc withPickerType: (PickerType)pickerType;
-//@property(weak, nonatomic) id<YearPickerActionTableViewCellDelegate> delegate;
 -(void) showYearPickerViewWithViewController:(UIViewController *)vc withCompletion: (void (^)(NSDate *)) completionHandler;
 @property(weak, nonatomic) id<DidDateSelectedDelegate> delegate;
 @end
 
 
-
 @interface DatePickerManager : NSObject<DatePickerManagerDelegate>
-
-
 
 @end
 

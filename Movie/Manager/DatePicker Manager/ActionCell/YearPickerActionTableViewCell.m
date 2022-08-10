@@ -6,9 +6,11 @@
 //
 
 #import "YearPickerActionTableViewCell.h"
+#import "SettingsViewModel.h"
 @interface YearPickerActionTableViewCell()<UIPickerViewDelegate, UIPickerViewDataSource>
 @property(strong, nonatomic) NSMutableArray *years;
 @property(strong, nonatomic) UIPickerView *pickerView;
+@property(strong, nonatomic) SettingsViewModel *settingsViewModel;
 @end
 @implementation YearPickerActionTableViewCell
 
@@ -19,7 +21,9 @@
     if (self) {
         [self setup];
         [self layout];
+        self.settingsViewModel = [[SettingsViewModel alloc] init];
         
+        [self setSelectedRow];
     }
     return self;
     
@@ -35,6 +39,7 @@
     [self configYearSelections];
     [self configYearPicker];
     self.backgroundColor = [UIColor clearColor];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 -(void) layout{
@@ -70,7 +75,10 @@
     for (int i = 1960;  i <= currentYear; i++) {
         [self.years addObject:[NSString stringWithFormat:@"%d", i]];
     }
+    
 }
+
+
 
 #pragma mark - Delegate
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
@@ -90,6 +98,11 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     return [self.years objectAtIndex:row];
+}
+
+-(void) setSelectedRow{
+    NSInteger selectedRow = [self.settingsViewModel loadYearSettingsInUserDefault:self.years];
+    [self.pickerView selectRow:selectedRow inComponent:0 animated:YES];
 }
 
 #pragma mark - Action

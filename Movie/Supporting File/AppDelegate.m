@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 #import "UserDefaultsNames.h"
+#import "User.h"
 @interface AppDelegate ()
 
 @end
@@ -16,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    
     [self setupSettingsDefault];
     [self configNavBar];
 
@@ -77,6 +79,7 @@
     }
     
     [self setupFilterMovieRateAndReleaseYear:standardUserDefaults];
+    [self setupUserInforInUserDefault:standardUserDefaults];
 }
 
 -(void) setupFilterMovieRateAndReleaseYear: (NSUserDefaults *) standardUserDefaults{
@@ -85,6 +88,26 @@
     }
     if ([standardUserDefaults objectForKey: ReleaseYearUserDefaults] == nil) {
         [standardUserDefaults setObject:@"1970" forKey:ReleaseYearUserDefaults];
+    }
+}
+
+-(void) setupUserInforInUserDefault: (NSUserDefaults *) standardUserDefaults{
+    
+    if ([standardUserDefaults objectForKey:UserInforNameDefaults] == nil) {
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        NSDateFormatter *mmddccyy = [[NSDateFormatter alloc] init];
+        mmddccyy.timeStyle = NSDateFormatterNoStyle;
+        mmddccyy.dateFormat = @"MM/dd/yyyy";
+        NSDate *d = [mmddccyy dateFromString:@"12/11/2005"];
+    
+        User *user = [[User alloc] initWithName:@"default name" withBirthday:d withGender:@"Male" withImagePath:@"" withEmail:@"default@mail.com"];
+        [dict setValue:[user getName] forKey: @"name"];
+        [dict setValue:[user getGender] forKey: @"gender"];
+        [dict setValue:[user getBirthDay] forKey: @"date"];
+        [dict setValue:[user getImagePath] forKey: @"imagePath"];
+        [dict setValue:[user getEmail] forKey:@"email"];
+        
+        [standardUserDefaults setObject:dict forKey:UserInforNameDefaults];
     }
 }
 

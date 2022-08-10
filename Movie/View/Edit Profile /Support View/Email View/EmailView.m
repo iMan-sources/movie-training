@@ -7,6 +7,7 @@
 
 #import "EmailView.h"
 @interface EmailView()
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @end

@@ -8,16 +8,16 @@
 #import <UIKit/UIKit.h>
 #import "AvatarView.h"
 NS_ASSUME_NONNULL_BEGIN
-@protocol EditProfileHeaderTableViewCellDelegate <NSObject>
+@protocol EditProfileHeaderViewDelegate <NSObject>
 
 -(void) didCancelButtonTapped;
--(void) didDoneButtonTapped: (User *)user;
+-(void) didDoneButtonTapped;
 @end
-@interface EditProfileHeaderTableViewCell : UITableViewHeaderFooterView
+@interface EditProfileHeaderView : UIView
 +(NSString *) getReuseIdentifier;
 
 +(CGFloat) getHeaderHeight;
-@property(weak, nonatomic) id<EditProfileHeaderTableViewCellDelegate> delegate;
+@property(weak, nonatomic) id<EditProfileHeaderViewDelegate> delegate;
 @property(strong, nonatomic) AvatarView *avatarView;
 -(void) bindingData: (User *)user;
 @end

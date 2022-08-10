@@ -9,7 +9,7 @@
 #import "NSString+Extensions.h"
 #import "ActionFooterTableViewCell.h"
 static NSInteger const DatePickerHeight = 300;
-@interface DatePickerManager()<UITableViewDelegate, UITableViewDataSource, ActionFooterTableViewCellDelegate, YearPickerActionTableViewCellDelegate>
+@interface DatePickerManager()<UITableViewDelegate, UITableViewDataSource, ActionFooterTableViewCellDelegate, YearPickerActionTableViewCellDelegate, DatePickerActionTableViewCellDelegate>
 
 @property(strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) UIView *maskView;
@@ -120,16 +120,22 @@ static NSInteger const DatePickerHeight = 300;
 }
 
 - (void)didSelectButtonTapped{
+    
     [self.delegate didDateSelected: self.date];
     [self dismissActionSheet];
     
 }
 
+//selected Year delegate
 - (void)didYearPickerSelectedWithYear:(NSString *)year{
     //convert year to date
     self.date = [year convertStringToYear];
 }
 
+//selected date picker delegate
+- (void)didDatePickerSelected:(NSDate *)date{
+    self.date = date;
+}
 
 #pragma mark - Datasource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -139,7 +145,7 @@ static NSInteger const DatePickerHeight = 300;
             DatePickerActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[DatePickerActionTableViewCell getReuseIdentifier] forIndexPath:indexPath];
             [self.actionSheetTableView setNeedsLayout];
             [self.actionSheetTableView layoutIfNeeded];
-            
+            cell.delegate = self;
             return cell;
         }
         case yearPicker:

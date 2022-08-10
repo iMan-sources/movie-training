@@ -5,20 +5,21 @@
 //  Created by AnhVT12.REC on 8/5/22.
 //
 
-#import "EditProfileHeaderTableViewCell.h"
+#import "EditProfileHeaderView.h"
 #import <UIKit/UIKit.h>
 
-@interface EditProfileHeaderTableViewCell()<UIImagePickerControllerDelegate>
+@interface EditProfileHeaderView()<UIImagePickerControllerDelegate>
 
 @property(strong, nonatomic) UIButton *cancelButton;
 @property(strong, nonatomic) UIButton *doneButton;
 @end
-@implementation EditProfileHeaderTableViewCell
+@implementation EditProfileHeaderView
 
 #pragma mark - Init
 
-- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier{
-    self = [super initWithReuseIdentifier:reuseIdentifier];
+- (instancetype)init
+{
+    self = [super init];
     if (self) {
         [self setup];
         [self layout];
@@ -32,10 +33,7 @@
 }
 
 -(void) didDoneButtonTapped: (UIButton *)sender{
-    NSString *name = [self.avatarView getName];
-    NSString *imageURL = [self.avatarView getImagePath];
-    User *user = [[User alloc] initWithName:name withBirthday:[[NSDate alloc]init] withGender:@"" withImagePath:imageURL withEmail:@""];
-    [self.delegate didDoneButtonTapped:user];
+    [self.delegate didDoneButtonTapped];
 }
 
 #pragma mark - Instance Helper
@@ -46,6 +44,7 @@
 
 #pragma mark - Helper
 -(void) setup{
+    self.translatesAutoresizingMaskIntoConstraints = false;
     [self configAvatarView];
     [self configButtons];
 }
@@ -59,23 +58,24 @@
 }
 
 -(void) layout{
-    [self.contentView addSubview:self.avatarView];
-    [self.contentView addSubview:self.cancelButton];
-    [self.contentView addSubview:self.doneButton];
+    [self addSubview:self.avatarView];
+    [self addSubview:self.cancelButton];
+    [self addSubview:self.doneButton];
     //avatar view
-    [self.avatarView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = true;
-    [self.avatarView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = true;
-    [self.avatarView.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = true;
-    [self.avatarView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = true;
+    [self.avatarView.topAnchor constraintEqualToAnchor:self.topAnchor].active = true;
+    [self.avatarView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = true;
+    [self.avatarView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = true;
+    [self.avatarView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = true;
     
     //cancel button
-    [self.cancelButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = true;
-    [self.cancelButton.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = true;
+    [self.cancelButton.topAnchor constraintEqualToAnchor:self.topAnchor].active = true;
+    [self.cancelButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = true;
     
     //done button
-    [self.doneButton.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = true;
-    [self.doneButton.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = true;
+    [self.doneButton.topAnchor constraintEqualToAnchor:self.topAnchor].active = true;
+    [self.doneButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = true;
 }
+
 -(void) configAvatarView{
     self.avatarView = [[AvatarView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.avatarView.translatesAutoresizingMaskIntoConstraints = false;

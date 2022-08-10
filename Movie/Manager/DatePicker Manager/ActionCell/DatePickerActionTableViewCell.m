@@ -37,6 +37,8 @@
 -(void) setup{
     [self configDatePicker];
     self.backgroundColor = [UIColor clearColor];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
 }
 
 -(void) layout{
@@ -45,7 +47,6 @@
     [self.datePicker.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:8].active = true;
     [self.datePicker.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-8].active = true;
     [self.datePicker.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-8].active = true;
-
 }
 
 -(void) configDatePicker{
@@ -67,16 +68,29 @@
     self.datePicker.backgroundColor = [UIColor whiteColor];
 }
 
-#pragma mark - Action
--(void) dueDateChanged: (UIDatePicker *) sender{
+-(NSDate *) convertDateInPickerToBirthday: (UIDatePicker *) sender{
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterLongStyle];
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     
-    NSLog(@"Picked the date %@", [dateFormatter stringFromDate:[sender date]]);
-//    self.date = [sender date];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
+    NSString *strDate = [dateFormatter stringFromDate:[sender date]];
+    NSDate *date = [dateFormatter dateFromString:strDate];
+    return date;
 }
+
+#pragma mark - Action
+-(void) dueDateChanged: (UIDatePicker *) sender{
+
+    NSDate *date = [self convertDateInPickerToBirthday:sender];
+    [self.delegate didDatePickerSelected:date];
+}
+
+
+//-(void) selectedRow{
+//
+//}
 
 
 

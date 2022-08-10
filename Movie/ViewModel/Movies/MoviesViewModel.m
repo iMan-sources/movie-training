@@ -14,6 +14,8 @@
 #import "UserDefaultsNames.h"
 #import "NSString+Extensions.h"
 #import "NSDate+Extensions.h"
+#import "SettingsViewModel.h"
+
 static NSInteger const itemsInPage = 20;
 
 @interface MoviesViewModel()
@@ -25,7 +27,7 @@ static NSInteger const itemsInPage = 20;
 @property(nonatomic, strong) NSDate *year;
 @property(strong, nonatomic) NSArray<Movie *> *filteredArray;
 @property(nonatomic) BOOL isFiltered;
-
+@property(strong, nonatomic) SettingsViewModel *settingViewModel;
 @end
 @implementation MoviesViewModel
 
@@ -39,6 +41,8 @@ static NSInteger const itemsInPage = 20;
         [self configSortType];
         [self configMovieRateFromUserDefault];
         [self configReleaseYearFromUserDefault];
+        
+        self.settingViewModel = [[SettingsViewModel alloc] init];
     }
     return self;
 }
@@ -203,6 +207,14 @@ static NSInteger const itemsInPage = 20;
         
     }]];
     completionHandler();
+}
+
+-(NSString *) loadFilterTypeFromUserDefault{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger type = [[standardUserDefaults objectForKey: FilterTypeUserDefaults] intValue];
+    
+    NSString *title = [self.settingViewModel filterTitleForCell:type];
+    return title;
 }
 
 @end

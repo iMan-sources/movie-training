@@ -11,6 +11,7 @@
 @interface BirthdayView()
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
 @end
 
@@ -44,16 +45,21 @@
 
 - (void)bindingData:(NSDate *)birthday{
     NSString *birthdayString = [birthday convertDateToString];
-    self.dateLabel.text = birthdayString;
+    
+    [self.dateLabel layoutIfNeeded];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"%@", birthdayString);
+        [self.dateLabel setText:birthdayString];
+        
+    });
 }
+
 
 - (NSDate *)getDate{
     NSString *dateString = self.dateLabel.text;
     NSDate *date = [dateString convertStringToDate];
     return date;
 }
-
-
 
 #pragma mark - Helper
 

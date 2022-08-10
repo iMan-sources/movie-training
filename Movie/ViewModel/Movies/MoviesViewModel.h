@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)getMoviesWithPage: (NSInteger)page withSucess: (void(^)(void))successCompletion withError: (void(^)(NSError *)) errorCompletion;
 -(void) sortMovieWithSuccess: (void(^)(void))completionHandler;
 -(void) resetArray;
+
+-(NSString *) loadFilterTypeFromUserDefault;
 #pragma mark -TableView
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 
@@ -31,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(Movie *)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 -(void) filterMoviesArrayWithSettingDefault: (void(^)(void)) completionHandler;
+
+
 
 @end
 

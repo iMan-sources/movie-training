@@ -281,8 +281,19 @@
 
 -(void) setFromReleaseyearInUserDefault: (NSString *)year{
     [self.standardUserDefaults setObject:year forKey:ReleaseYearUserDefaults];
-    NSLog(@"%@", year);
     [[NSNotificationCenter defaultCenter] postNotificationName:DidReleaseYearChangedNotification object:nil];
+}
+
+-(NSInteger) loadYearSettingsInUserDefault: (NSMutableArray<NSString *> *) years{
+    NSInteger index = 0;
+    NSString *defaultYear = [self.standardUserDefaults objectForKey:ReleaseYearUserDefaults];
+    for (int i = 0; i < years.count; i++) {
+        if ([defaultYear isEqual:years[i]]) {
+            index = i;
+            break;
+        }
+    }
+    return index;
 }
 
 

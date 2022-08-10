@@ -58,6 +58,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void) setMovieRatingInUserDefault: (double) rating;
 -(void) setFromReleaseyearInUserDefault: (NSString *)year;
+
+-(NSString *) filterTitleForCell: (FilterType)type;
+
+-(NSInteger) loadYearSettingsInUserDefault: (NSMutableArray<NSString *> *) years;
+
 @end
 
 NS_ASSUME_NONNULL_END
