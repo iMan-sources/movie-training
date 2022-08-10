@@ -91,18 +91,13 @@ static NSInteger const DatePickerHeight = 300;
 
 #pragma mark - Blocks
 
-- (void)showPickerViewWithViewController:(UIViewController *)vc withPickerType:(PickerType)pickerType{
+- (void)showPickerViewWithPickerType: (PickerType)pickerType{
     [self setup];
     self.pickerType = pickerType;
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.maskView.alpha = 1;
         [self showActionSheet:YES];
     } completion:nil];
-}
-
-- (void)showYearPickerViewWithViewController:(UIViewController *)vc withCompletion:(void (^)(NSDate * _Nonnull))completionHandler{
-    [self setup];
-    
 }
 
 #pragma mark - Delegate
@@ -140,23 +135,26 @@ static NSInteger const DatePickerHeight = 300;
 #pragma mark - Datasource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch(self.pickerType){
-        case datePicker:
-        {
-            DatePickerActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[DatePickerActionTableViewCell getReuseIdentifier] forIndexPath:indexPath];
-            [self.actionSheetTableView setNeedsLayout];
-            [self.actionSheetTableView layoutIfNeeded];
-            cell.delegate = self;
-            return cell;
-        }
         case yearPicker:
         {
             YearPickerActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[YearPickerActionTableViewCell getReuseIdentifier] forIndexPath:indexPath];
             [self.actionSheetTableView setNeedsLayout];
             [self.actionSheetTableView layoutIfNeeded];
             cell.delegate = self;
+   
             return cell;
-            
         }
+        default:
+        {
+            DatePickerActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[DatePickerActionTableViewCell getReuseIdentifier] forIndexPath:indexPath];
+            [self.actionSheetTableView setNeedsLayout];
+            [self.actionSheetTableView layoutIfNeeded];
+            cell.delegate = self;
+            
+            [cell bindingData: self.pickerType];
+            return cell;
+        }
+
     }
     
     return [[UITableViewCell alloc] init];

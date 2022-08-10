@@ -9,8 +9,10 @@
 #import "Cell/CastCollectionViewCell.h"
 #import "MovieDetailView.h"
 #import "MovieDetailViewModel.h"
-
-@interface MovieDetailViewController ()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
+#import "DatePickerManager.h"
+#import "CoreDataManager.h"
+#import "UserNotifications/UserNotifications.h"
+@interface MovieDetailViewController ()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, MovieDetailViewDelegate, DidDateSelectedDelegate>
 @property(strong, nonatomic) MovieDetailView *movieDetailContentView;
 @property(strong, nonatomic) UICollectionView *castCollectionView;
 @property(strong, nonatomic) NSLayoutConstraint *castCollectionViewHeightConstraint;
@@ -23,6 +25,8 @@
 @property(strong, nonatomic) UIView *castCrewView;
 @property(strong, nonatomic) UILabel *castCrewLabel;
 @property(strong, nonatomic) UIView *footerView;
+@property(strong, nonatomic) CoreDataManager *coreDataManager;
+@property(strong, nonatomic) id<DatePickerManagerDelegate> datePickerManager;
 @end
 
 @implementation MovieDetailViewController
@@ -71,6 +75,8 @@
 -(void) setup{
     [self configViewModel];
     
+    [self configCoreDataManager];
+    
     [self configContentView];
     
     [self configCollectionView];
@@ -83,6 +89,14 @@
     
     [self configContentStackView];
     
+    [self configDatePickerManager];
+    
+}
+-(void) configCoreDataManager{
+    self.coreDataManager = [[CoreDataManager alloc] init];
+}
+-(void) configDatePickerManager{
+    self.datePickerManager = [[DatePickerManager alloc] init];
 }
 
 -(void) configFooterView{
@@ -128,6 +142,7 @@
         [self.movieDetailContentView bindingData:self.movie];
     }
     self.movieDetailContentView.translatesAutoresizingMaskIntoConstraints = false;
+    self.movieDetailContentView.delegate = self;
 }
 
 -(void) configViewModel{
@@ -187,6 +202,18 @@
 
 
 #pragma mark - Delegate
+
+- (void)didReminderTapped{
+    [self.datePickerManager showPickerViewWithPickerType: dateTimePicker];
+    self.datePickerManager.delegate = self;
+    
+}
+
+- (void)didDateSelected:(NSDate *)date{
+    [self insertReminderToCoreDataWithDate:date];
+    [self.movieDetailContentView addRemindLabel:date];
+}
+
 #pragma mark - Datasource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     __weak MovieDetailViewController *weakSelf = self;
@@ -207,6 +234,15 @@
     Actor *actor = [weakSelf.movieDetailViewModel cellForItemAtIndexPath:indexPath];
     [cell bindingData:actor];
     return cell;
+}
+
+#pragma mark - Core Data Helper
+-(void) insertReminderToCoreDataWithDate: (NSDate *) date{
+    [self.coreDataManager insertToCoreDataWithReminder:self.movie withTime:date withSuccess:^{
+        //show reminder
+    } withError:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 
 @end

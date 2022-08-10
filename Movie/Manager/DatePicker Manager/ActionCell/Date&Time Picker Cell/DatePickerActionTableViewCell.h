@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "DatePickerManager.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol DatePickerActionTableViewCellDelegate <NSObject>
 
@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DatePickerActionTableViewCell : UITableViewCell
 +(NSString *) getReuseIdentifier;
 @property(weak, nonatomic) id<DatePickerActionTableViewCellDelegate> delegate;
+
+//- (void)bindingDateType:(PickerType) pickerType;
+-(void) bindingData: (NSInteger) picker;
 @end
 
 NS_ASSUME_NONNULL_END

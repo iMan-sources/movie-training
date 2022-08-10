@@ -7,10 +7,11 @@
 
 #import "CoreDataManager.h"
 #import "AppDelegate.h"
-#import "MovieCD+CoreDataClass.h"
+
 #import <UIKit/UIKit.h>
 @interface CoreDataManager()
 @property(strong, nonatomic) NSArray<MovieCD *> *movies;
+@property(strong, nonatomic) NSArray<Reminder *> *reminders;
 @property(strong, nonatomic) NSManagedObjectContext *context;
 @property(weak, nonatomic) AppDelegate *delegate;
 @end
@@ -27,7 +28,7 @@
     return self;
 }
 #pragma mark - FILTER request
--(void) filterWithIDWithSuccess: (NSInteger)movieID withSuccess: (void(^)(MovieCD *))successCompletion withError: (void(^)(NSError *)) errorCompletion{
+-(void) filterFavoriteMovieWithIDWithSuccess: (NSInteger)movieID withSuccess: (void(^)(MovieCD *))successCompletion withError: (void(^)(NSError *)) errorCompletion{
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:@"MovieCD"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"movieID == %d",movieID];
     req.predicate = predicate;
@@ -61,7 +62,7 @@
 
 -(void)checkIfMovieIsFavorite: (Movie *) movie withSuccess: (void(^)(BOOL))successCompletion withError: (void (^)(NSError * _Nonnull))errorCompletion{
     NSInteger movieID = [movie getID];
-    [self filterWithIDWithSuccess:movieID withSuccess:^(MovieCD * movie) {
+    [self filterFavoriteMovieWithIDWithSuccess:movieID withSuccess:^(MovieCD * movie) {
         if (movie == nil) {
             successCompletion(NO);
         }else{
@@ -86,6 +87,20 @@
     
     successCompletion(movies);
 }
+
+- (void)fetchReminderWithSuccess:(void (^)(NSArray<Reminder *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+    NSFetchRequest *fetchReq = [NSFetchRequest fetchRequestWithEntityName:@"Reminder"];
+    NSError *error = nil;
+    NSArray<Reminder *> *reminders = [self.context executeFetchRequest:fetchReq error: &error];
+    if (error != nil) {
+        errorCompletion(error);
+    }
+    
+    self.reminders = reminders;
+    
+    successCompletion(reminders);
+}
+
 #pragma mark - CREATE request
 - (void)insertToCoreDataWithMovie:(Movie *)movie withSuccess:(void (^)(void))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     MovieCD *newMovie = [[MovieCD alloc] initWithContext:self.context];
@@ -104,6 +119,25 @@
     }
     successCompletion();
 }
+
+-(void) insertToCoreDataWithReminder: (Movie *)movie withTime: (NSDate *)time withSuccess: (void(^)(void)) successCompletion withError: (void(^)(NSError *)) errorCompletion{
+    Reminder *reminder = [[Reminder alloc] initWithContext:self.context];
+    reminder.time = time;
+    reminder.movieID = (int)[movie getID];
+    
+    NSError *error = nil;
+    
+    [self.context save: &error];
+    if (error != nil) {
+        errorCompletion(error);
+        return;
+    }
+    
+    successCompletion();
+}
+
+
+
 #pragma mark - DELETE request
 - (void)deleteAllMoviesInCoreDataWithSuccess:(void (^)(void))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"MovieCD"];
@@ -129,7 +163,7 @@
 //[DELETE OBJECT]
 - (void)deleteFromCoreDataWithMovie:(Movie *)movie withSuccess:(void (^)(void))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     NSInteger movieID = [movie getID];
-    [self filterWithIDWithSuccess:movieID withSuccess:^(MovieCD *movieCD){
+    [self filterFavoriteMovieWithIDWithSuccess:movieID withSuccess:^(MovieCD *movieCD){
         [self.context deleteObject:movieCD];
         NSError *error = nil;
         [self.context save:&error];

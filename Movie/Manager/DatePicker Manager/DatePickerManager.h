@@ -8,12 +8,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "EditProfileViewController.h"
-#import "ActionCell/DatePickerActionTableViewCell.h"
-#import "ActionCell/YearPickerActionTableViewCell.h"
+#import "DatePickerActionTableViewCell.h"
+#import "YearPickerActionTableViewCell.h"
 NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, PickerType){
     datePicker = 0,
-    yearPicker
+    dateTimePicker,
+    yearPicker,
+    
 };
 @protocol DidDateSelectedDelegate <NSObject>
 
@@ -23,8 +26,7 @@ typedef NS_ENUM(NSInteger, PickerType){
 
 @protocol DatePickerManagerDelegate <NSObject>
 
--(void) showPickerViewWithViewController: (UIViewController *)vc withPickerType: (PickerType)pickerType;
--(void) showYearPickerViewWithViewController:(UIViewController *)vc withCompletion: (void (^)(NSDate *)) completionHandler;
+-(void) showPickerViewWithPickerType: (PickerType) pickerType;
 @property(weak, nonatomic) id<DidDateSelectedDelegate> delegate;
 @end
 

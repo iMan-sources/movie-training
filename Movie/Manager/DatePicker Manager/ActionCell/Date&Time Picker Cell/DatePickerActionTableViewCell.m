@@ -11,6 +11,7 @@
 @interface DatePickerActionTableViewCell()
 @property(strong, nonatomic) UIDatePicker *datePicker;
 @property(strong, nonatomic) NSDate *date;
+@property(nonatomic) PickerType pickerType;
 @end
 
 @implementation DatePickerActionTableViewCell
@@ -53,7 +54,8 @@
     self.datePicker = [[UIDatePicker alloc] init];
     [self.datePicker setValue:[UIColor blackColor] forKey:@"textColor"];
     self.datePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.datePicker.datePickerMode = UIDatePickerModeDate;
+//    self.datePicker.datePickerMode = UIDatePickerModeDate;
+
     self.datePicker.translatesAutoresizingMaskIntoConstraints = false;
     
     self.datePicker.layer.cornerRadius = 10;
@@ -67,13 +69,39 @@
     
     self.datePicker.backgroundColor = [UIColor whiteColor];
 }
+- (void)bindingData:(NSInteger)picker{
+    switch(picker){
+        case datePicker:
+            self.datePicker.datePickerMode = UIDatePickerModeDate;
+            self.pickerType = datePicker;
+            break;
+        case dateTimePicker:
+            self.datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+            self.pickerType = dateTimePicker;
+            break;
+    }
+}
 
 -(NSDate *) convertDateInPickerToBirthday: (UIDatePicker *) sender{
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterLongStyle];
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    switch (self.pickerType) {
+        case datePicker:
+        {
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            break;
+        }
+        case dateTimePicker:
+        {
+            [dateFormatter setDateFormat:@"yyyy/MM/dd HH:mm"];
+            break;
+        }
+        default:
+            break;
+    }
+    
     
     NSString *strDate = [dateFormatter stringFromDate:[sender date]];
     NSDate *date = [dateFormatter dateFromString:strDate];
@@ -87,10 +115,6 @@
     [self.delegate didDatePickerSelected:date];
 }
 
-
-//-(void) selectedRow{
-//
-//}
 
 
 

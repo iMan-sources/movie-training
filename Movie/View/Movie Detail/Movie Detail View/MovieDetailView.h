@@ -8,10 +8,17 @@
 #import <UIKit/UIKit.h>
 #import "Movie.h"
 NS_ASSUME_NONNULL_BEGIN
+@protocol MovieDetailViewDelegate <NSObject>
 
+-(void) didReminderTapped;
+
+@end
 @interface MovieDetailView : UIView
 
 -(void) bindingData: (Movie *)movie;
+@property(weak, nonatomic) id<MovieDetailViewDelegate> delegate;
+
+-(void) addRemindLabel: (NSDate *) date;
 @end
 
 NS_ASSUME_NONNULL_END

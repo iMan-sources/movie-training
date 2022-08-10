@@ -186,6 +186,10 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //move vc to detail
+}
+
 
 
 @end

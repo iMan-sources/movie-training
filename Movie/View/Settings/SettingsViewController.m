@@ -12,6 +12,7 @@
 #import "SettingsRateConditionTableViewCell.h"
 #import "DatePickerManager.h"
 #import "NSDate+Extensions.h"
+#import "UIViewController+Extensions.h"
 @interface SettingsViewController ()<UITableViewDelegate, UITableViewDataSource, SettingsYearsConditionTableViewCellDelegate, DidDateSelectedDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(strong, nonatomic) SettingsViewModel *settingsViewModel;
@@ -23,11 +24,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"Settings";
+    [self configNavigationBar];
+    
     [self setup];
     
 }
 #pragma mark - Helper
+
+-(void) configNavigationBar{
+    self.navigationItem.title = @"Settings";
+    [self configLeftBarItemButtons];
+}
+
 -(void) configTableView{
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -74,7 +82,7 @@
 }
 
 - (void)didYearLabelSelected{
-    [self.datePickerManager showPickerViewWithViewController:self withPickerType:yearPicker];
+    [self.datePickerManager showPickerViewWithPickerType: yearPicker];
 
 }
 

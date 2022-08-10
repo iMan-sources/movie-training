@@ -8,12 +8,14 @@
 #import "ProfileViewModel.h"
 #import "NSDate+Extensions.h"
 #import "Images.h"
+#import "CoreDataManager.h"
 const int SectionProfileTypeCount = reminderList - infor_profile + 1;
 const int InforProfileTypeCount = (gender - birthday + 1);
 
 @interface ProfileViewModel()
 @property(strong, nonatomic) User *user;
-@property(strong, nonatomic) NSArray *reminderList;
+@property(strong, nonatomic) NSArray<Reminder *> *reminderList;
+@property(strong, nonatomic) CoreDataManager *coreDataManager;
 @end
 @implementation ProfileViewModel
 
@@ -21,12 +23,21 @@ const int InforProfileTypeCount = (gender - birthday + 1);
 {
     self = [super init];
     if (self) {
-        self.reminderList = @[];
+        [self configCoreDataManager];
     }
     return self;
 }
 
 #pragma mark - Helper
+-(void) configCoreDataManager{
+    self.coreDataManager = [[CoreDataManager alloc] init];
+    [self.coreDataManager fetchReminderWithSuccess:^(NSArray<Reminder *> * _Nonnull reminders) {
+        self.reminderList = reminders;
+        NSLog(@"%ld remind", self.reminderList.count);
+    } withError:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
+}
 -(void) saveUserInUserDefault: (User *)user withKey: (NSString *)key{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];

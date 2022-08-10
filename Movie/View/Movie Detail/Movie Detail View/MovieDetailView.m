@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIButton *reminderButton;
+@property (weak, nonatomic) IBOutlet UILabel *reminderLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *contentOverviewLabel;
 @property (strong, nonatomic) Movie *movie;
@@ -53,10 +55,19 @@
     
 }
 
+-(void) addRemindLabel: (NSDate *) date{
+    [self.reminderLabel setHidden:NO];
+    //set text
+}
+
 -(void) customInit{
     [[NSBundle mainBundle] loadNibNamed:@"MovieDetailView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
+    
+    [self.reminderButton addTarget:self action:@selector(didReminderTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.reminderLabel setHidden:YES];
 }
 
 -(NSString *) generatingSpaceWhenOverviewEmptyWithOverview: (NSString *) overview{
@@ -67,6 +78,10 @@
     NSString *res = [NSString stringWithString:spacing];
     return res;
     
+}
+
+-(void)didReminderTapped:(UIButton *)sender{
+    [self.delegate didReminderTapped];
 }
 
 @end

@@ -8,9 +8,10 @@
 #import "ProfileViewController.h"
 #import "MainViewController.h"
 #import "AvatarView.h"
-#import "Cell/Header Cell/HeaderProfileTableViewCell.h"
-#import "Cell/ProfileTableViewCell.h"
-#import "Cell/Footer Cell/ProfileFooterTableViewCell.h"
+#import "HeaderProfileTableViewCell.h"
+#import "ProfileTableViewCell.h"
+#import "ProfileFooterTableViewCell.h"
+#import "RemindTableViewCell.h"
 #import "ProfileViewModel.h"
 #import "User.h"
 #import "UserDefaultsNames.h"
@@ -79,9 +80,12 @@
 -(void) configProfileTableView{
     self.profileTableView.delegate = self;
     self.profileTableView.dataSource = self;
-    self.profileTableView.rowHeight = 40.0;
+    self.profileTableView.rowHeight = UITableViewAutomaticDimension;
+    self.profileTableView.estimatedRowHeight = 200.0;
     [self.profileTableView registerClass:[HeaderProfileTableViewCell class] forHeaderFooterViewReuseIdentifier:[HeaderProfileTableViewCell getReuseIdentifier]];
     [self.profileTableView registerNib:[UINib nibWithNibName:[ProfileTableViewCell getNibName] bundle:nil] forCellReuseIdentifier:[ProfileTableViewCell getReuseIdentifier]];
+    
+    [self.profileTableView registerNib:[UINib nibWithNibName:[RemindTableViewCell getNibName] bundle:nil] forCellReuseIdentifier:[RemindTableViewCell getReuseIdentifier]];
     
     [self.profileTableView registerNib:[UINib nibWithNibName:[ProfileFooterTableViewCell getReuseIdentifier] bundle:nil] forHeaderFooterViewReuseIdentifier:[ProfileFooterTableViewCell getReuseIdentifier]];
     
@@ -110,10 +114,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ProfileTableViewCell getReuseIdentifier] forIndexPath:indexPath];
-    NSString *infor = [self.profileViewModel inforForRowAtIndexPath:indexPath];
-    UIImage *image = [self.profileViewModel imageForRowAtIndexPath:indexPath];
-    [cell bindingData: infor withImage:image];
+    if (indexPath.section == infor_profile) {
+        ProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ProfileTableViewCell getReuseIdentifier] forIndexPath:indexPath];
+        NSString *infor = [self.profileViewModel inforForRowAtIndexPath:indexPath];
+        UIImage *image = [self.profileViewModel imageForRowAtIndexPath:indexPath];
+        [cell bindingData: infor withImage:image];
+        return cell;
+    }
+    RemindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RemindTableViewCell getReuseIdentifier] forIndexPath:indexPath];
     return cell;
 }
 

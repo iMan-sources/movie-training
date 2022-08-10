@@ -17,6 +17,7 @@
 #import "GenderView.h"
 #import "EmailView.h"
 #import "BirthdayView.h"
+
 @interface EditProfileViewController ()<EditProfileHeaderViewDelegate, AvatarViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BirthdayViewDelegate, DidDateSelectedDelegate>
 @property(strong, nonatomic) ProfileViewModel *profileViewModel;
 @property(strong, nonatomic) User *user;
@@ -38,8 +39,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     [self setup];
     [self layout];
+    
 }
 
 #pragma mark - Class Helper
@@ -73,6 +76,8 @@
         self.user = [self.profileViewModel getUser];
     }];
 }
+
+
 
 -(void) configStackView{
     self.genderView = [[GenderView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -209,7 +214,7 @@
 
 
 - (void)didBirthdayLabelTapped{
-    [self.datePickeManager showPickerViewWithViewController:self withPickerType:datePicker];
+    [self.datePickeManager showPickerViewWithPickerType: datePicker];
     self.datePickeManager.delegate = self;
 }
 

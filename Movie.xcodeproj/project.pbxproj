@@ -63,6 +63,11 @@
 		3759B7AA28A24E59000F2D2A /* DatePickerActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3759B7A928A24E59000F2D2A /* DatePickerActionTableViewCell.m */; };
 		3759B7AD28A25C77000F2D2A /* ActionFooterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3759B7AC28A25C77000F2D2A /* ActionFooterTableViewCell.m */; };
 		3759B7AF28A25DEA000F2D2A /* ActionFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3759B7AE28A25DEA000F2D2A /* ActionFooterTableViewCell.xib */; };
+		375B936128A39ED100432807 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375B936028A39ED100432807 /* UserNotifications.framework */; };
+		375B936C28A3B1DB00432807 /* Reminder+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 375B936A28A3B1DB00432807 /* Reminder+CoreDataClass.m */; };
+		375B936D28A3B1DB00432807 /* Reminder+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 375B936B28A3B1DB00432807 /* Reminder+CoreDataProperties.m */; };
+		375B937128A3BCB300432807 /* RemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 375B936F28A3BCB300432807 /* RemindTableViewCell.m */; };
+		375B937228A3BCB300432807 /* RemindTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 375B937028A3BCB300432807 /* RemindTableViewCell.xib */; };
 		37747C892890E16F000E82E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37747C882890E16F000E82E5 /* AppDelegate.m */; };
 		37747C8C2890E16F000E82E5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37747C8B2890E16F000E82E5 /* SceneDelegate.m */; };
 		37747C972890E172000E82E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37747C962890E172000E82E5 /* Assets.xcassets */; };
@@ -222,6 +227,14 @@
 		3759B7AB28A25C77000F2D2A /* ActionFooterTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionFooterTableViewCell.h; sourceTree = "<group>"; };
 		3759B7AC28A25C77000F2D2A /* ActionFooterTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionFooterTableViewCell.m; sourceTree = "<group>"; };
 		3759B7AE28A25DEA000F2D2A /* ActionFooterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionFooterTableViewCell.xib; sourceTree = "<group>"; };
+		375B936028A39ED100432807 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		375B936828A3B1DB00432807 /* Reminder+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Reminder+CoreDataProperties.h"; sourceTree = "<group>"; };
+		375B936928A3B1DB00432807 /* Reminder+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Reminder+CoreDataClass.h"; sourceTree = "<group>"; };
+		375B936A28A3B1DB00432807 /* Reminder+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Reminder+CoreDataClass.m"; sourceTree = "<group>"; };
+		375B936B28A3B1DB00432807 /* Reminder+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Reminder+CoreDataProperties.m"; sourceTree = "<group>"; };
+		375B936E28A3BCB300432807 /* RemindTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindTableViewCell.h; sourceTree = "<group>"; };
+		375B936F28A3BCB300432807 /* RemindTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindTableViewCell.m; sourceTree = "<group>"; };
+		375B937028A3BCB300432807 /* RemindTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemindTableViewCell.xib; sourceTree = "<group>"; };
 		37747C842890E16F000E82E5 /* Movie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37747C872890E16F000E82E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		37747C882890E16F000E82E5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -289,6 +302,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375B936128A39ED100432807 /* UserNotifications.framework in Frameworks */,
 				A4254FE13168A8EE2FA10955 /* Pods_Movie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,9 +543,8 @@
 			children = (
 				3779805D289BBD5100F5B19A /* Footer Cell */,
 				37235F7F289B62EC00125AE8 /* Header Cell */,
-				37235F84289B6A0000125AE8 /* ProfileTableViewCell.h */,
-				37235F85289B6A0000125AE8 /* ProfileTableViewCell.m */,
-				37235F86289B6A0000125AE8 /* ProfileTableViewCell.xib */,
+				375B937328A3BCBA00432807 /* Profile */,
+				375B937428A3BCC900432807 /* Remind */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -667,11 +680,9 @@
 		3759B7A728A24E12000F2D2A /* ActionCell */ = {
 			isa = PBXGroup;
 			children = (
-				3759B7A828A24E59000F2D2A /* DatePickerActionTableViewCell.h */,
-				3759B7A928A24E59000F2D2A /* DatePickerActionTableViewCell.m */,
+				375B935F28A39A7900432807 /* Date&Time Picker Cell */,
 				3759B7B028A26AE3000F2D2A /* Footer Cell */,
-				0F8254CC28A296A400B048C0 /* YearPickerActionTableViewCell.h */,
-				0F8254CD28A296A400B048C0 /* YearPickerActionTableViewCell.m */,
+				375B935E28A39A6D00432807 /* Year Picker Cell */,
 			);
 			path = ActionCell;
 			sourceTree = "<group>";
@@ -684,6 +695,44 @@
 				3759B7AE28A25DEA000F2D2A /* ActionFooterTableViewCell.xib */,
 			);
 			path = "Footer Cell";
+			sourceTree = "<group>";
+		};
+		375B935E28A39A6D00432807 /* Year Picker Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0F8254CC28A296A400B048C0 /* YearPickerActionTableViewCell.h */,
+				0F8254CD28A296A400B048C0 /* YearPickerActionTableViewCell.m */,
+			);
+			path = "Year Picker Cell";
+			sourceTree = "<group>";
+		};
+		375B935F28A39A7900432807 /* Date&Time Picker Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3759B7A828A24E59000F2D2A /* DatePickerActionTableViewCell.h */,
+				3759B7A928A24E59000F2D2A /* DatePickerActionTableViewCell.m */,
+			);
+			path = "Date&Time Picker Cell";
+			sourceTree = "<group>";
+		};
+		375B937328A3BCBA00432807 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				37235F84289B6A0000125AE8 /* ProfileTableViewCell.h */,
+				37235F85289B6A0000125AE8 /* ProfileTableViewCell.m */,
+				37235F86289B6A0000125AE8 /* ProfileTableViewCell.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		375B937428A3BCC900432807 /* Remind */ = {
+			isa = PBXGroup;
+			children = (
+				375B936E28A3BCB300432807 /* RemindTableViewCell.h */,
+				375B936F28A3BCB300432807 /* RemindTableViewCell.m */,
+				375B937028A3BCB300432807 /* RemindTableViewCell.xib */,
+			);
+			path = Remind;
 			sourceTree = "<group>";
 		};
 		37747C7B2890E16F000E82E5 = {
@@ -866,6 +915,10 @@
 		37747CCE2890E427000E82E5 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				375B936828A3B1DB00432807 /* Reminder+CoreDataProperties.h */,
+				375B936928A3B1DB00432807 /* Reminder+CoreDataClass.h */,
+				375B936A28A3B1DB00432807 /* Reminder+CoreDataClass.m */,
+				375B936B28A3B1DB00432807 /* Reminder+CoreDataProperties.m */,
 				372EAE3B2898D5DF00D956D6 /* MovieCD+CoreDataProperties.h */,
 				372EAE3C2898D5DF00D956D6 /* MovieCD+CoreDataClass.h */,
 				372EAE3D2898D5DF00D956D6 /* MovieCD+CoreDataClass.m */,
@@ -996,6 +1049,7 @@
 		413F35BAA3394C948124DC1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				375B936028A39ED100432807 /* UserNotifications.framework */,
 				7D696FEE72D78AB4414A4DD0 /* Pods_Movie.framework */,
 				3852F0AC961FBDB32B9EADBE /* Pods_Movie_MovieUITests.framework */,
 				8858018AA3789E4C17519CD5 /* Pods_MovieTests.framework */,
@@ -1125,6 +1179,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375B937228A3BCB300432807 /* RemindTableViewCell.xib in Resources */,
 				0F62E2E92894304D006ED111 /* LaunchScreen.storyboard in Resources */,
 				0F8254C4289E19FF00B048C0 /* GenderView.xib in Resources */,
 				3759B7AF28A25DEA000F2D2A /* ActionFooterTableViewCell.xib in Resources */,
@@ -1294,6 +1349,7 @@
 				37747CD72890E725000E82E5 /* UIViewController+Extensions.m in Sources */,
 				377A3839289236E800141288 /* MoviesViewController.m in Sources */,
 				37747CE02890EC6F000E82E5 /* ViewControllerIdentifiers.m in Sources */,
+				375B936C28A3B1DB00432807 /* Reminder+CoreDataClass.m in Sources */,
 				372EAE3F2898D5DF00D956D6 /* MovieCD+CoreDataClass.m in Sources */,
 				373B71CE2893E18300E5732B /* Configs.m in Sources */,
 				373B71CB2893E17300E5732B /* BaseError.m in Sources */,
@@ -1316,6 +1372,7 @@
 				37235F82289B641100125AE8 /* HeaderProfileTableViewCell.m in Sources */,
 				0FF35D9F28943D7900F6521E /* MoviesViewModel.m in Sources */,
 				377A38332892368900141288 /* MovieGridViewController.m in Sources */,
+				375B936D28A3B1DB00432807 /* Reminder+CoreDataProperties.m in Sources */,
 				371CD52A28A0E7C50079F7A7 /* SettingsRateConditionTableViewCell.m in Sources */,
 				372EAE402898D5DF00D956D6 /* MovieCD+CoreDataProperties.m in Sources */,
 				0F8254BB289E13E600B048C0 /* EmailView.m in Sources */,
@@ -1324,6 +1381,7 @@
 				373C666828976C7600B5F55B /* UIView+Extensions.m in Sources */,
 				37747CD12890E4DA000E82E5 /* ProfileViewController.m in Sources */,
 				370D4C75289131060040CE38 /* Images.m in Sources */,
+				375B937128A3BCB300432807 /* RemindTableViewCell.m in Sources */,
 				37747C8C2890E16F000E82E5 /* SceneDelegate.m in Sources */,
 				373B71D12893E19300E5732B /* NetworkManager.m in Sources */,
 				371CD52528A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m in Sources */,
