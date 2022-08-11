@@ -88,7 +88,6 @@
     self.mainStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.birthdayView, self.emailView, self.genderView]];
     self.mainStackView.axis = UILayoutConstraintAxisVertical;
     self.mainStackView.translatesAutoresizingMaskIntoConstraints = false;
-    self.mainStackView.alignment = UIStackViewAlignmentLeading;
     self.mainStackView.spacing = 12;
     
     [self.genderView bindingData:[self.user getGender]];

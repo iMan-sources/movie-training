@@ -75,10 +75,6 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didAvatarImageViewTapped:)];
     [self.avatarImageView addGestureRecognizer:tapGesture];
     self.nameTextfield.autocorrectionType = UITextAutocorrectionTypeNo;
-    UITextInputAssistantItem* shortcut = [self.nameTextfield inputAssistantItem];
-    shortcut.leadingBarButtonGroups = @[];
-    shortcut.trailingBarButtonGroups = @[];
-
     
 }
 

@@ -38,6 +38,7 @@
 -(void) fetchRemindersInCoreDataWithSuccess: (void(^)(void)) completion withError: (void(^)(NSError *)) errorCompletion{
     dispatch_group_t group = dispatch_group_create();
     
+    [self.reminderMovies removeAllObjects];
     
     [self.coreDataManager fetchReminderWithSuccess:^(NSArray<Reminder *> * _Nonnull reminders) {
         [reminders enumerateObjectsUsingBlock:^(Reminder * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

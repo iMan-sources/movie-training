@@ -11,12 +11,16 @@
 #import "AlertManager.h"
 #import "NotificationNames.h"
 #import "UIViewController+Extensions.h"
+#import "ViewControllerIdentifiers.h"
+#import "MovieDetailViewController.h"
+#import "Storyboard.h"
 
 @interface FavoritesViewController ()<UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating>
 @property (weak, nonatomic) IBOutlet UITableView *favoritesTableView;
 @property (strong, nonatomic) UISearchController *searchController;
 @property(strong, nonatomic) FavoritesViewModel *favoritesViewModel;
 @property(strong, nonatomic) id<AlertManagerDelegate> alertManager;
+@property (nonatomic) UIStoryboard *story;
 @end
 
 @implementation FavoritesViewController
@@ -31,12 +35,6 @@
     
     [self fetchFavoriteMovies];
     
-  
-//    [self.favoritesViewModel deleteAllMoviesFromCoreDataWithSuccess:^{
-//
-//    } withError:^(NSError * _Nonnull) {
-//
-//    }];
 }
 
 
@@ -58,6 +56,9 @@
 
 #pragma mark - Helper
 -(void) setup{
+    
+    [self configStoryboard];
+    
     [self configViewModel];
 
     [self configFavoritesTableView];
@@ -65,7 +66,9 @@
     [self configAlertController];
    
 }
-
+-(void) configStoryboard{
+    self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
+}
 -(void) configAlertController{
     self.alertManager = [[AlertManager alloc] init];
 }
@@ -187,6 +190,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //move vc to detail
+    NSString *movieDetailIdentifier = [ViewControllerIdentifiers getMovieDetailVCIdentifier];
+    MovieDetailViewController *movieDetailVC = [self.story instantiateViewControllerWithIdentifier: movieDetailIdentifier];
+    Movie *movie = [self.favoritesViewModel cellForRowAtIndexPath:indexPath];
+    [movieDetailVC loadMovieData:movie];
+    
+    [self.navigationController pushViewController:movieDetailVC animated:true];
 }
 
 

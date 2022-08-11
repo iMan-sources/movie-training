@@ -39,6 +39,7 @@
 #pragma mark - Helper
 - (void)bindingLabelButton:(NSString *)label{
     [self.footerButton setTitle:label forState:UIControlStateNormal];
+    self.footerButton.layer.cornerRadius = 10;
 }
 
 -(void) configFooterButton{

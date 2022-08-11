@@ -78,10 +78,15 @@
     [[NSBundle mainBundle] loadNibNamed:@"MovieDetailView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
-    
-    [self.reminderButton addTarget:self action:@selector(didReminderTapped:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self.reminderLabel setHidden:YES];
+    [self configReminderButton];
+
+}
+
+-(void) configReminderButton{
+    [self.reminderButton addTarget:self action:@selector(didReminderTapped:) forControlEvents:UIControlEventTouchUpInside];
+    self.reminderButton.layer.cornerRadius = 10;
+    
 }
 
 -(NSString *) generatingSpaceWhenOverviewEmptyWithOverview: (NSString *) overview{
