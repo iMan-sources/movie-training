@@ -45,6 +45,16 @@
     successCompletion(arrayMovies);
 }
 
+- (void)parserMovie:(NSDictionary *)dict withSuccess:(void (^)(Movie * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+    Movie *movie= [self initializeMovieObj:dict];
+    NSError *error = nil;
+    //handle nil error
+    if (!movie) {
+        errorCompletion(error);
+    }
+    successCompletion(movie);
+}
+
 
 #pragma mark - ParserCreditsMovieProtocol
 

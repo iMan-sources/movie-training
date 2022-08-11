@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="contentOverviewLabel" destination="aHv-We-38g" id="8dg-bk-goi"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="gMl-Py-vV2"/>
+                <outlet property="likeButton" destination="J7z-pX-nQY" id="TIn-jx-iWU"/>
                 <outlet property="posterImageView" destination="xhv-V6-hUb" id="hMq-QV-TDc"/>
                 <outlet property="ratingLabel" destination="oAb-GA-eMr" id="3HV-g4-Nvf"/>
                 <outlet property="releaseLabel" destination="79t-G2-ztp" id="UG3-Cu-PZi"/>

@@ -40,7 +40,17 @@
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0), ^{
         [weakSelf.networkManager fetchMoviesWithSuccess:page withSuccess:networkResponse error:errorCompletion];
     });
+}
+
+- (void)fetchMovieWithID:(NSInteger)movieID withSuccess:(void (^)(Movie * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+    __weak Fetcher *weakSelf = self;
+    void(^networkResponse)(NSDictionary *) = ^(NSDictionary *dict){
+        [weakSelf.popularMoviesParser parserMovie:dict withSuccess:successCompletion withError:errorCompletion];
+    };
     
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND,0), ^{
+        [weakSelf.networkManager searchMovieById:movieID withSuccess:networkResponse error:errorCompletion];
+    });
 }
 
 #pragma mark - ParserCreditsMovieProtocol

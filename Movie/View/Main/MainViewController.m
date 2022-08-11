@@ -14,7 +14,8 @@
 #import "MovieListViewController.h"
 #import "NotificationNames.h"
 #import "EditProfileViewController.h"
-
+#import "RemindersViewController.h"
+#import "SettingsViewController.h"
 typedef NS_ENUM(NSInteger, SideMenuStatus){
     state_close,
     state_open
@@ -33,6 +34,8 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
 @property (nonatomic) UIStoryboard *story;
 @property (nonatomic) SideMenuStatus sideMenuStatus;
 @property(nonatomic) NSInteger slideMenuPadding;
+@property (strong, nonatomic) UIWindow *window;
+
 @end
 
 
@@ -93,7 +96,6 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
 
 -(void) handleSlideMenuWhenPushVC{
     //hide the profile VC
-    NSLog(@"send post");
     if (self.sideMenuStatus == state_open) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SideMenuNotification object:nil];
     }
@@ -123,7 +125,22 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
         [ self handleSlideMenuWhenPushVC];
         return;
     }
+    RemindersViewController *reminderVC = [[RemindersViewController alloc] initWithNibName:[RemindersViewController getNibName] bundle:nil];
+
+//    SettingsViewController *settingsVC = (SettingsViewController *) [self.tabBarViewController.tabBarController.viewControllers objectAtIndex:3];
+
+    UIScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
     
+    if([scene.delegate conformsToProtocol:@protocol(UIWindowSceneDelegate)]){
+        self.window = [(id <UIWindowSceneDelegate>)scene.delegate window];
+    }
+    UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
+
+    [self.tabBarViewController.tabBarController setSelectedIndex:2];
+    SettingsViewController * settingsVC = [navController.viewControllers objectAtIndex:0];
+    [settingsVC.navigationController pushViewController:reminderVC animated:YES];
+
+    [self handleSlideMenuWhenPushVC];
     
 }
 

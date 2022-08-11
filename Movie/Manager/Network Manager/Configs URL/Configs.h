@@ -17,8 +17,7 @@ static NSString * const TopRatedPath = @"top_rated";
 static NSString * const UpComingPath = @"upcoming";
 static NSString * const NowComingPath = @"now_playing";
 static NSString * const ImageBaseDomain = @"https://image.tmdb.org/t/p/w200";
-
-
+static NSString * const AboutURL = @"https://www.themoviedb.org/about";
 @interface Configs : NSObject
 @end
 

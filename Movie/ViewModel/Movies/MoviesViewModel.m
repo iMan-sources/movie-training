@@ -105,7 +105,6 @@ static NSInteger const itemsInPage = 20;
 #pragma mark - TableView
 - (NSInteger)numberOfRowsInSection:(NSInteger)section{
     NSInteger rows = self.isFiltered ? self.filteredArray.count : self.movies.count;
-    NSLog(@"%ld rows", rows);
     return rows;
 }
 

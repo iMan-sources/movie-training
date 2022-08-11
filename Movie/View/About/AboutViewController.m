@@ -6,27 +6,37 @@
 //
 
 #import "AboutViewController.h"
-
+#import "WebKit/WebKit.h"
+#import "Configs.h"
 @interface AboutViewController ()
+@property (weak, nonatomic) IBOutlet WKWebView *wkWebView;
 
 @end
 
 @implementation AboutViewController
 
+#pragma mark - Lifecycle;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"About";
+    [self setup];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Helper
+-(void) setup{
+    [self loadWebView];
 }
-*/
+-(void) loadWebView{
+    NSURL *aboutURL = [NSURL URLWithString:AboutURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL: aboutURL];
+    [self.wkWebView loadRequest:request];
+    
+}
+
+
+
+
 
 @end

@@ -46,6 +46,29 @@
     successCompletion(nil);
 }
 
+-(void) filterReminderWithMovieIDWithSuccess: (NSInteger)movieID withSuccess: (void(^)(Reminder *))successCompletion withError: (void(^)(NSError *)) errorCompletion{
+    NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:@"Reminder"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"movieID == %d", movieID];
+    req.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray<Reminder *> *reminders = [self.context executeFetchRequest:req error: &error];
+    if (error != nil) {
+        errorCompletion(error);
+        return;
+    }
+//    [reminders enumerateObjectsUsingBlock:^(Reminder * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        NSLog(@"%@", obj.time);
+//    }];
+    
+    if (reminders.count > 0) {
+        successCompletion(reminders[0]);
+        return;
+    }
+    
+    successCompletion(nil);
+    
+}
 -(void) filterMovieWithName: (NSString *)movieName withSuccess: (void(^)(NSArray<MovieCD *> *)) successCompletion withError: (void(^)(NSError *)) errorCompletion{
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:@"MovieCD"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN title", movieName];
@@ -72,6 +95,19 @@
         errorCompletion(error);
     }];
 }
+- (void)checkIfMovieHaveReminder:(Movie *)movie withSuccess:(void (^)(NSDate * _Nullable))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+    NSInteger movieID = [movie getID];
+   
+    [self filterReminderWithMovieIDWithSuccess:movieID withSuccess:^(Reminder * reminder) {
+        if (reminder != nil) {
+            NSDate *time = reminder.time;
+            NSLog(@"%@ time", time);
+            successCompletion(time);
+        }else{
+            successCompletion(nil);
+        }
+    } withError:errorCompletion];
+}
 
 #pragma mark - GET request
 
@@ -97,7 +133,6 @@
     }
     
     self.reminders = reminders;
-    
     successCompletion(reminders);
 }
 

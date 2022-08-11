@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIViewController (Extensions)
 -(void) bringVCToView: (UIViewController *)viewController withView: (UIView *) view;
 -(void) configLeftBarItemButtons;
+-(void) registerTapGestureToEndEditing;
 @end
 
 NS_ASSUME_NONNULL_END

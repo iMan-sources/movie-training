@@ -13,6 +13,8 @@
 #import "DatePickerManager.h"
 #import "NSDate+Extensions.h"
 #import "UIViewController+Extensions.h"
+#import "RemindersViewController.h"
+#import "NotificationNames.h"
 @interface SettingsViewController ()<UITableViewDelegate, UITableViewDataSource, SettingsYearsConditionTableViewCellDelegate, DidDateSelectedDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(strong, nonatomic) SettingsViewModel *settingsViewModel;
@@ -26,13 +28,32 @@
     // Do any additional setup after loading the view.
     [self configNavigationBar];
     
+//    [self registerPushToSettingsVCNotification];
+
     [self setup];
     
+    
+    
+}
+#pragma mark - Navigation
+- (void)registerPushToSettingsVCNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToSettingsVC:) name:PushToSettingsVCNotification object:nil];
+
+}
+
+
+#pragma mark - Action
+-(void) pushToSettingsVC: (NSNotification *) sender{
+    RemindersViewController *reminderVC = [[RemindersViewController alloc] initWithNibName:[RemindersViewController getNibName] bundle:nil];
+    
+    [self.navigationController pushViewController:reminderVC animated:YES];
 }
 #pragma mark - Helper
 
 -(void) configNavigationBar{
     self.navigationItem.title = @"Settings";
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
     [self configLeftBarItemButtons];
 }
 

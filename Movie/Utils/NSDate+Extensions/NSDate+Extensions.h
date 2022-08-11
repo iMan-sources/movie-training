@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSDate (Extensions)
 -(NSString *) convertDateToString;
 -(NSString *) convertYearToString;
+-(NSString *) convertyyyyMMddHHMMToString;
 -(BOOL) isLaterThanOrEqualTo:(NSDate*)date;
 
 -(BOOL) isEarlierThanOrEqualTo:(NSDate*)date;

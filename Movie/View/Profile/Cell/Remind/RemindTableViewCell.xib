@@ -19,7 +19,7 @@
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="W8W-Qt-Pf0">
                         <rect key="frame" x="4" y="4" width="312" height="70"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star_filled" translatesAutoresizingMaskIntoConstraints="NO" id="7QL-tD-Axq">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7QL-tD-Axq">
                                 <rect key="frame" x="0.0" y="11" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="0eY-bh-KBL"/>
@@ -27,17 +27,17 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="80c-7Z-UCK">
-                                <rect key="frame" x="60" y="14.5" width="252" height="41"/>
+                                <rect key="frame" x="60" y="17" width="252" height="36"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aant Man" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHj-c7-r1W">
-                                        <rect key="frame" x="0.0" y="0.0" width="252" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="252" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12/1/2002" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGP-DL-PIl">
-                                        <rect key="frame" x="0.0" y="20.5" width="252" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="18" width="252" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -62,7 +62,4 @@
             <point key="canvasLocation" x="131.8840579710145" y="95.758928571428569"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="star_filled" width="22" height="22"/>
-    </resources>
 </document>

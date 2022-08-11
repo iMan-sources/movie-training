@@ -95,6 +95,9 @@
 		377A38432892850000141288 /* MovieGridViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 377A38412892850000141288 /* MovieGridViewCell.xib */; };
 		377B18FC2897D3280004E707 /* FavoritesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 377B18FB2897D3280004E707 /* FavoritesViewModel.m */; };
 		37BE81EF289CFAFD004F54A6 /* EditProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BE81EE289CFAFD004F54A6 /* EditProfileHeaderView.m */; };
+		37E93A0A28A4B17200165A6C /* ReminderMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E93A0928A4B17200165A6C /* ReminderMovie.m */; };
+		37E93A0F28A4B59600165A6C /* RemindersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E93A0D28A4B59600165A6C /* RemindersViewController.m */; };
+		37E93A1028A4B59600165A6C /* RemindersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E93A0E28A4B59600165A6C /* RemindersViewController.xib */; };
 		37FB8ED328929A7800FE5441 /* MovieDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8ED228929A7800FE5441 /* MovieDetailViewController.m */; };
 		37FB8ED528929B9400FE5441 /* MovieDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FB8ED428929B9400FE5441 /* MovieDetailView.xib */; };
 		37FB8ED92892A3B500FE5441 /* MovieDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8ED82892A3B500FE5441 /* MovieDetailView.m */; };
@@ -285,6 +288,11 @@
 		377B18FB2897D3280004E707 /* FavoritesViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewModel.m; sourceTree = "<group>"; };
 		37BE81ED289CFAFD004F54A6 /* EditProfileHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileHeaderView.h; sourceTree = "<group>"; };
 		37BE81EE289CFAFD004F54A6 /* EditProfileHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileHeaderView.m; sourceTree = "<group>"; };
+		37E93A0828A4B17200165A6C /* ReminderMovie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderMovie.h; sourceTree = "<group>"; };
+		37E93A0928A4B17200165A6C /* ReminderMovie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderMovie.m; sourceTree = "<group>"; };
+		37E93A0C28A4B59600165A6C /* RemindersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemindersViewController.h; sourceTree = "<group>"; };
+		37E93A0D28A4B59600165A6C /* RemindersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemindersViewController.m; sourceTree = "<group>"; };
+		37E93A0E28A4B59600165A6C /* RemindersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemindersViewController.xib; sourceTree = "<group>"; };
 		37FB8ED128929A7800FE5441 /* MovieDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailViewController.h; sourceTree = "<group>"; };
 		37FB8ED228929A7800FE5441 /* MovieDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDetailViewController.m; sourceTree = "<group>"; };
 		37FB8ED428929B9400FE5441 /* MovieDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieDetailView.xib; sourceTree = "<group>"; };
@@ -576,8 +584,8 @@
 		37235F8A289B6E1000125AE8 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				37235F8B289B6E2600125AE8 /* User.h */,
 				37235F8C289B6E2600125AE8 /* User.m */,
+				37235F8B289B6E2600125AE8 /* User.h */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -819,6 +827,7 @@
 		37747CC02890E19D000E82E5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				37E93A0B28A4B57100165A6C /* All Reminders */,
 				0F8254A7289BFA0400B048C0 /* Edit Profile  */,
 				37FB8ED028929A4900FE5441 /* Movie Detail */,
 				37747CCA2890E3D3000E82E5 /* Main */,
@@ -835,6 +844,7 @@
 		37747CC12890E1A6000E82E5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				37E93A0728A4B14B00165A6C /* Reminder */,
 				37235F8A289B6E1000125AE8 /* Profile */,
 				37235F89289B6E0500125AE8 /* Movie */,
 				37747CCE2890E427000E82E5 /* Core Data */,
@@ -1038,6 +1048,25 @@
 			path = UserDefaults;
 			sourceTree = "<group>";
 		};
+		37E93A0728A4B14B00165A6C /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				37E93A0828A4B17200165A6C /* ReminderMovie.h */,
+				37E93A0928A4B17200165A6C /* ReminderMovie.m */,
+			);
+			path = Reminder;
+			sourceTree = "<group>";
+		};
+		37E93A0B28A4B57100165A6C /* All Reminders */ = {
+			isa = PBXGroup;
+			children = (
+				37E93A0C28A4B59600165A6C /* RemindersViewController.h */,
+				37E93A0D28A4B59600165A6C /* RemindersViewController.m */,
+				37E93A0E28A4B59600165A6C /* RemindersViewController.xib */,
+			);
+			path = "All Reminders";
+			sourceTree = "<group>";
+		};
 		37FB8ED028929A4900FE5441 /* Movie Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1204,6 +1233,7 @@
 				37747C972890E172000E82E5 /* Assets.xcassets in Resources */,
 				37235F7B289B5FD300125AE8 /* AvatarView.xib in Resources */,
 				37FB8ED528929B9400FE5441 /* MovieDetailView.xib in Resources */,
+				37E93A1028A4B59600165A6C /* RemindersViewController.xib in Resources */,
 				370D4C7E28913C8D0040CE38 /* MovieListViewCell.xib in Resources */,
 				373B71C62893B87000E5732B /* CastCollectionViewCell.xib in Resources */,
 				377A383E2892619800141288 /* MovieListViewController.xib in Resources */,
@@ -1376,6 +1406,7 @@
 				37FB8ED328929A7800FE5441 /* MovieDetailViewController.m in Sources */,
 				37BE81EF289CFAFD004F54A6 /* EditProfileHeaderView.m in Sources */,
 				3731E19A289A0F5C0037CD76 /* NotificationNames.m in Sources */,
+				37E93A0F28A4B59600165A6C /* RemindersViewController.m in Sources */,
 				0F8254CE28A296A400B048C0 /* YearPickerActionTableViewCell.m in Sources */,
 				0FF35D9C2894384000F6521E /* Parser.m in Sources */,
 				0F8254C7289E1A1C00B048C0 /* GenderView.m in Sources */,
@@ -1400,6 +1431,7 @@
 				373B71D12893E19300E5732B /* NetworkManager.m in Sources */,
 				371CD52528A0E29D0079F7A7 /* SettingsYearsConditionTableViewCell.m in Sources */,
 				0F8254AB289BFA3500B048C0 /* EditProfileViewController.m in Sources */,
+				37E93A0A28A4B17200165A6C /* ReminderMovie.m in Sources */,
 				0FF35DA528952ABB00F6521E /* Fetcher.m in Sources */,
 				3759B7AA28A24E59000F2D2A /* DatePickerActionTableViewCell.m in Sources */,
 				373B71D72893E60B00E5732B /* Movie.m in Sources */,

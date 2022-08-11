@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)fetchMoviesWithPage: (NSInteger)page withSucess: (void(^)(NSArray<Movie *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
 
+-(void) fetchMovieWithID: (NSInteger) movieID withSuccess: (void(^)(Movie *)) successCompletion withError: (void(^)(NSError *)) errorCompletion;
+
 @end
 
 @protocol FetcherCreditsMovieProtocol <NSObject>

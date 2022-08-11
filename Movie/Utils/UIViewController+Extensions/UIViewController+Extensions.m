@@ -28,10 +28,22 @@
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 
+-(void) registerTapGestureToEndEditing{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didViewTapped:)];
+    [tapGesture setCancelsTouchesInView:YES];
+    [self.view addGestureRecognizer:tapGesture];
+}
+
+#pragma mark - Action
 -(void) didSideButtonTapped: (UIButton *) sender{
     NSLog(@"🛑 didSideButtonTapped");
     //post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:SideMenuNotification object:nil];
+}
+
+-(void) didViewTapped: (UITapGestureRecognizer *) sender{
+    [self.view endEditing:YES];
+    [self.view resignFirstResponder];
 }
 
 

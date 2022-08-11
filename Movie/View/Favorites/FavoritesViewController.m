@@ -49,13 +49,10 @@
 #pragma mark - API
 
 -(void) didLikeButtonTappedInMovieListVC: (NSNotification *) sender{
-    NSLog(@"DEBUG: didLikeButtonTappedInMovieListVC");
     [self fetchFavoriteMovies];
 }
 
 -(void) didDeleteButtonTappedInMovieListVC: (NSNotification *) sender{
-    NSLog(@"DEBUG: didUnlikeButtonTappedInMovieListVC");
-
     [self fetchFavoriteMovies];
 }
 
@@ -145,6 +142,8 @@
     Movie *movie = [self.favoritesViewModel cellForRowAtIndexPath:indexPath];
     
     [favoriteCell changeImageButtonByFavorite:YES];
+    [favoriteCell setLikeButtonUserInteract:NO];
+    
     [favoriteCell bindingData:movie];
     
     

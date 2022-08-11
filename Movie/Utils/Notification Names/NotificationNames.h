@@ -16,6 +16,10 @@ static NSString * const DidSortTypeChangedNotification = @"did_sort_type_changed
 static NSString * const DidMovieRateChangedNotification = @"did_movie_rate_slided";
 
 static NSString * const DidReleaseYearChangedNotification = @"did_release_year_changed";
+
+static NSString * const PushToSettingsVCNotification = @"push_to_settings_vc";
+
+static NSString *const DidAddReminderNotification = @"did_add_reminder_notification";
 @interface NotificationNames : NSObject
 
 @end

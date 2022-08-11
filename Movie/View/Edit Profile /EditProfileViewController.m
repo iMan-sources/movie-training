@@ -17,7 +17,7 @@
 #import "GenderView.h"
 #import "EmailView.h"
 #import "BirthdayView.h"
-
+#import "UIViewController+Extensions.h"
 @interface EditProfileViewController ()<EditProfileHeaderViewDelegate, AvatarViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BirthdayViewDelegate, DidDateSelectedDelegate>
 @property(strong, nonatomic) ProfileViewModel *profileViewModel;
 @property(strong, nonatomic) User *user;
@@ -59,6 +59,8 @@
     [self configStackView];
     
     [self configDatePickerManager];
+    
+    [self registerTapGestureToEndEditing];
 }
 
 -(void) configHeaderView{
@@ -86,6 +88,7 @@
     self.mainStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.birthdayView, self.emailView, self.genderView]];
     self.mainStackView.axis = UILayoutConstraintAxisVertical;
     self.mainStackView.translatesAutoresizingMaskIntoConstraints = false;
+    self.mainStackView.alignment = UIStackViewAlignmentLeading;
     self.mainStackView.spacing = 12;
     
     [self.genderView bindingData:[self.user getGender]];
@@ -176,42 +179,6 @@
 }
 
 #pragma mark - Datasource
-
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    NSInteger sections = [self.profileViewModel numberOfSectionsIntTableViewForEditVC];
-//    return sections;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    NSInteger rows = [self.profileViewModel numberOfRowsInSectionForEditVC:section];
-//    return rows;
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    EditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[EditTableViewCell getReuseIdentifier] forIndexPath:indexPath];
-//    InforProfileType type = [self.profileViewModel inforProfileTypeForIndexPath:indexPath];
-//
-//    if (type == birthday) {
-//        cell.delegate = self;
-//    }
-//
-//    UIImage *image = [self.profileViewModel imageForRowAtIndexPath:indexPath];
-//    [cell bindingData:self.user withInforType:type withImage:image];
-//    return cell;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    EditProfileHeaderTableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[EditProfileHeaderTableViewCell getReuseIdentifier]];
-//    cell.delegate = self;
-//    //binding avatar view
-//    cell.avatarView.delegate = self;
-//
-//    [cell bindingData:self.user];
-//
-//    return cell;
-//}
-//
-
 
 - (void)didBirthdayLabelTapped{
     [self.datePickeManager showPickerViewWithPickerType: datePicker];

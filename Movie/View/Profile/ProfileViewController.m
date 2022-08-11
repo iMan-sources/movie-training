@@ -15,20 +15,23 @@
 #import "ProfileViewModel.h"
 #import "User.h"
 #import "UserDefaultsNames.h"
+#import "ReminderViewModel.h"
+#import "NotificationNames.h"
 @interface ProfileViewController()<UITableViewDelegate, UITableViewDataSource, ProfileFooterTableViewCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *profileTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileTrailingConstraint;
 @property (strong, nonatomic) ProfileViewModel *profileViewModel;
+@property (strong, nonatomic) ReminderViewModel *reminderViewModel;
 @end
 @implementation ProfileViewController
 
 #pragma mark - Lifecycle
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     if (self.profileViewModel != nil) {
         [self loadInforUser];
     }
+
 }
 
 -(User *)createUserForTest{
@@ -39,7 +42,6 @@
     
     User *user = [[User alloc] initWithName:@"Anh le" withBirthday:d withGender:@"Male" withImagePath:@"" withEmail:@"anhbeo.jacky@gmail.com"];
     return user;
-    
 }
 
 
@@ -47,23 +49,44 @@
     [super viewDidLoad];
     [self setup];
     [self layout];
+    [self loadReminderMovies];
+    [self registerDidAddReminderNotification];
 }
 
 
 #pragma mark - Action
+-(void) didAddNewReminderMovie: (NSNotification *) sender{
+    [self loadReminderMovies];
 
+}
 #pragma mark - Helper
-
+-(void) registerDidAddReminderNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddNewReminderMovie:) name:DidAddReminderNotification object:nil];
+}
 -(void) setup{
     [self configProfileViewModel];
     [self configProfileTableView];
-//    [self.profileViewModel saveUserInUserDefault:[self createUserForTest] withKey:UserInforNameDefaults];
+    [self configReminderViewModel];
+    
+}
+
+-(void) configReminderViewModel{
+    self.reminderViewModel = [[ReminderViewModel alloc] init];
 }
 
 -(void) loadInforUser{
     [self.profileViewModel loadUserFromUserDefaultWithKey:UserInforNameDefaults completionHandler:^{
         
         [self.profileTableView reloadData];
+    }];
+}
+
+-(void) loadReminderMovies{
+    [self.reminderViewModel fetchRemindersInCoreDataWithSuccess:^{
+        [self.profileTableView reloadData];
+        
+    } withError:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error);
     }];
 }
 
@@ -109,8 +132,18 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSInteger rows = [self.profileViewModel numberOfRowsInSection:section];
+    NSInteger rows = 0;
+    if (section == infor_profile) {
+         rows = [self.profileViewModel numberOfRowsInSection:section];
+        return rows;
+    }
+    
+    rows = [self.reminderViewModel numberOfRowsInSection:section];
+    if (rows > 2) {
+        return 2;
+    }
     return rows;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -122,7 +155,8 @@
         return cell;
     }
     RemindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RemindTableViewCell getReuseIdentifier] forIndexPath:indexPath];
-    
+    ReminderMovie *reminderMovie = [self.reminderViewModel cellForRowAtIndexPath:indexPath];
+    [cell bindingData:reminderMovie];
     return cell;
 }
 
@@ -145,7 +179,7 @@
         [footerCell setButtonTag:0];
         return footerCell;
     }
-    if ([self.profileViewModel checkIfHaveReminderList]) {
+    if ([self.reminderViewModel checkIfHaveReminderList]) {
         [footerCell bindingLabelButton:@"Show All"];
         [footerCell setButtonTag:1];
         return footerCell;

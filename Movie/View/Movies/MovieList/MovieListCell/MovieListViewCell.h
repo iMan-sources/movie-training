@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void) changeImageButtonByFavorite: (BOOL) isFavorited;
 
+-(void) setLikeButtonUserInteract: (BOOL) isInteract;
+
 @property(weak, nonatomic) id<MovieListViewCellDelegate> delegate;
 
 -(Movie *) getMovie;

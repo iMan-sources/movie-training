@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) fetchMoviesWithSuccess: (NSInteger) page withSuccess: (void(^)(NSDictionary *)) successCompletion error: (void(^)(NSError *error)) errorCompletion;
 
 -(void) fetchCreditsMovieWithSuccess: (NSInteger)movieId withSuccess: (void(^)(NSDictionary *)) successCompletion error: (void(^)(NSError * error)) errorCompletion;
-
+-(void) searchMovieById: (NSInteger) movieID withSuccess: (void(^)(NSDictionary *)) successCompletion error: (void(^)(NSError *)) errorCompletion;
 @end
 
 NS_ASSUME_NONNULL_END

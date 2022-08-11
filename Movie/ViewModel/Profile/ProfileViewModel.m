@@ -9,13 +9,14 @@
 #import "NSDate+Extensions.h"
 #import "Images.h"
 #import "CoreDataManager.h"
+
 const int SectionProfileTypeCount = reminderList - infor_profile + 1;
 const int InforProfileTypeCount = (gender - birthday + 1);
 
 @interface ProfileViewModel()
 @property(strong, nonatomic) User *user;
 @property(strong, nonatomic) NSArray<Reminder *> *reminderList;
-@property(strong, nonatomic) CoreDataManager *coreDataManager;
+@property(strong, nonatomic) NSMutableArray<Movie *> *reminderMovies;
 @end
 @implementation ProfileViewModel
 
@@ -23,21 +24,13 @@ const int InforProfileTypeCount = (gender - birthday + 1);
 {
     self = [super init];
     if (self) {
-        [self configCoreDataManager];
+        
     }
     return self;
 }
 
 #pragma mark - Helper
--(void) configCoreDataManager{
-    self.coreDataManager = [[CoreDataManager alloc] init];
-    [self.coreDataManager fetchReminderWithSuccess:^(NSArray<Reminder *> * _Nonnull reminders) {
-        self.reminderList = reminders;
-        NSLog(@"%ld remind", self.reminderList.count);
-    } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
-    }];
-}
+
 -(void) saveUserInUserDefault: (User *)user withKey: (NSString *)key{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -154,24 +147,14 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     }
 }
 
-- (BOOL)checkIfHaveReminderList{
-    BOOL haveReminderList = self.reminderList.count > 0;
-    return haveReminderList;
-}
-
 #pragma mark - TableView delegate
 - (NSInteger)numberOfSectionsInTableView{
     //size of SectionProfileType enum
-    return SectionProfileTypeCount;
+    return 2;
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section{
-    if (section == 0) {
-        return InforProfileTypeCount;
-    }
-    NSInteger reminderListRows = self.reminderList.count;
-    return reminderListRows;
-    
+    return InforProfileTypeCount;
 }
 
 -(NSInteger)numberOfSectionsIntTableViewForEditVC{

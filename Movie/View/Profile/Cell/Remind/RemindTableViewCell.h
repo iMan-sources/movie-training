@@ -6,14 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Movie.h"
+#import "ReminderMovie.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RemindTableViewCell : UITableViewCell
 +(NSString *) getReuseIdentifier;
 +(NSString *) getNibName;
 
--(void) bindingData: (Movie *) movie;
+-(void) bindingData:(ReminderMovie *)reminderMovie;
 @end
 
 NS_ASSUME_NONNULL_END

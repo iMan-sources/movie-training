@@ -86,6 +86,10 @@
     [self.likeButton setImage:[Images getStarImage] forState:UIControlStateNormal];
 }
 
+- (void)setLikeButtonUserInteract:(BOOL)isInteract{
+    [self.likeButton setUserInteractionEnabled:isInteract];
+}
+
 #pragma mark - Action
 
 -(void) didLikeButtonTapped: (UIButton *) sender{

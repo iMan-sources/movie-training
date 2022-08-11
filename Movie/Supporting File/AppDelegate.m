@@ -28,6 +28,17 @@
     return YES;
 }
 
+//- (void)prepareLocalNotification
+//    {
+//    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+//    } else  {
+//        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+//    }
+//}
+
 -(void) configNavBar{
     UINavigationBarAppearance *navBarAppearance = [[UINavigationBarAppearance alloc] init];
     [navBarAppearance configureWithOpaqueBackground];

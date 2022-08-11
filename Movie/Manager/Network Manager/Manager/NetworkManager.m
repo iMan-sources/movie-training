@@ -57,7 +57,18 @@
 }
 #pragma mark - [GET]
 
-
+- (void)searchMovieById:(NSInteger)movieID withSuccess:(void (^)(NSDictionary * _Nonnull))successCompletion error:(void (^)(NSError * _Nonnull))errorCompletion{
+    NSString *url = [NSString stringWithFormat:@"%@%ld?api_key=%@",BaseDomain, (long)movieID, BaseAPI];
+    self.networkManager.requestSerializer = self.jsonSerializer;
+    [self.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    [self.networkManager GET:url parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        successCompletion(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        errorCompletion(error);
+    }];
+    
+}
 - (void)fetchMoviesWithSuccess:(NSInteger)page withSuccess:(void (^)(NSDictionary * _Nonnull))successCompletion error:(void (^)(NSError * _Nonnull))errorCompletion{
     [self routeURL];
     NSString *fullURL = [NSString stringWithFormat:@"%@&page=%ld",self.mainURL,(long)page];

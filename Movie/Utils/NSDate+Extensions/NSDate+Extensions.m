@@ -22,6 +22,12 @@
     return date;
 }
 
+-(NSString *) convertyyyyMMddHHMMToString{
+    NSDateFormatter *fomatter = [[NSDateFormatter alloc] init];
+    [fomatter setDateFormat:@"yyyy/MM/dd HH:mm"];
+    NSString *date = [fomatter stringFromDate:self];
+    return date;
+}
 -(BOOL) isLaterThanOrEqualTo:(NSDate*)date {
     return !([self compare:date] == NSOrderedAscending);
 }

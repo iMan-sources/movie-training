@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(weak, nonatomic) id<MovieDetailViewDelegate> delegate;
 
 -(void) addRemindLabel: (NSDate *) date;
+
+- (void)changeImageButtonByFavorite:(BOOL)isFavorited;
+
 @end
 
 NS_ASSUME_NONNULL_END

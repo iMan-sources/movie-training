@@ -48,6 +48,10 @@
     [[NSBundle mainBundle] loadNibNamed:@"EmailView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
+    self.emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    UITextInputAssistantItem* shortcut = [self.emailTextField inputAssistantItem];
+    shortcut.leadingBarButtonGroups = @[];
+    shortcut.trailingBarButtonGroups = @[];
 }
 #pragma mark - Instance Helper
 -(void) bindingData:(NSString *) email{

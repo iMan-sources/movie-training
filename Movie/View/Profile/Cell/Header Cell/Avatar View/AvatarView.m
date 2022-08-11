@@ -43,7 +43,6 @@
 }
 #pragma mark - Action
 -(void) didAvatarImageViewTapped: (UITapGestureRecognizer *) sender{
-    NSLog(@"did tapped from avatar view");
     [self.delegate didAvatarViewTapped];
 }
 #pragma mark - Instance Helper
@@ -75,6 +74,11 @@
     self.avatarImageView.layer.cornerRadius = self.avatarHeightContraint.constant / 2;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didAvatarImageViewTapped:)];
     [self.avatarImageView addGestureRecognizer:tapGesture];
+    self.nameTextfield.autocorrectionType = UITextAutocorrectionTypeNo;
+    UITextInputAssistantItem* shortcut = [self.nameTextfield inputAssistantItem];
+    shortcut.leadingBarButtonGroups = @[];
+    shortcut.trailingBarButtonGroups = @[];
+
     
 }
 
@@ -89,7 +93,6 @@
     //get image
     
     NSString *urlImagePath = [user getImagePath];
-    NSLog(@"%@ from avatarView", urlImagePath);
     if (urlImagePath) {
         self.imagePath = urlImagePath;
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfFile:urlImagePath]];
@@ -100,7 +103,5 @@
 }
 
 #pragma mark -Delegate
-
-
 
 @end

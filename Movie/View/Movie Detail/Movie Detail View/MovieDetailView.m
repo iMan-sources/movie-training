@@ -9,7 +9,8 @@
 #import "UIView+Extensions.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIView+Extensions.h"
-
+#import "NSDate+Extensions.h"
+#import "Images.h"
 @interface MovieDetailView()
 @property (weak, nonatomic) IBOutlet UILabel *releaseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIButton *reminderButton;
 @property (weak, nonatomic) IBOutlet UILabel *reminderLabel;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *contentOverviewLabel;
 @property (strong, nonatomic) Movie *movie;
@@ -58,7 +60,19 @@
 -(void) addRemindLabel: (NSDate *) date{
     [self.reminderLabel setHidden:NO];
     //set text
+    NSString *time = [date convertyyyyMMddHHMMToString];
+    self.reminderLabel.text = time;
+    
 }
+
+- (void)changeImageButtonByFavorite:(BOOL)isFavorited{
+    if (isFavorited) {
+        [self.likeButton setImage:[Images getFilledStar] forState:UIControlStateNormal];
+        return;
+    }
+    [self.likeButton setImage:[Images getStarImage] forState:UIControlStateNormal];
+}
+
 
 -(void) customInit{
     [[NSBundle mainBundle] loadNibNamed:@"MovieDetailView" owner:self options:nil];

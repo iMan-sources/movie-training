@@ -31,7 +31,6 @@
 #pragma mark - Action
 -(void) didFooterButtonTapped: (UIButton *)sender{
     NSInteger tag = sender.tag;
-    NSLog(@"DID BUTTON TAPPED");
     [self.delegate didFooterButtonTapped:tag];
     return;
     

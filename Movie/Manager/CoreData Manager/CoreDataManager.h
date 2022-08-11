@@ -39,6 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 //fetch all fav movies in core data
 - (void)fetchReminderWithSuccess:(void (^)(NSArray<Reminder *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion;
+
+//check if movie have reminder
+-(void)checkIfMovieHaveReminder: (Movie *) movie withSuccess: (void(^)(NSDate * _Nullable))successCompletion withError: (void (^)(NSError * _Nonnull))errorCompletion;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

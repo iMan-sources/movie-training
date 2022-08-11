@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ParserMoviesProtocol <NSObject>
 
 -(void) parserMovies: (NSDictionary *)dict withSuccess: (void(^)(NSArray<Movie *> *)) successCompletion withError: (void(^)(NSError *)) errorCompletion;
+
+-(void) parserMovie: (NSDictionary *)dict withSuccess: (void(^)(Movie *)) successCompletion withError: (void(^)(NSError *)) errorCompletion;
+
 @end
 
 @protocol ParserCreditsMovieProtocol <NSObject>

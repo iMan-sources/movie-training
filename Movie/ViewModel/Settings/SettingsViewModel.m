@@ -267,7 +267,6 @@
 
 -(int) loadReleaseYearSettingFromUserDefault{
     int releaseYear = [[self.standardUserDefaults objectForKey:ReleaseYearUserDefaults]intValue];
-    NSLog(@"%d", releaseYear);
     return releaseYear;
 }
 

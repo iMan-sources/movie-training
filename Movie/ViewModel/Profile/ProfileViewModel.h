@@ -41,8 +41,6 @@ typedef NS_ENUM(NSInteger, InforProfileType){
 
 -(NSInteger)numberOfRowsInSectionForEditVC:(NSInteger)section;
 
--(BOOL) checkIfHaveReminderList;
-
 -(InforProfileType) inforProfileTypeForIndexPath: (NSIndexPath *)indexPath;
 
 - (UIImage *)imageForRowAtIndexPath:(NSIndexPath *)indexPath;

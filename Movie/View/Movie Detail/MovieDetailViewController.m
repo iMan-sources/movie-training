@@ -12,7 +12,9 @@
 #import "DatePickerManager.h"
 #import "CoreDataManager.h"
 #import "UserNotifications/UserNotifications.h"
-@interface MovieDetailViewController ()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, MovieDetailViewDelegate, DidDateSelectedDelegate>
+#import "NotificationNames.h"
+#import "NSDate+Extensions.h"
+@interface MovieDetailViewController ()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, MovieDetailViewDelegate, DidDateSelectedDelegate, UNUserNotificationCenterDelegate>
 @property(strong, nonatomic) MovieDetailView *movieDetailContentView;
 @property(strong, nonatomic) UICollectionView *castCollectionView;
 @property(strong, nonatomic) NSLayoutConstraint *castCollectionViewHeightConstraint;
@@ -27,6 +29,7 @@
 @property(strong, nonatomic) UIView *footerView;
 @property(strong, nonatomic) CoreDataManager *coreDataManager;
 @property(strong, nonatomic) id<DatePickerManagerDelegate> datePickerManager;
+@property(strong, nonatomic) UNUserNotificationCenter *center;
 @end
 
 @implementation MovieDetailViewController
@@ -91,6 +94,37 @@
     
     [self configDatePickerManager];
     
+    [self configUNUserNotificationCenter];
+    
+    [self fillStarFavoriteOrNot];
+    
+    [self displayTimeOrNot];
+}
+
+-(void) displayTimeOrNot{
+    [self.coreDataManager checkIfMovieHaveReminder:self.movie withSuccess:^(NSDate * _Nullable time) {
+        if (time != nil) {
+            [self.movieDetailContentView addRemindLabel:time];
+        }
+    } withError:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
+}
+
+-(void) fillStarFavoriteOrNot{
+    [self.coreDataManager checkIfMovieIsFavorite:self.movie withSuccess:^(BOOL isFavorite) {
+        if (isFavorite) {
+            [self.movieDetailContentView changeImageButtonByFavorite:isFavorite];
+        }
+    } withError:^(NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
+}
+
+-(void) configUNUserNotificationCenter{
+    self.center = [UNUserNotificationCenter currentNotificationCenter];
+    self.center.delegate = self;
+    [self registerLocal];
 }
 -(void) configCoreDataManager{
     self.coreDataManager = [[CoreDataManager alloc] init];
@@ -206,12 +240,24 @@
 - (void)didReminderTapped{
     [self.datePickerManager showPickerViewWithPickerType: dateTimePicker];
     self.datePickerManager.delegate = self;
-    
 }
 
 - (void)didDateSelected:(NSDate *)date{
-    [self insertReminderToCoreDataWithDate:date];
-    [self.movieDetailContentView addRemindLabel:date];
+    [self.coreDataManager insertToCoreDataWithReminder:self.movie withTime:date withSuccess:^{
+        [self.movieDetailContentView addRemindLabel:date];
+        [self scheduleLocal:date withMovie:self.movie];
+        [[NSNotificationCenter defaultCenter] postNotificationName:DidAddReminderNotification object:nil];
+    } withError:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler{
+    
 }
 
 #pragma mark - Datasource
@@ -236,13 +282,53 @@
     return cell;
 }
 
-#pragma mark - Core Data Helper
--(void) insertReminderToCoreDataWithDate: (NSDate *) date{
-    [self.coreDataManager insertToCoreDataWithReminder:self.movie withTime:date withSuccess:^{
-        //show reminder
-    } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
+#pragma mark - Notification Helper
+-(void) registerLocal {
+
+    UNAuthorizationOptions options = UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge;
+    [self.center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            NSLog(@"granted");
+        }else{
+            NSLog(@"no granted");
+        }
     }];
 }
+
+-(void) scheduleLocal: (NSDate *) date withMovie: (Movie *)movie{
+    
+    UNMutableNotificationContent *content = [UNMutableNotificationContent new];
+    content.title = @"Movie";
+    NSString *body = [NSString stringWithFormat:@"Time to go get the ticket for %@", [movie getTitle]];
+    content.body = body;
+    content.sound = [UNNotificationSound defaultSound];
+    
+    NSString *movieNotificationID = [NSString stringWithFormat:@"%ld-%@", (long)[movie getID], [self generateUUID]];
+    
+    NSDateComponents *triggerDate = [[NSCalendar currentCalendar]
+                  components:NSCalendarUnitYear +
+                  NSCalendarUnitMonth + NSCalendarUnitDay +
+                  NSCalendarUnitHour + NSCalendarUnitMinute +
+                  NSCalendarUnitSecond fromDate:date];
+    
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:triggerDate
+                                             repeats:NO];
+    
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:movieNotificationID content:content trigger:trigger];
+    
+    [self.center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"local push noti: %@", error);
+        }
+    }];
+
+}
+-(NSString *) generateUUID{
+    NSUUID *uuid = [NSUUID UUID];
+    NSString *str = [uuid UUIDString];
+    
+    return str;
+}
+
 
 @end

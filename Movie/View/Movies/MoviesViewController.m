@@ -74,7 +74,6 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 
 -(void) didReleaseYearChanged: (NSNotification *) sender{
     [self filterMovies];
-    NSLog(@"did releas year");
 }
 
 -(void) resetPage{
@@ -83,7 +82,6 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 }
 
 -(void) didGridButtonTapped: (UIButton *) sender{
-    NSLog(@"🛑 didGridButtonTapped");
     if (self.displayState == tableView_state) {
         self.displayState = collectionView_state;
         [self transitionFromViewToView:self.movieListView to:self.movieGridView];
