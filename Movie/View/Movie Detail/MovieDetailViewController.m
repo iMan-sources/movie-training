@@ -47,10 +47,15 @@
     [self fetchCreditsMovie];
     
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
 #pragma mark - Navigation
 -(void) configNavigationBar{
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.title = [self.movie getTitle];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 }
 

@@ -8,6 +8,8 @@
 #import "AppDelegate.h"
 #import "UserDefaultsNames.h"
 #import "User.h"
+#import "NotificationNames.h"
+#import "RemindersViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -22,11 +24,24 @@
     [self configNavBar];
 
     [self configTabBar];
-
+    
+//    [self registerPushToSettingsVCNotification];
 
 
     return YES;
 }
+//- (void)registerPushToSettingsVCNotification{
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToSettingsVC:) name:PushToSettingsVCNotification object:nil];
+//
+//}
+//
+//-(void) pushToSettingsVC: (NSNotification *) sender{
+//    RemindersViewController *reminderVC = [[RemindersViewController alloc] initWithNibName:[RemindersViewController getNibName] bundle:nil];
+//    UINavigationController *navVc=(UINavigationController *) self.window.rootViewController;
+//
+//    [navVc pushViewController:reminderVC animated:YES];
+//}
+
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     return UIInterfaceOrientationMaskPortrait;
 }

@@ -118,6 +118,7 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
         }
     }
 }
+
 - (void)didButtonInProfileVCTapped:(NSInteger)tag{
     EditProfileViewController *editProfileVC = [[EditProfileViewController alloc] initWithNibName:[EditProfileViewController getNibName] bundle:nil];
     if (tag == 0) {
@@ -125,22 +126,22 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
         [ self handleSlideMenuWhenPushVC];
         return;
     }
+    
     RemindersViewController *reminderVC = [[RemindersViewController alloc] initWithNibName:[RemindersViewController getNibName] bundle:nil];
-
-//    SettingsViewController *settingsVC = (SettingsViewController *) [self.tabBarViewController.tabBarController.viewControllers objectAtIndex:3];
 
     UIScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
     
     if([scene.delegate conformsToProtocol:@protocol(UIWindowSceneDelegate)]){
         self.window = [(id <UIWindowSceneDelegate>)scene.delegate window];
     }
-    UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
-
-    [self.tabBarViewController.tabBarController setSelectedIndex:2];
-    SettingsViewController * settingsVC = [navController.viewControllers objectAtIndex:0];
-    [settingsVC.navigationController pushViewController:reminderVC animated:YES];
 
     [self handleSlideMenuWhenPushVC];
+     [self.tabBarViewController.tabBarController setSelectedIndex:2];
+
+    UINavigationController * navController = (UINavigationController *)[self.tabBarViewController.tabBarController.viewControllers objectAtIndex:2];
+    if (navController) {
+        [navController pushViewController:reminderVC animated:YES];
+    }
     
 }
 

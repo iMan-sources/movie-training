@@ -28,7 +28,7 @@
     // Do any additional setup after loading the view.
     [self configNavigationBar];
     
-//    [self registerPushToSettingsVCNotification];
+    [self registerPushToSettingsVCNotification];
 
     [self setup];
     
