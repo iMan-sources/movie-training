@@ -80,13 +80,18 @@
     [self.contentView setFrame:self.bounds];
     [self.reminderLabel setHidden:YES];
     [self configReminderButton];
+    [self configLikeButton];
 
+}
+
+-(void) configLikeButton{
+    [self.likeButton setImage:[Images getStarImage] forState:UIControlStateNormal];
+    [self.likeButton addTarget:self action:@selector(didLikeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) configReminderButton{
     [self.reminderButton addTarget:self action:@selector(didReminderTapped:) forControlEvents:UIControlEventTouchUpInside];
     self.reminderButton.layer.cornerRadius = 10;
-    
 }
 
 -(NSString *) generatingSpaceWhenOverviewEmptyWithOverview: (NSString *) overview{
@@ -101,6 +106,20 @@
 
 -(void)didReminderTapped:(UIButton *)sender{
     [self.delegate didReminderTapped];
+}
+
+#pragma mark - Action
+-(void) didLikeButtonTapped: (UIButton *)sender{
+    BOOL isFavorite = NO;
+    if ([self.likeButton.imageView.image isEqual:[Images getStarImage]]) {
+        [self.likeButton setImage:[Images getFilledStar] forState:UIControlStateNormal];
+        isFavorite = YES;
+    }else{
+        [self.likeButton setImage:[Images getStarImage] forState:UIControlStateNormal];
+        isFavorite = NO;
+    }
+    
+    [self.delegate didLikeButtonTapped:isFavorite];
 }
 
 @end

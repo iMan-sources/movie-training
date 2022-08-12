@@ -15,7 +15,7 @@
 #import "MovieDetailViewController.h"
 #import "Storyboard.h"
 
-@interface FavoritesViewController ()<UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating>
+@interface FavoritesViewController ()<UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *favoritesTableView;
 @property (strong, nonatomic) UISearchController *searchController;
 @property(strong, nonatomic) FavoritesViewModel *favoritesViewModel;
@@ -54,6 +54,16 @@
     [self fetchFavoriteMovies];
 }
 
+#pragma mark - Action
+-(void) didTableViewTapped: (UITapGestureRecognizer *) sender{
+    [self.searchController.searchBar.searchTextField resignFirstResponder];
+    [self.searchController.searchBar.searchTextField endEditing:YES];
+    self.searchController.showsSearchResultsController = YES;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.searchController setActive:NO];
+//    });
+}
+
 #pragma mark - Helper
 -(void) setup{
     
@@ -64,8 +74,11 @@
     [self configFavoritesTableView];
 
     [self configAlertController];
-   
+    
+    [self registerTapGestureToEndEditing];
+    
 }
+
 -(void) configStoryboard{
     self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
 }
@@ -78,6 +91,14 @@
 }
 
 -(void) layout{
+    
+}
+
+-(void) registerTapGestureToEndEditing{
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTableViewTapped:)];
+    [tapGesture setCancelsTouchesInView:YES];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.favoritesTableView addGestureRecognizer:tapGesture];
     
 }
 
@@ -107,20 +128,29 @@
 
 -(void) configFavoritesTableView{
     self.favoritesTableView.delegate = self;
-    self.favoritesTableView.allowsMultipleSelectionDuringEditing = false;
+//    self.favoritesTableView.allowsMultipleSelectionDuringEditing = false;
 
     self.favoritesTableView.dataSource = self;
     [self.favoritesTableView registerNib:[UINib nibWithNibName:[MovieListViewCell getNibName] bundle:nil] forCellReuseIdentifier:[MovieListViewCell getReuseIdentifier]];
+    
     [self configSearchController];
+    
     self.favoritesTableView.rowHeight = 150.0;
 }
 
 -(void) configSearchController{
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
+    self.definesPresentationContext = YES;
     self.searchController.hidesNavigationBarDuringPresentation = false;
     [self.searchController.searchBar sizeToFit];
     self.favoritesTableView.tableHeaderView = self.searchController.searchBar;
+    self.searchController.automaticallyShowsCancelButton = NO;
+    //remove toolbar
+    self.searchController.searchBar.searchTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.searchController.searchBar.searchTextField.spellCheckingType = UITextSpellCheckingTypeNo;
+    
+    
     
 }
 
@@ -154,12 +184,14 @@
     [favoriteCell bindingData:movie];
     
     
+    
     return favoriteCell;
 }
 
 #pragma mark - Delegate
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     UITextField *tf =  searchController.searchBar.searchTextField;
+    self.searchController.searchResultsController.view.hidden = false;
     NSString *content = tf.text;
     if ([content isEqualToString:@""]) {
         //display all results

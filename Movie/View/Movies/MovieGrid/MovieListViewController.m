@@ -11,6 +11,8 @@
 #import "FavoritesViewModel.h"
 #import "NotificationNames.h"
 #import "AlertManager.h"
+#import "UIViewController+Extensions.h"
+
 @interface MovieListViewController ()<MovieListViewCellDelegate>
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) MoviesViewModel *moviesViewModel;
@@ -85,14 +87,6 @@
 
 -(void) configFavoriteViewModel{
     self.favoriteViewModel = [[FavoritesViewModel alloc] init];
-}
-
--(void) postNotificationWhenLikeButtonTapped{
-    [[NSNotificationCenter defaultCenter] postNotificationName:LikeButtonTappedNotification object:nil];
-}
-
--(void) postNotificationWhenUnlikeButtonTapped{
-    [[NSNotificationCenter defaultCenter] postNotificationName:UnlikeButtonTappedNotification object:nil];
 }
 
 -(void) configTableView{

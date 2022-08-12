@@ -33,7 +33,9 @@
 -(void) registerTapGestureToEndEditing{
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didViewTapped:)];
     [tapGesture setCancelsTouchesInView:YES];
+    tapGesture.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGesture];
+    
 }
 
 #pragma mark - Action
@@ -46,6 +48,15 @@
 -(void) didViewTapped: (UITapGestureRecognizer *) sender{
     [self.view endEditing:YES];
     [self.view resignFirstResponder];
+}
+
+#pragma mark Notification Center
+-(void) postNotificationWhenLikeButtonTapped{
+    [[NSNotificationCenter defaultCenter] postNotificationName:LikeButtonTappedNotification object:nil];
+}
+
+-(void) postNotificationWhenUnlikeButtonTapped{
+    [[NSNotificationCenter defaultCenter] postNotificationName:UnlikeButtonTappedNotification object:nil];
 }
 
 

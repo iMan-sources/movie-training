@@ -27,6 +27,7 @@
 @property(strong, nonatomic) GenderView *genderView;
 @property(strong, nonatomic) BirthdayView *birthdayView;
 @property(strong, nonatomic) EmailView *emailView;
+@property(nonatomic) BOOL isKeyboardShow;
 @end
 
 @implementation EditProfileViewController
@@ -61,6 +62,10 @@
     [self configDatePickerManager];
     
     [self registerTapGestureToEndEditing];
+    
+    [self registerKeyboardShowNotification];
+    
+    [self registerKeyboardHideNotification];
 }
 
 -(void) configHeaderView{
@@ -129,6 +134,22 @@
     return [documentsPath stringByAppendingPathComponent:name];
 }
 
+-(void) registerKeyboardShowNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardShow:) name:UIKeyboardDidShowNotification object:nil];
+}
+
+-(void) registerKeyboardHideNotification{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardHide:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+#pragma mark - Action
+-(void) didKeyboardShow: (NSNotification *) sender{
+    self.isKeyboardShow = YES;
+}
+
+-(void) didKeyboardHide: (NSNotification *) sender{
+    self.isKeyboardShow = NO;
+}
 #pragma mark - Delegate
 - (void)didDoneButtonTapped{
     //add infor to user
@@ -165,7 +186,6 @@
     [imageData writeToFile:imagePath atomically:YES];
     
     [picker dismissViewControllerAnimated:YES completion:^{
-//        EditProfileHeaderView *cell = (EditProfileHeaderView *)[self.tableView headerViewForSection:SectionInTableView];
         [self.headerView.avatarView settingImageForAvatarImageView:imagePath];
     }];
 }
@@ -182,6 +202,13 @@
 - (void)didBirthdayLabelTapped{
     [self.datePickeManager showPickerViewWithPickerType: datePicker];
     self.datePickeManager.delegate = self;
+    
+    //if keyboard is shown
+    if (self.isKeyboardShow) {
+        [self.view endEditing:YES];
+        [self.view resignFirstResponder];
+    }
+    
 }
 
 @end

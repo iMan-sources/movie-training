@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MovieDetailViewDelegate <NSObject>
 
 -(void) didReminderTapped;
-
+-(void) didLikeButtonTapped: (BOOL) isFavorite;
 @end
 @interface MovieDetailView : UIView
 

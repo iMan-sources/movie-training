@@ -70,6 +70,8 @@
     self.remindersTableView.delegate = self;
     self.remindersTableView.dataSource = self;
     [self.remindersTableView registerNib:[UINib nibWithNibName:[RemindTableViewCell getNibName] bundle:nil] forCellReuseIdentifier:[RemindTableViewCell getReuseIdentifier]];
+    self.remindersTableView.rowHeight = UITableViewAutomaticDimension;
+    self.remindersTableView.estimatedRowHeight = 40.0;
 }
 
 -(void) configReminderViewModel{
@@ -117,7 +119,6 @@
     [cell bindingData:reminderMovie];
     return cell;
 }
-
 
 
 @end

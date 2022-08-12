@@ -15,6 +15,9 @@
 #import "NotificationNames.h"
 #import "NSDate+Extensions.h"
 #import "AlertManager.h"
+#import "FavoritesViewModel.h"
+#import "UIViewController+Extensions.h"
+
 @interface MovieDetailViewController ()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, MovieDetailViewDelegate, DidDateSelectedDelegate, UNUserNotificationCenterDelegate>
 @property(strong, nonatomic) MovieDetailView *movieDetailContentView;
 @property(strong, nonatomic) UICollectionView *castCollectionView;
@@ -32,6 +35,7 @@
 @property(strong, nonatomic) id<DatePickerManagerDelegate> datePickerManager;
 @property(strong, nonatomic) id<AlertManagerDelegate> alertManager;
 @property(strong, nonatomic) UNUserNotificationCenter *center;
+@property(strong, nonatomic) FavoritesViewModel *favoriteViewModel;
 @end
 
 @implementation MovieDetailViewController
@@ -85,7 +89,9 @@
 
 #pragma mark - Helpers
 -(void) setup{
-    [self configViewModel];
+    [self configMovieDetailViewModel];
+    
+    [self configFavoriteMovieViewModel];
     
     [self configCoreDataManager];
     
@@ -112,6 +118,8 @@
     [self configAlertManager];
     
 }
+
+
 -(void) configAlertManager{
     self.alertManager = [[AlertManager alloc] init];
 }
@@ -122,7 +130,9 @@
             [self.movieDetailContentView addRemindLabel:time];
         }
     } withError:^(NSError * _Nonnull error) {
- 
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated: YES completion:nil];
+        }];
     }];
 }
 
@@ -196,8 +206,12 @@
     self.movieDetailContentView.delegate = self;
 }
 
--(void) configViewModel{
+-(void) configMovieDetailViewModel{
     self.movieDetailViewModel = [[MovieDetailViewModel alloc] init];
+}
+
+-(void) configFavoriteMovieViewModel{
+    self.favoriteViewModel = [[FavoritesViewModel alloc] init];
 }
 
 -(void) layout{
@@ -252,6 +266,13 @@
 }
 
 
+-(NSDate *) getCurrentDate{
+    NSDate *today = [NSDate date];
+
+    return today;
+}
+
+
 #pragma mark - Delegate
 
 - (void)didReminderTapped{
@@ -260,6 +281,15 @@
 }
 
 - (void)didDateSelected:(NSDate *)date{
+    //check date if date  < current time
+    NSDate *today = [self getCurrentDate];
+    if ([date isEarlierThanOrEqualTo:today]) {
+        //alert invalid time
+        [self.alertManager showErrorMessageWithDescription:@"Time is invalid. Time is earlier than now" inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        return;
+    }
     [self.coreDataManager insertToCoreDataWithReminder:self.movie withTime:date withSuccess:^{
         [self.movieDetailContentView addRemindLabel:date];
         [self scheduleLocal:date withMovie:self.movie];
@@ -349,6 +379,42 @@
     NSString *str = [uuid UUIDString];
     
     return str;
+}
+
+#pragma mark - Delegate
+- (void)didLikeButtonTapped:(BOOL)isFavorite{
+    if (isFavorite) {
+        NSLog(@"favorited");
+        [self insertNewMoveToCoreData];
+        return;
+    }
+    NSLog(@"unfavrotied");
+    //remove from fav
+    [self deleteFavMovieFromCoreData];
+}
+
+#pragma mark - CoreData
+-(void) deleteFavMovieFromCoreData{
+    [self.favoriteViewModel deleteMovieFromCoreDataWithMovie:self.movie withSuccess:^{
+        //notify st if delete movie from core data success
+        [self postNotificationWhenUnlikeButtonTapped];
+        
+    } withError:^(NSError * _Nonnull error) {
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated: YES completion:nil];
+        }];
+    }];
+}
+
+-(void) insertNewMoveToCoreData{
+    [self.favoriteViewModel insertMovieToCoreDataWithMovie:self.movie withSuccess:^{
+        //notify st if insert success..
+        [self postNotificationWhenLikeButtonTapped];
+    } withError:^(NSError * _Nonnull error) {
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated: YES completion:nil];
+        }];
+    }];
 }
 
 

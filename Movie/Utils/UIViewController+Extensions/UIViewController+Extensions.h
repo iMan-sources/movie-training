@@ -14,6 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(void) bringVCToView: (UIViewController *)viewController withView: (UIView *) view;
 -(void) configLeftBarItemButtons;
 -(void) registerTapGestureToEndEditing;
+
+#pragma mark - Notification Center
+-(void) postNotificationWhenLikeButtonTapped;
+
+-(void) postNotificationWhenUnlikeButtonTapped;
 @end
 
 NS_ASSUME_NONNULL_END
