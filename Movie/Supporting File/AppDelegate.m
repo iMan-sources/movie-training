@@ -27,17 +27,9 @@
 
     return YES;
 }
-
-//- (void)prepareLocalNotification
-//    {
-//    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
-//        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-//    } else  {
-//        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
-//    }
-//}
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+    return UIInterfaceOrientationMaskPortrait;
+}
 
 -(void) configNavBar{
     UINavigationBarAppearance *navBarAppearance = [[UINavigationBarAppearance alloc] init];
@@ -161,6 +153,7 @@
                      * The store could not be migrated to the current model version.
                      Check the error message to determine what the actual problem was.
                     */
+                    
                     NSLog(@"Unresolved error %@, %@", error, error.userInfo);
                     abort();
                 }

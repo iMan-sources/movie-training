@@ -8,8 +8,10 @@
 #import "UIViewController+Extensions.h"
 #import "Images.h"
 #import "NotificationNames.h"
-@implementation UIViewController (Extensions)
+@interface UIViewController()
 
+@end
+@implementation UIViewController (Extensions)
 
 - (void)bringVCToView:(UIViewController *)viewController withView:(UIView *)view{
     [self addChildViewController: viewController];

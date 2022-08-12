@@ -8,6 +8,7 @@
 #import "AboutViewController.h"
 #import "WebKit/WebKit.h"
 #import "Configs.h"
+#import "UIViewController+Extensions.h"
 @interface AboutViewController ()
 @property (weak, nonatomic) IBOutlet WKWebView *wkWebView;
 
@@ -20,7 +21,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"About";
+    [self configLeftBarItemButtons];
     [self setup];
+    
 }
 
 

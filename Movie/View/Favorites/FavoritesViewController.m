@@ -20,7 +20,7 @@
 @property (strong, nonatomic) UISearchController *searchController;
 @property(strong, nonatomic) FavoritesViewModel *favoritesViewModel;
 @property(strong, nonatomic) id<AlertManagerDelegate> alertManager;
-@property (nonatomic) UIStoryboard *story;
+@property (nonatomic,strong) UIStoryboard *story;
 @end
 
 @implementation FavoritesViewController
@@ -86,7 +86,9 @@
     [weakSelf.favoritesViewModel searchMoviesInCoreDataWithName:movieName withSuccess:^{
         [weakSelf.favoritesTableView reloadData];
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
 }
 
@@ -96,7 +98,9 @@
     [weakSelf.favoritesViewModel getMovieFromCoreDataWithSuccess:^(NSArray<Movie *> * _Nonnull movies) {
         [weakSelf.favoritesTableView reloadData];
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
 
 }
@@ -180,7 +184,9 @@
             [self.favoritesViewModel deleteMovieFromCoreDataWithMovie:movie withSuccess:^{
                 [self fetchFavoriteMovies];
             } withError:^(NSError * _Nonnull error) {
-                NSLog(@"%@", error);
+                [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }];
             }];
         } withNoSelection:^{
             //do st if no selected

@@ -86,7 +86,7 @@
         [self.profileTableView reloadData];
         
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        NSLog(@"%@ profile vc", error);
     }];
 }
 

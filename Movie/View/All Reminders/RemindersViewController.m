@@ -8,9 +8,16 @@
 #import "RemindersViewController.h"
 #import "RemindTableViewCell.h"
 #import "ReminderViewModel.h"
+#import "AlertManager.h"
+#import "ViewControllerIdentifiers.h"
+#import "MovieDetailViewController.h"
+#import "Storyboard.h"
 @interface RemindersViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *remindersTableView;
 @property(strong, nonatomic) ReminderViewModel *reminderViewModel;
+@property (strong, nonatomic) id<AlertManagerDelegate> alertManager;
+@property (nonatomic, strong) UIStoryboard *story;
+
 @end
 
 @implementation RemindersViewController
@@ -36,9 +43,15 @@
 
 #pragma mark - Helper
 -(void) setup{
+    [self configStoryboard];
     [self configReminderViewModel];
     [self configTableView];
     [self loadReminderMovies];
+    [self configAlertManager];
+    
+}
+-(void) configAlertManager{
+    self.alertManager = [[AlertManager alloc] init];
 }
 
 -(void) configNavigationBar{
@@ -49,6 +62,10 @@
 
 -(void) layout{
     
+}
+
+-(void) configStoryboard{
+    self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
 }
 -(void) configTableView{
     self.remindersTableView.delegate = self;
@@ -65,13 +82,24 @@
     [self.reminderViewModel fetchRemindersInCoreDataWithSuccess:^{
         [self.remindersTableView reloadData];
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
 }
 
 #pragma mark - Delegate
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *movieDetailIdentifier = [ViewControllerIdentifiers getMovieDetailVCIdentifier];
+    MovieDetailViewController *movieDetailVC = [self.story instantiateViewControllerWithIdentifier: movieDetailIdentifier];
+    Movie *movie = [self.reminderViewModel cellForRowAtIndexPath:indexPath].movie;
+    
+    if (movie != nil) {
+        [movieDetailVC loadMovieData:movie];
+    }
+    [self.navigationController pushViewController:movieDetailVC animated:true];
+}
 #pragma mark - Datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     NSInteger section = [self.reminderViewModel numberOfSectionsInTableView];
@@ -90,6 +118,7 @@
     [cell bindingData:reminderMovie];
     return cell;
 }
+
 
 
 @end

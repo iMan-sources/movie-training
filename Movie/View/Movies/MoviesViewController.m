@@ -18,6 +18,8 @@
 #import "UIViewController+Extensions.h"
 #import "NotificationNames.h"
 #import "UserDefaultsNames.h"
+#import "AlertManager.h"
+
 typedef NS_ENUM(NSInteger, ContentDisplayState){
     tableView_state,
     collectionView_state
@@ -33,6 +35,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 @property(nonatomic) ContentDisplayState displayState;
 @property(nonatomic) NSInteger page;
 @property (nonatomic) UIStoryboard *story;
+@property(strong, nonatomic) id<AlertManagerDelegate> alertManager;
 
 @end
 
@@ -121,15 +124,17 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 #pragma mark - API
 -(void) fetchMovies{
     __weak MoviesViewController *weakSelf = self;
-    
     [self.moviesViewModel getMoviesWithPage:self.page withSucess:^{
         [weakSelf.movieListVC reloadData];
         [weakSelf.movieListVC endRefreshing];
         
         [weakSelf.movieGridVC reloadData];
         [weakSelf.movieGridVC endRefreshing];
+        
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated: YES completion:nil];
+        }];
     }];
 }
 
@@ -149,7 +154,9 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     }];
 }
 #pragma mark - Helpers
-
+-(void) configAlertManager{
+    self.alertManager = [[AlertManager alloc] init];
+}
 -(void) setup{
     [self configViewModel];
     self.page = 1;
@@ -161,6 +168,8 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self registerDidSortTypeChangedNotification];
     [self registerDidMovieRateChangedNotification];
     [self registerReleaseYearChangedNotification];
+    
+    [self configAlertManager];
 }
 
 -(void) configViewModel{

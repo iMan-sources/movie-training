@@ -12,8 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol AlertManagerDelegate <NSObject>
 
 -(void) showRemoveMovieAlertWithName: (NSString *)name inVC: (UIViewController *)vc withYesSelection: (void(^)(void)) yesCompletion withNoSelection: (void(^)(void)) noCompletion;
-
+-(void) showErrorMessageWithDescription: (NSString *) msg inVC: (UIViewController *)vc withSelection: (void (^)(void)) completionHandler;
 @end
+
 @interface AlertManager : NSObject<AlertManagerDelegate>
 
 @end

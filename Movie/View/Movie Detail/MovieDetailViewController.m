@@ -14,6 +14,7 @@
 #import "UserNotifications/UserNotifications.h"
 #import "NotificationNames.h"
 #import "NSDate+Extensions.h"
+#import "AlertManager.h"
 @interface MovieDetailViewController ()<UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, MovieDetailViewDelegate, DidDateSelectedDelegate, UNUserNotificationCenterDelegate>
 @property(strong, nonatomic) MovieDetailView *movieDetailContentView;
 @property(strong, nonatomic) UICollectionView *castCollectionView;
@@ -29,6 +30,7 @@
 @property(strong, nonatomic) UIView *footerView;
 @property(strong, nonatomic) CoreDataManager *coreDataManager;
 @property(strong, nonatomic) id<DatePickerManagerDelegate> datePickerManager;
+@property(strong, nonatomic) id<AlertManagerDelegate> alertManager;
 @property(strong, nonatomic) UNUserNotificationCenter *center;
 @end
 
@@ -64,7 +66,9 @@
         [self viewDidLayoutSubviews];
         
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
 }
 #pragma mark - Instance Helpers
@@ -99,6 +103,12 @@
     [self fillStarFavoriteOrNot];
     
     [self displayTimeOrNot];
+    
+    [self configAlertManager];
+    
+}
+-(void) configAlertManager{
+    self.alertManager = [[AlertManager alloc] init];
 }
 
 -(void) displayTimeOrNot{
@@ -107,7 +117,7 @@
             [self.movieDetailContentView addRemindLabel:time];
         }
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+ 
     }];
 }
 
@@ -117,7 +127,9 @@
             [self.movieDetailContentView changeImageButtonByFavorite:isFavorite];
         }
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated: YES completion:nil];
+        }];
     }];
 }
 
@@ -248,7 +260,9 @@
         [self scheduleLocal:date withMovie:self.movie];
         [[NSNotificationCenter defaultCenter] postNotificationName:DidAddReminderNotification object:nil];
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@",error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
 }
 
@@ -315,10 +329,12 @@
                                              repeats:NO];
     
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:movieNotificationID content:content trigger:trigger];
-    
+    __weak MovieDetailViewController *weakSelf = self;
     [self.center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
         if (error != nil) {
-            NSLog(@"local push noti: %@", error);
+            [weakSelf.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:weakSelf withSelection:^{
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            }];
         }
     }];
 

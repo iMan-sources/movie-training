@@ -10,6 +10,7 @@
 #import "MovieListViewCell.h"
 #import "FavoritesViewModel.h"
 #import "NotificationNames.h"
+#import "AlertManager.h"
 @interface MovieListViewController ()<MovieListViewCellDelegate>
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) MoviesViewModel *moviesViewModel;
@@ -17,6 +18,7 @@
 
 @property(strong, nonatomic) NSMutableArray<NSIndexPath *> *likedCellIndexPaths;
 @property (nonatomic) BOOL isRefreshing;
+@property(strong, nonatomic) id<AlertManagerDelegate> alertManager;
 @end
 
 @implementation MovieListViewController
@@ -77,6 +79,8 @@
     [self configFavoriteViewModel];
     
     self.likedCellIndexPaths = [[NSMutableArray alloc] init];
+    
+    [self configAlertManager];
 }
 
 -(void) configFavoriteViewModel{
@@ -108,6 +112,10 @@
     [self.refreshControl addTarget:self action:@selector(didRefreshed:) forControlEvents:UIControlEventValueChanged];
 }
 
+-(void) configAlertManager{
+    self.alertManager = [[AlertManager alloc] init];
+}
+
 #pragma mark - Core Data
 -(void) insertNewFavoriteMovie: (Movie *)movie{
     [self.favoriteViewModel insertMovieToCoreDataWithMovie:movie withSuccess:^{
@@ -116,7 +124,9 @@
         [self postNotificationWhenLikeButtonTapped];
         
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
 }
 
@@ -125,7 +135,9 @@
         //send unlike noti
         [self postNotificationWhenUnlikeButtonTapped];
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
 }
 #pragma mark - Delegate
@@ -213,7 +225,9 @@
             [self.likedCellIndexPaths addObject:indexPath];
         }
     } withError:^(NSError * _Nonnull error) {
-        NSLog(@"%@", error);
+        [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
 }
 

@@ -79,7 +79,6 @@
 }
 #pragma mark - Action
 -(void) didMaleButtonTapped: (UIButton *)sender{
-    NSLog(@"didMaleButtonTapped");
     if (![sender.imageView.image isEqual:[Images getFilledBlackRound]]) {
         [sender setImage:[Images getFilledBlackRound] forState:UIControlStateNormal];
         [self.femaleButton setImage:[Images getFilledWhiteRound] forState:UIControlStateNormal];
@@ -87,7 +86,6 @@
 }
 
 -(void) didFemaleButtonTapepd: (UIButton *) sender{
-    NSLog(@"didFemaleButtonTapped");
     if (![sender.imageView.image isEqual:[Images getFilledBlackRound]]) {
         [sender setImage:[Images getFilledBlackRound] forState:UIControlStateNormal];
         [self.maleButton setImage:[Images getFilledWhiteRound] forState:UIControlStateNormal];

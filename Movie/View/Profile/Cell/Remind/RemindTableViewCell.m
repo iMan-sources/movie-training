@@ -21,6 +21,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    [self setup];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -67,6 +68,10 @@
     NSURL *posterURL = [[NSURL alloc] initWithString:stringPosterURL];
     UIImage *placeholderImage = [Images getPlaceholderImage];
     [self.iconImageView sd_setImageWithURL:posterURL placeholderImage:placeholderImage options:SDWebImageContinueInBackground];
+}
+
+-(void) setup{
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 @end

@@ -13,9 +13,9 @@
             continueAfterRunningActions = "No"
             filePath = "Movie/View/Movies/MovieGrid/MovieListViewController.m"
             startingColumnNumber = "5"
-            endingColumnNumber = "17"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            endingColumnNumber = "5"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
