@@ -38,9 +38,12 @@
 -(void) fetchRemindersInCoreDataWithSuccess: (void(^)(void)) completion withError: (void(^)(NSError *)) errorCompletion{
     dispatch_group_t group = dispatch_group_create();
     
-    [self.reminderMovies removeAllObjects];
     
-    [self.coreDataManager fetchReminderWithSuccess:^(NSArray<Reminder *> * _Nonnull reminders) {
+    __weak ReminderViewModel *weakSelf = self;
+    
+    [weakSelf.reminderMovies removeAllObjects];
+    
+    [weakSelf.coreDataManager fetchReminderWithSuccess:^(NSArray<Reminder *> * _Nonnull reminders) {
         [reminders enumerateObjectsUsingBlock:^(Reminder * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             dispatch_group_enter(group);
             NSInteger movieID = obj.movieID;
@@ -48,9 +51,9 @@
             //iterate reminders id
             
             //fetch movie by id
-            [self searchMovieWithId:movieID withSuccess:^(Movie *movie)  {
+            [weakSelf searchMovieWithId:movieID withSuccess:^(Movie *movie)  {
                 ReminderMovie *reminderMovie = [[ReminderMovie alloc] initWithTime:time withMovie:movie];
-                [self.reminderMovies addObject:reminderMovie];
+                [weakSelf.reminderMovies addObject:reminderMovie];
                 dispatch_group_leave(group);
             } withError:^(NSError * error) {
                 errorCompletion(error);
@@ -65,7 +68,8 @@
 }
 
 -(void) searchMovieWithId: (NSInteger) movieID withSuccess: (void(^)(Movie *)) successCompletion withError: (void(^)(NSError *)) errorCompletion{
-    [self.fetcherPopularMovies fetchMovieWithID:movieID withSuccess:^(Movie * _Nonnull movie) {
+    __weak ReminderViewModel *weakSelf = self;
+    [weakSelf.fetcherPopularMovies fetchMovieWithID:movieID withSuccess:^(Movie * _Nonnull movie) {
         successCompletion(movie);
     } withError:^(NSError * _Nonnull error) {
         //handle error

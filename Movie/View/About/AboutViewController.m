@@ -34,7 +34,8 @@
 -(void) loadWebView{
     NSURL *aboutURL = [NSURL URLWithString:AboutURL];
     NSURLRequest *request = [NSURLRequest requestWithURL: aboutURL];
-    [self.wkWebView loadRequest:request];
+    __weak AboutViewController *weakSelf = self;
+    [weakSelf.wkWebView loadRequest:request];
     
 }
 

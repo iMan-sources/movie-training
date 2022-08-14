@@ -65,15 +65,11 @@
 
 #pragma mark - API
 -(void) fetchCreditsMovie{
-    if (self.movieDetailViewModel == nil) {
-        return;
-    }
     __weak MovieDetailViewController *weakSelf = self;
     NSInteger movieId = [self.movie getID];
-    [self.movieDetailViewModel getCreditsMovieWithMovieId:movieId withSuccess:^(NSArray<Actor *> * _Nonnull actors) {
+    [weakSelf.movieDetailViewModel getCreditsMovieWithMovieId:movieId withSuccess:^{
         [weakSelf.castCollectionView reloadData];
-        [self viewDidLayoutSubviews];
-        
+        [weakSelf viewDidLayoutSubviews];
     } withError:^(NSError * _Nonnull error) {
         [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -125,9 +121,10 @@
 }
 
 -(void) displayTimeOrNot{
-    [self.coreDataManager checkIfMovieHaveReminder:self.movie withSuccess:^(NSDate * _Nullable time) {
+    __weak MovieDetailViewController *weakSelf = self;
+    [weakSelf.coreDataManager checkIfMovieHaveReminder:self.movie withSuccess:^(NSDate * _Nullable time) {
         if (time != nil) {
-            [self.movieDetailContentView addRemindLabel:time];
+            [weakSelf.movieDetailContentView addRemindLabel:time];
         }
     } withError:^(NSError * _Nonnull error) {
         [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
@@ -137,9 +134,10 @@
 }
 
 -(void) fillStarFavoriteOrNot{
-    [self.coreDataManager checkIfMovieIsFavorite:self.movie withSuccess:^(BOOL isFavorite) {
+    __weak MovieDetailViewController *weakSelf = self;
+    [weakSelf.coreDataManager checkIfMovieIsFavorite:self.movie withSuccess:^(BOOL isFavorite) {
         if (isFavorite) {
-            [self.movieDetailContentView changeImageButtonByFavorite:isFavorite];
+            [weakSelf.movieDetailContentView changeImageButtonByFavorite:isFavorite];
         }
     } withError:^(NSError * _Nonnull error) {
         [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
@@ -290,9 +288,11 @@
         }];
         return;
     }
-    [self.coreDataManager insertToCoreDataWithReminder:self.movie withTime:date withSuccess:^{
-        [self.movieDetailContentView addRemindLabel:date];
-        [self scheduleLocal:date withMovie:self.movie];
+    
+    __weak MovieDetailViewController *weakSelf = self;
+    [weakSelf.coreDataManager insertToCoreDataWithReminder:self.movie withTime:date withSuccess:^{
+        [weakSelf.movieDetailContentView addRemindLabel:date];
+        [weakSelf scheduleLocal:date withMovie:self.movie];
         [[NSNotificationCenter defaultCenter] postNotificationName:DidAddReminderNotification object:nil];
     } withError:^(NSError * _Nonnull error) {
         [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
@@ -311,22 +311,19 @@
 
 #pragma mark - Datasource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    __weak MovieDetailViewController *weakSelf = self;
-    NSInteger sections = [weakSelf.movieDetailViewModel numberOfSectionsInCollectionView];
+    NSInteger sections = [self.movieDetailViewModel numberOfSectionsInCollectionView];
     return sections;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    __weak MovieDetailViewController *weakSelf = self;
-    NSInteger items = [weakSelf.movieDetailViewModel numberOfItemsInSection:section];
+    NSInteger items = [self.movieDetailViewModel numberOfItemsInSection:section];
     return items;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    __weak MovieDetailViewController *weakSelf = self;
     CastCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CastCollectionViewCell getReuseIdentifier] forIndexPath:indexPath];
     
-    Actor *actor = [weakSelf.movieDetailViewModel cellForItemAtIndexPath:indexPath];
+    Actor *actor = [self.movieDetailViewModel cellForItemAtIndexPath:indexPath];
     [cell bindingData:actor];
     return cell;
 }

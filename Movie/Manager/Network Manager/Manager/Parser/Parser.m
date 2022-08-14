@@ -71,7 +71,7 @@
     }
     
     NSArray *arrayActors = [[NSArray alloc] initWithArray:actors];
-    
+
     successCompletion(arrayActors);
 }
 

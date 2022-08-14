@@ -25,15 +25,13 @@
     return self;
 }
 
-- (void)getCreditsMovieWithMovieId:(NSInteger)movieId withSuccess:(void (^)(NSArray<Actor *> * _Nonnull))succesCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
+- (void)getCreditsMovieWithMovieId:(NSInteger)movieId withSuccess:(void (^)(void))succesCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     __weak MovieDetailViewModel *weakSelf = self;
-    
     [weakSelf.fetcher fetchCreditsMovieWithID:movieId withSuccess:^(NSArray<Actor *> * _Nonnull actors) {
-        self.actors = actors;
-        succesCompletion(actors);
+        weakSelf.actors = actors;
+        succesCompletion();
     } withError:errorCompletion];
 }
-
 - (NSInteger)numberOfItemsInSection:(NSInteger)section{
     NSInteger items  = self.actors.count;
     return items;

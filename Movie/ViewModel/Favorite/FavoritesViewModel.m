@@ -56,11 +56,9 @@
 #pragma mark - CoreData
 //[SEARCH]
 -(void) searchMoviesInCoreDataWithName: (NSString *)name withSuccess: (void(^)(void)) successCompletion withError: (void(^)(NSError *)) errorCompletion{
-    [self.coreDataManager filterMovieWithName:name withSuccess:^(NSArray<MovieCD *> * _Nonnull movies) {
+    __weak FavoritesViewModel *weakSelf = self;
+    [weakSelf.coreDataManager filterMovieWithName:name withSuccess:^(NSArray<MovieCD *> * _Nonnull movies) {
         NSArray<Movie *> *result =  [self convertMovieFromMovieCD:movies];
-//        [result enumerateObjectsUsingBlock:^(Movie * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//            [obj printOut];
-//        }];
         self.movies = result;
         
         successCompletion();
@@ -71,7 +69,8 @@
 //[FETCH]
 
 - (void)getMovieFromCoreDataWithSuccess:(void (^)(NSArray<Movie *> * _Nonnull))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
-    [self.coreDataManager fetchFavoriteMoviesWithSuccess:^(NSArray<MovieCD *> * _Nonnull movies) {
+    __weak FavoritesViewModel *weakSelf = self;
+    [weakSelf.coreDataManager fetchFavoriteMoviesWithSuccess:^(NSArray<MovieCD *> * _Nonnull movies) {
         self.movies = [self convertMovieFromMovieCD:movies];
         successCompletion(self.movies);
     } withError:errorCompletion];
@@ -79,24 +78,32 @@
 
 //[CREATE]
 - (void)insertMovieToCoreDataWithMovie:(Movie *)movie withSuccess:(void (^)(void))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
-    [self.coreDataManager insertToCoreDataWithMovie:movie withSuccess:^{
+    __weak FavoritesViewModel *weakSelf = self;
+
+    [weakSelf.coreDataManager insertToCoreDataWithMovie:movie withSuccess:^{
         successCompletion();
     } withError:errorCompletion];
 }
 
 //[DELETE]
 - (void)deleteMovieFromCoreDataWithMovie:(Movie *)movie withSuccess:(void (^)(void))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
-    [self.coreDataManager deleteFromCoreDataWithMovie:movie withSuccess:successCompletion withError:errorCompletion];
+    __weak FavoritesViewModel *weakSelf = self;
+
+    [weakSelf.coreDataManager deleteFromCoreDataWithMovie:movie withSuccess:successCompletion withError:errorCompletion];
 }
 
 //[DELETE ALL]
 - (void)deleteAllMoviesFromCoreDataWithSuccess:(void (^)(void))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
-    [self.coreDataManager deleteAllMoviesInCoreDataWithSuccess:successCompletion withError:errorCompletion];
+    __weak FavoritesViewModel *weakSelf = self;
+
+    [weakSelf.coreDataManager deleteAllMoviesInCoreDataWithSuccess:successCompletion withError:errorCompletion];
 }
 
 //check if movie is fav to choose image is suitable
 - (void)checkIfMovieIsFavorite:(Movie *)movie withSuccess:(void (^)(BOOL))successCompetion withError:(void (^)(NSError * _Nonnull))errorCompletion{
-    [self.coreDataManager checkIfMovieIsFavorite:movie withSuccess:^(BOOL isFavorite) {
+    __weak FavoritesViewModel *weakSelf = self;
+
+    [weakSelf.coreDataManager checkIfMovieIsFavorite:movie withSuccess:^(BOOL isFavorite) {
         successCompetion(isFavorite);
     } withError:^(NSError * _Nonnull error) {
         errorCompletion(error);

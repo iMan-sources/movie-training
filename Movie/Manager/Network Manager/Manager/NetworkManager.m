@@ -58,11 +58,15 @@
 #pragma mark - [GET]
 
 - (void)searchMovieById:(NSInteger)movieID withSuccess:(void (^)(NSDictionary * _Nonnull))successCompletion error:(void (^)(NSError * _Nonnull))errorCompletion{
+    __weak NetworkManager *weakSelf = self;
+
     NSString *url = [NSString stringWithFormat:@"%@%ld?api_key=%@",BaseDomain, (long)movieID, BaseAPI];
-    self.networkManager.requestSerializer = self.jsonSerializer;
-    [self.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    weakSelf.networkManager.requestSerializer = self.jsonSerializer;
+    [weakSelf.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [self.networkManager GET:url parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [weakSelf.networkManager GET:url parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [weakSelf.networkManager invalidateSessionCancelingTasks:YES resetSession:YES];
+
         successCompletion(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         errorCompletion(error);
@@ -71,12 +75,15 @@
 }
 - (void)fetchMoviesWithSuccess:(NSInteger)page withSuccess:(void (^)(NSDictionary * _Nonnull))successCompletion error:(void (^)(NSError * _Nonnull))errorCompletion{
     [self routeURL];
+    __weak NetworkManager *weakSelf = self;
+
     NSString *fullURL = [NSString stringWithFormat:@"%@&page=%ld",self.mainURL,(long)page];
     
-        self.networkManager.requestSerializer = self.jsonSerializer;
-        [self.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    weakSelf.networkManager.requestSerializer = self.jsonSerializer;
+        [weakSelf.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        [self.networkManager GET:fullURL parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [weakSelf.networkManager GET:fullURL parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [weakSelf.networkManager invalidateSessionCancelingTasks:YES resetSession:YES];
             successCompletion(responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             errorCompletion(error);
@@ -85,11 +92,13 @@
 }
 
 - (void)fetchCreditsMovieWithSuccess:(NSInteger)movieId withSuccess:(void (^)(NSDictionary * _Nonnull))successCompletion error:(void (^)(NSError * _Nonnull))errorCompletion{
+    __weak NetworkManager *weakSelf = self;
     NSString *creditsMovieStringURL = [NSString stringWithFormat:@"%@%ld/credits?api_key=%@", BaseDomain, (long)movieId, BaseAPI];
-    self.networkManager.requestSerializer = self.jsonSerializer;
-    [self.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    weakSelf.networkManager.requestSerializer = self.jsonSerializer;
+    [weakSelf.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    [self.networkManager GET:creditsMovieStringURL parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [weakSelf.networkManager GET:creditsMovieStringURL parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [weakSelf.networkManager invalidateSessionCancelingTasks:YES resetSession:YES];
         successCompletion(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         errorCompletion(error);

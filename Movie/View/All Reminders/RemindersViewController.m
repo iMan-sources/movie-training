@@ -80,8 +80,9 @@
 }
 
 -(void) loadReminderMovies{
-    [self.reminderViewModel fetchRemindersInCoreDataWithSuccess:^{
-        [self.remindersTableView reloadData];
+    __weak RemindersViewController *weakSelf = self;
+    [weakSelf.reminderViewModel fetchRemindersInCoreDataWithSuccess:^{
+        [weakSelf.remindersTableView reloadData];
     } withError:^(NSError * _Nonnull error) {
         [self.alertManager showErrorMessageWithDescription:[error localizedDescription] inVC:self withSelection:^{
             [self dismissViewControllerAnimated:YES completion:nil];

@@ -82,8 +82,9 @@
 }
 
 -(void) loadReminderMovies{
-    [self.reminderViewModel fetchRemindersInCoreDataWithSuccess:^{
-        [self.profileTableView reloadData];
+    __weak ProfileViewController *weakSelf = self;
+    [weakSelf.reminderViewModel fetchRemindersInCoreDataWithSuccess:^{
+        [weakSelf.profileTableView reloadData];
         
     } withError:^(NSError * _Nonnull error) {
         NSLog(@"%@ profile vc", error);
