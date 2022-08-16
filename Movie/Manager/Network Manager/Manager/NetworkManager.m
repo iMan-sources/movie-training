@@ -29,7 +29,7 @@
     
     return self;
 }
--(void) routeURL{
+-(void)routeURL{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger type = [[standardUserDefaults objectForKey: FilterTypeUserDefaults] intValue];
     switch (type) {
@@ -65,7 +65,7 @@
     [weakSelf.networkManager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     [weakSelf.networkManager GET:url parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [weakSelf.networkManager invalidateSessionCancelingTasks:YES resetSession:YES];
+//        [weakSelf.networkManager invalidateSessionCancelingTasks:YES resetSession:YES];
 
         successCompletion(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

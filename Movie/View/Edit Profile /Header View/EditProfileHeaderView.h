@@ -10,16 +10,16 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol EditProfileHeaderViewDelegate <NSObject>
 
--(void) didCancelButtonTapped;
--(void) didDoneButtonTapped;
+- (void)didCancelButtonTapped;
+- (void)didDoneButtonTapped;
 @end
 @interface EditProfileHeaderView : UIView
-+(NSString *) getReuseIdentifier;
++ (NSString *)getReuseIdentifier;
 
-+(CGFloat) getHeaderHeight;
++ (CGFloat)getHeaderHeight;
 @property(weak, nonatomic) id<EditProfileHeaderViewDelegate> delegate;
 @property(strong, nonatomic) AvatarView *avatarView;
--(void) bindingData: (User *)user;
+- (void)bindingData:(User *)user;
 @end
 
 NS_ASSUME_NONNULL_END

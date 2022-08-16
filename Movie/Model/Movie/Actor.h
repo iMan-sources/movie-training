@@ -10,13 +10,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Actor : NSObject
--(instancetype) initWithName: (NSString *)name withProfilePath: (NSString *) profilePath;
+- (instancetype)initWithName:(NSString *)name withProfilePath:(NSString *)profilePath;
 
--(NSString *) getName;
+- (NSString *)getName;
 
--(NSString *) getProfilePath;
+- (NSString *)getProfilePath;
 
--(void) printOut;
+- (void)printOut;
 @end
 
 NS_ASSUME_NONNULL_END

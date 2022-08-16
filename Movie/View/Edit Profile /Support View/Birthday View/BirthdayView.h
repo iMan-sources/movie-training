@@ -10,12 +10,12 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol BirthdayViewDelegate <NSObject>
 
--(void) didBirthdayLabelTapped;
+- (void)didBirthdayLabelTapped;
 
 @end
 @interface BirthdayView : UIView
--(void) bindingData: (NSDate *) birthday;
--(NSDate *) getDate;
+- (void)bindingData:(NSDate *)birthday;
+- (NSDate *)getDate;
 @property(weak, nonatomic) id<BirthdayViewDelegate> delegate;
 @end
 

@@ -9,7 +9,7 @@
 #import "Configs.h"
 @implementation Parser
 
--(Movie *) initializeMovieObj: (NSDictionary *)item{
+- (Movie *)initializeMovieObj:(NSDictionary *)item{
     NSInteger ID = [[item objectForKey:@"id"] intValue];
     NSString *title = [item objectForKey:@"title"];
     double vote_average = [[item objectForKey:@"vote_average"] doubleValue];
@@ -23,7 +23,7 @@
     return movie;
 }
 
--(Actor *) initializeActorMovieObj: (NSDictionary *) item{
+- (Actor *)initializeActorMovieObj:(NSDictionary *)item{
     NSString *name = [item objectForKey:@"name"];
     NSString *profile_path = [self concatePosterPath:[item objectForKey:@"profile_path"]];
     
@@ -58,7 +58,7 @@
 
 #pragma mark - ParserCreditsMovieProtocol
 
--(NSString *) concatePosterPath: (NSString *)poster_path{
+- (NSString *)concatePosterPath:(NSString *)poster_path{
     NSString *posterURL = [NSString stringWithFormat:@"%@%@", ImageBaseDomain, poster_path];
     return posterURL;
 }

@@ -28,7 +28,7 @@
     return self;
 }
 #pragma mark - FILTER request
--(void) filterFavoriteMovieWithIDWithSuccess: (NSInteger)movieID withSuccess: (void(^)(MovieCD *))successCompletion withError: (void(^)(NSError *)) errorCompletion{
+- (void)filterFavoriteMovieWithIDWithSuccess:(NSInteger)movieID withSuccess:(void(^)(MovieCD *))successCompletion withError:(void(^)(NSError *))errorCompletion{
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:@"MovieCD"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"movieID == %d",movieID];
     req.predicate = predicate;
@@ -46,7 +46,7 @@
     successCompletion(nil);
 }
 
--(void) filterReminderWithMovieIDWithSuccess: (NSInteger)movieID withSuccess: (void(^)(Reminder *))successCompletion withError: (void(^)(NSError *)) errorCompletion{
+- (void)filterReminderWithMovieIDWithSuccess:(NSInteger)movieID withSuccess:(void(^)(Reminder *))successCompletion withError:(void(^)(NSError *))errorCompletion{
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:@"Reminder"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"movieID == %d", movieID];
     req.predicate = predicate;
@@ -57,9 +57,7 @@
         errorCompletion(error);
         return;
     }
-//    [reminders enumerateObjectsUsingBlock:^(Reminder * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        NSLog(@"%@", obj.time);
-//    }];
+
     
     if (reminders.count > 0) {
         successCompletion(reminders[0]);
@@ -69,7 +67,7 @@
     successCompletion(nil);
     
 }
--(void) filterMovieWithName: (NSString *)movieName withSuccess: (void(^)(NSArray<MovieCD *> *)) successCompletion withError: (void(^)(NSError *)) errorCompletion{
+- (void)filterMovieWithName:(NSString *)movieName withSuccess:(void(^)(NSArray<MovieCD *> *))successCompletion withError:(void(^)(NSError *))errorCompletion{
     NSFetchRequest *req = [NSFetchRequest fetchRequestWithEntityName:@"MovieCD"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN title", movieName];
     req.predicate = predicate;
@@ -83,7 +81,7 @@
     successCompletion(result);
 }
 
--(void)checkIfMovieIsFavorite: (Movie *) movie withSuccess: (void(^)(BOOL))successCompletion withError: (void (^)(NSError * _Nonnull))errorCompletion{
+- (void)checkIfMovieIsFavorite:(Movie *) movie withSuccess:(void(^)(BOOL))successCompletion withError:(void (^)(NSError * _Nonnull))errorCompletion{
     NSInteger movieID = [movie getID];
     [self filterFavoriteMovieWithIDWithSuccess:movieID withSuccess:^(MovieCD * movie) {
         if (movie == nil) {
@@ -101,7 +99,6 @@
     [self filterReminderWithMovieIDWithSuccess:movieID withSuccess:^(Reminder * reminder) {
         if (reminder != nil) {
             NSDate *time = reminder.time;
-            NSLog(@"%@ time", time);
             successCompletion(time);
         }else{
             successCompletion(nil);
@@ -155,7 +152,7 @@
     successCompletion();
 }
 
--(void) insertToCoreDataWithReminder: (Movie *)movie withTime: (NSDate *)time withSuccess: (void(^)(void)) successCompletion withError: (void(^)(NSError *)) errorCompletion{
+-(void) insertToCoreDataWithReminder:(Movie *)movie withTime:(NSDate *)time withSuccess:(void(^)(void))successCompletion withError:(void(^)(NSError *))errorCompletion{
     Reminder *reminder = [[Reminder alloc] initWithContext:self.context];
     reminder.time = time;
     reminder.movieID = (int)[movie getID];

@@ -26,7 +26,7 @@
 }
 
 #pragma mark - Action
--(void) didRefreshed: (UIRefreshControl *) sender{
+- (void)didRefreshed:(UIRefreshControl *)sender{
     self.isRefreshing = true;
     [self.delegate didRefreshControlCalled];
 }
@@ -49,7 +49,7 @@
 }
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     [self configRereshControl];
     self.isRefreshing = false;
     
@@ -57,14 +57,14 @@
 
 }
 
--(void) configRereshControl{
+- (void)configRereshControl{
     self.refreshControl = [[UIRefreshControl alloc] init];
     NSAttributedString *attrs = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
     [self.refreshControl setAttributedTitle:attrs];
     [self.refreshControl addTarget:self action:@selector(didRefreshed:) forControlEvents:UIControlEventValueChanged];
 }
 
--(void) configCollectionView{
+- (void)configCollectionView{
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:[self createTwoColumnInCollectionView]];
     
     self.collectionView.delegate = self;
@@ -84,7 +84,7 @@
     [self.collectionView addSubview:self.refreshControl];
 
 }
--(UICollectionViewFlowLayout *) createTwoColumnInCollectionView{
+- (UICollectionViewFlowLayout *)createTwoColumnInCollectionView{
     CGFloat width = UIScreen.mainScreen.bounds.size.width;
     CGFloat padding = 12;
     CGFloat minimumItemSpacing = 10;

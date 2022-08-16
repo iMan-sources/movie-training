@@ -9,16 +9,16 @@
 #import "AlertManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+//- (void)unwindForSegue:(UIStoryboardSegue *)unwindSegue
 @interface UIViewController (Extensions)
--(void) bringVCToView: (UIViewController *)viewController withView: (UIView *) view;
--(void) configLeftBarItemButtons;
--(void) registerTapGestureToEndEditing;
+- (void)bringVCToView:(UIViewController *)viewController withView: (UIView *) view;
+- (void)configLeftBarItemButtons;
+- (void)registerTapGestureToEndEditing;
 
 #pragma mark - Notification Center
--(void) postNotificationWhenLikeButtonTapped;
+- (void)postNotificationWhenLikeButtonTapped;
 
--(void) postNotificationWhenUnlikeButtonTapped;
+- (void)postNotificationWhenUnlikeButtonTapped;
 @end
 
 NS_ASSUME_NONNULL_END

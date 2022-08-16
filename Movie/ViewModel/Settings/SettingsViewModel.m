@@ -99,16 +99,16 @@
 }
 
 #pragma mark - Action
--(void) postDidFilterTypeChangedNotification{
+- (void)postDidFilterTypeChangedNotification{
     [[NSNotificationCenter defaultCenter] postNotificationName:DidFilterTypeChangedNotification object:nil];
 }
--(void) postDidSortTypeChangedNotification{
+- (void)postDidSortTypeChangedNotification{
     [[NSNotificationCenter defaultCenter] postNotificationName:DidSortTypeChangedNotification object:nil];
 }
 #pragma mark - Helper
 
 #pragma mark - Filter & Sort Populate
--(NSString *) filterTitleForCell: (FilterType)type{
+- (NSString *)filterTitleForCell:(FilterType)type{
     switch (type) {
         case popular:
         {
@@ -137,7 +137,7 @@
     }
 }
 
--(NSString *) sortTitleForCell: (SortType)type{
+- (NSString *)sortTitleForCell:(SortType)type{
     switch (type) {
         case releaseDate:
         {
@@ -150,14 +150,14 @@
     }
 }
 
--(SettingsType) settingType: (NSInteger) section{
+- (SettingsType)settingType:(NSInteger)section{
     if (section == 0) {
         return filter;
     }
     return sort;
 }
 
--(FilterType) filterTypeAtIndexPath: (NSInteger) row{
+- (FilterType)filterTypeAtIndexPath:(NSInteger)row{
     for (int i = popular; i <= fromReleaseYear; i++) {
         if (i == row) {
             return i;
@@ -166,7 +166,7 @@
     return popular;
 }
 
--(SortType) sortTypeAtIndexPath: (NSInteger) row{
+- (SortType)sortTypeAtIndexPath:(NSInteger)row{
     for (int i = releaseDate; i <= rating; i++) {
         if (i == row) {
             return i;
@@ -196,7 +196,7 @@
     return NO;
 }
 
-- (BOOL) isMovieWithRateFromType:(NSIndexPath *)indexPath{
+- (BOOL)isMovieWithRateFromType:(NSIndexPath *)indexPath{
     SettingsType settingType = [self settingType:indexPath.section];
     FilterType filterType = [self filterTypeAtIndexPath:indexPath.row];
     
@@ -206,14 +206,14 @@
     return NO;
 }
 
--(BOOL) checkIfRowIsFilterTypeDefault: (NSIndexPath *) indexPath{
+- (BOOL)checkIfRowIsFilterTypeDefault:(NSIndexPath *)indexPath{
     if ([self.indexPathSelected containsObject:indexPath]) {
         return YES;
     }
     return NO;
 }
 
--(BOOL) checkIfRowIsSortTypeDefault: (NSIndexPath *) indexPath{
+- (BOOL)checkIfRowIsSortTypeDefault:(NSIndexPath *)indexPath{
     if ([self.indexPathSelected containsObject:indexPath]) {
         return YES;
     }
@@ -223,20 +223,20 @@
 #pragma mark - User defaults
 
 #pragma mark - Filter & Sort User default
--(void) setSettingsFilterTypeInUserdefault: (NSIndexPath *)indexPath{
+- (void)setSettingsFilterTypeInUserdefault:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     NSString *type = [NSString stringWithFormat:@"%ld", (long)row];
     [self.standardUserDefaults setObject:type forKey:FilterTypeUserDefaults];
 //    NSLog(@"%@", [standardUserDefaults objectForKey:FilterTypeUserDefaults]);
 }
 
--(void) setSettingsSortTypeInUserDefault: (NSIndexPath *)indexPath{
+- (void)setSettingsSortTypeInUserDefault:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     NSString *type = [NSString stringWithFormat:@"%ld", (long)row];
     [self.standardUserDefaults setObject:type forKey:SortTypeUserDefaults];
 }
 
--(NSIndexPath *) loadSettingsFilterTypeFromUserDefault{
+- (NSIndexPath *)loadSettingsFilterTypeFromUserDefault{
     
     NSInteger type = [[self.standardUserDefaults objectForKey: FilterTypeUserDefaults] intValue];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:type inSection:filter];
@@ -244,14 +244,14 @@
     
 }
 
--(NSIndexPath *) loadSettingsSortTypeFromUserDefault{
+- (NSIndexPath *)loadSettingsSortTypeFromUserDefault{
     NSInteger type = [[self.standardUserDefaults objectForKey: SortTypeUserDefaults] intValue];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:type inSection:sort];
     return indexPath;
 }
 
 
--(void) loadSettingsDefault{
+- (void)loadSettingsDefault{
     [self.indexPathSelected removeAllObjects];
     
     [self.indexPathSelected addObject:[self loadSettingsSortTypeFromUserDefault]];
@@ -260,17 +260,17 @@
 }
 
 #pragma mark - Movie Rate & Release Year User default
--(double) loadMovieRateSettingFromUserDefault{
+- (double)loadMovieRateSettingFromUserDefault{
     double rate = [[self.standardUserDefaults objectForKey:MovieRateUserDefaults] doubleValue];
     return rate;
 }
 
--(int) loadReleaseYearSettingFromUserDefault{
+- (int)loadReleaseYearSettingFromUserDefault{
     int releaseYear = [[self.standardUserDefaults objectForKey:ReleaseYearUserDefaults]intValue];
     return releaseYear;
 }
 
--(void) setMovieRatingInUserDefault: (double) rating{
+- (void)setMovieRatingInUserDefault:(double)rating{
     NSString *ratingString = [NSString stringWithFormat:@"%.1f", rating];
     [self.standardUserDefaults setObject:ratingString forKey:MovieRateUserDefaults];
     
@@ -278,12 +278,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:DidMovieRateChangedNotification object:nil];
 }
 
--(void) setFromReleaseyearInUserDefault: (NSString *)year{
+- (void)setFromReleaseyearInUserDefault:(NSString *)year{
     [self.standardUserDefaults setObject:year forKey:ReleaseYearUserDefaults];
     [[NSNotificationCenter defaultCenter] postNotificationName:DidReleaseYearChangedNotification object:nil];
 }
 
--(NSInteger) loadYearSettingsInUserDefault: (NSMutableArray<NSString *> *) years{
+- (NSInteger)loadYearSettingsInUserDefault:(NSMutableArray<NSString *> *)years{
     NSInteger index = 0;
     NSString *defaultYear = [self.standardUserDefaults objectForKey:ReleaseYearUserDefaults];
     for (int i = 0; i < years.count; i++) {

@@ -10,18 +10,18 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol MovieVCChildViewDelegate <NSObject>
 
--(void) scrollViewDidEndDragging;
--(void) didRefreshControlCalled;
--(void) didCellSelected: (Movie *)movie;
+- (void)scrollViewDidEndDragging;
+- (void)didRefreshControlCalled;
+- (void)didCellSelected:(Movie *)movie;
 @end
 
 @interface MovieListViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property(weak, nonatomic) id<MovieVCChildViewDelegate> delegate;
--(void) reloadData;
--(void) loadViewModel: (MoviesViewModel *) viewModel;
--(void) endRefreshing;
+- (void)reloadData;
+- (void)loadViewModel:(MoviesViewModel *)viewModel;
+- (void)endRefreshing;
 @end
 
 NS_ASSUME_NONNULL_END

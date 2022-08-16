@@ -23,7 +23,7 @@
 @implementation RemindersViewController
 #pragma mark - Lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self configNavigationBar];
@@ -41,7 +41,7 @@
 }
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     [self configStoryboard];
     [self configReminderViewModel];
     [self configTableView];
@@ -49,24 +49,24 @@
     [self configAlertManager];
     
 }
--(void) configAlertManager{
+- (void)configAlertManager{
     self.alertManager = [[AlertManager alloc] init];
 }
 
--(void) configNavigationBar{
+- (void)configNavigationBar{
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"All Reminders";
 }
 
--(void) layout{
+- (void)layout{
     
 }
 
--(void) configStoryboard{
+- (void)configStoryboard{
     self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
 }
--(void) configTableView{
+- (void)configTableView{
     self.remindersTableView.delegate = self;
     self.remindersTableView.dataSource = self;
     [self.remindersTableView registerNib:[UINib nibWithNibName:[RemindTableViewCell getNibName] bundle:nil] forCellReuseIdentifier:[RemindTableViewCell getReuseIdentifier]];
@@ -74,12 +74,12 @@
     self.remindersTableView.estimatedRowHeight = 40.0;
 }
 
--(void) configReminderViewModel{
+- (void)configReminderViewModel{
     self.reminderViewModel = [[ReminderViewModel alloc] init];
     
 }
 
--(void) loadReminderMovies{
+- (void)loadReminderMovies{
     __weak RemindersViewController *weakSelf = self;
     [weakSelf.reminderViewModel fetchRemindersInCoreDataWithSuccess:^{
         [weakSelf.remindersTableView reloadData];

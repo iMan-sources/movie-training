@@ -31,17 +31,17 @@
 }
 
 #pragma mark - CoreData
--(void) configCoreDataManager{
+- (void)configCoreDataManager{
     self.coreDataManager = [[CoreDataManager alloc] init];
 }
 
--(void) fetchRemindersInCoreDataWithSuccess: (void(^)(void)) completion withError: (void(^)(NSError *)) errorCompletion{
+- (void)fetchRemindersInCoreDataWithSuccess:(void(^)(void))completion withError: (void(^)(NSError *))errorCompletion{
     dispatch_group_t group = dispatch_group_create();
     
     
     __weak ReminderViewModel *weakSelf = self;
     
-    [weakSelf.reminderMovies removeAllObjects];
+    [self.reminderMovies removeAllObjects];
     
     [weakSelf.coreDataManager fetchReminderWithSuccess:^(NSArray<Reminder *> * _Nonnull reminders) {
         [reminders enumerateObjectsUsingBlock:^(Reminder * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -67,7 +67,7 @@
     } withError:errorCompletion];
 }
 
--(void) searchMovieWithId: (NSInteger) movieID withSuccess: (void(^)(Movie *)) successCompletion withError: (void(^)(NSError *)) errorCompletion{
+- (void)searchMovieWithId:(NSInteger)movieID withSuccess:(void(^)(Movie *))successCompletion withError:(void(^)(NSError *))errorCompletion{
     __weak ReminderViewModel *weakSelf = self;
     [weakSelf.fetcherPopularMovies fetchMovieWithID:movieID withSuccess:^(Movie * _Nonnull movie) {
         successCompletion(movie);

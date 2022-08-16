@@ -35,14 +35,14 @@
 }
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     [self configYearSelections];
     [self configYearPicker];
     self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
--(void) layout{
+- (void)layout{
     [self.contentView addSubview:self.pickerView];
     [self.pickerView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:8].active = true;
     [self.pickerView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:8].active = true;
@@ -51,7 +51,7 @@
 
 }
 
--(void) configYearPicker{
+- (void)configYearPicker{
     self.pickerView = [[UIPickerView alloc] init];
     self.pickerView.translatesAutoresizingMaskIntoConstraints = false;
     self.pickerView.delegate = self;
@@ -66,7 +66,7 @@
 
 }
 
--(void) configYearSelections{
+- (void)configYearSelections{
     self.years = [[NSMutableArray alloc] initWithArray:@[]];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy"];
@@ -100,7 +100,7 @@
     return [self.years objectAtIndex:row];
 }
 
--(void) setSelectedRow{
+- (void)setSelectedRow{
     NSInteger selectedRow = [self.settingsViewModel loadYearSettingsInUserDefault:self.years];
     [self.pickerView selectRow:selectedRow inComponent:0 animated:YES];
 }

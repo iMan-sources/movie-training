@@ -44,12 +44,12 @@
 
 
 #pragma mark - Layout
--(void) layout{
+- (void)layout{
     [self.view addSubview:self.tableView];
 }
 
 #pragma mark - Action
--(void) didRefreshed: (UIRefreshControl *) sender{
+- (void)didRefreshed:(UIRefreshControl *)sender{
     self.isRefreshing = true;
     [self.delegate didRefreshControlCalled];
 }
@@ -72,7 +72,7 @@
 
 #pragma mark - Helpers
 
--(void) setup{
+- (void)setup{
     [self configRereshControl];
     [self configTableView];
     
@@ -85,11 +85,11 @@
     [self configAlertManager];
 }
 
--(void) configFavoriteViewModel{
+- (void)configFavoriteViewModel{
     self.favoriteViewModel = [[FavoritesViewModel alloc] init];
 }
 
--(void) configTableView{
+- (void)configTableView{
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:[MovieListViewCell getNibName] bundle:nil] forCellReuseIdentifier:[MovieListViewCell getReuseIdentifier]];
@@ -99,19 +99,19 @@
     [self.tableView addSubview:self.refreshControl];
 }
 
--(void) configRereshControl{
+- (void)configRereshControl{
     self.refreshControl = [[UIRefreshControl alloc] init];
     NSAttributedString *attrs = [[NSAttributedString alloc] initWithString:@"Pull to refresh"];
     [self.refreshControl setAttributedTitle:attrs];
     [self.refreshControl addTarget:self action:@selector(didRefreshed:) forControlEvents:UIControlEventValueChanged];
 }
 
--(void) configAlertManager{
+- (void)configAlertManager{
     self.alertManager = [[AlertManager alloc] init];
 }
 
 #pragma mark - Core Data
--(void) insertNewFavoriteMovie: (Movie *)movie{
+- (void)insertNewFavoriteMovie:(Movie *)movie{
     [self.favoriteViewModel insertMovieToCoreDataWithMovie:movie withSuccess:^{
     
         //send insert noti to FavoriteVC to reload view
@@ -124,7 +124,7 @@
     }];
 }
 
--(void) deleteExistFavorite: (Movie *)movie{
+- (void)deleteExistFavorite:(Movie *)movie{
     [self.favoriteViewModel deleteMovieFromCoreDataWithMovie:movie withSuccess:^{
         //send unlike noti
         [self postNotificationWhenUnlikeButtonTapped];
@@ -212,7 +212,7 @@
     return cell;
 }
 
--(void) insertNewIndexToSelectedIndexPathArray: (NSIndexPath *)indexPath withMovie: (Movie *)movie{
+-(void)insertNewIndexToSelectedIndexPathArray:(NSIndexPath *)indexPath withMovie:(Movie *)movie{
 
     [self.favoriteViewModel checkIfMovieIsFavorite:movie withSuccess:^(BOOL isFavorited) {
         if (isFavorited && ![self.likedCellIndexPaths containsObject:indexPath]) {

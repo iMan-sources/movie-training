@@ -11,18 +11,18 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Movie : NSObject
--(instancetype) initWithID: (NSInteger )ID withOverview: (NSString *) overview withTitle: (NSString *) title withReleaseDate: (NSString *) release_date withVoteAverage: (double) vote_average withPosterPath: (NSString *) poster_path;
+- (instancetype)initWithID:(NSInteger )ID withOverview:(NSString *)overview withTitle:(NSString *)title withReleaseDate:(NSString *)release_date withVoteAverage:(double)vote_average withPosterPath:(NSString *)poster_path;
 
--(instancetype) initWithMovieInCoreData: (MovieCD *) movieInCoreData;
+- (instancetype)initWithMovieInCoreData:(MovieCD *)movieInCoreData;
 
--(void) printOut;
+- (void)printOut;
 
--(NSInteger) getID;
--(NSString *) getOverview;
--(NSString *) getTitle;
--(NSString *) getPosterURL;
--(NSString *) getVoteAverage;
--(NSString *) getReleaseDate;
+- (NSInteger)getID;
+- (NSString *)getOverview;
+- (NSString *)getTitle;
+- (NSString *)getPosterURL;
+- (NSString *)getVoteAverage;
+- (NSString *)getReleaseDate;
 @end
 
 

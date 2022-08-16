@@ -56,7 +56,7 @@
     [super viewWillDisappear:animated];
 }
 #pragma mark - Navigation
--(void) configNavigationBar{
+- (void)configNavigationBar{
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.title = [self.movie getTitle];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -64,7 +64,7 @@
 }
 
 #pragma mark - API
--(void) fetchCreditsMovie{
+- (void)fetchCreditsMovie{
     __weak MovieDetailViewController *weakSelf = self;
     NSInteger movieId = [self.movie getID];
     [weakSelf.movieDetailViewModel getCreditsMovieWithMovieId:movieId withSuccess:^{
@@ -84,7 +84,7 @@
 }
 
 #pragma mark - Helpers
--(void) setup{
+- (void)setup{
     [self configMovieDetailViewModel];
     
     [self configFavoriteMovieViewModel];
@@ -116,11 +116,11 @@
 }
 
 
--(void) configAlertManager{
+- (void)configAlertManager{
     self.alertManager = [[AlertManager alloc] init];
 }
 
--(void) displayTimeOrNot{
+- (void)displayTimeOrNot{
     __weak MovieDetailViewController *weakSelf = self;
     [weakSelf.coreDataManager checkIfMovieHaveReminder:self.movie withSuccess:^(NSDate * _Nullable time) {
         if (time != nil) {
@@ -133,7 +133,7 @@
     }];
 }
 
--(void) fillStarFavoriteOrNot{
+- (void)fillStarFavoriteOrNot{
     __weak MovieDetailViewController *weakSelf = self;
     [weakSelf.coreDataManager checkIfMovieIsFavorite:self.movie withSuccess:^(BOOL isFavorite) {
         if (isFavorite) {
@@ -146,26 +146,26 @@
     }];
 }
 
--(void) configUNUserNotificationCenter{
+- (void)configUNUserNotificationCenter{
     self.center = [UNUserNotificationCenter currentNotificationCenter];
     self.center.delegate = self;
     [self registerLocal];
 }
--(void) configCoreDataManager{
+- (void)configCoreDataManager{
     self.coreDataManager = [[CoreDataManager alloc] init];
 }
--(void) configDatePickerManager{
+- (void)configDatePickerManager{
     self.datePickerManager = [[DatePickerManager alloc] init];
 }
 
--(void) configFooterView{
+- (void)configFooterView{
     self.footerView = [[UIView alloc] init];
     self.footerView.translatesAutoresizingMaskIntoConstraints = false;
     [self.footerView.heightAnchor constraintEqualToConstant:10].active = true;
     self.footerView.backgroundColor = [UIColor clearColor];
 }
 
--(void) configCastCrewView{
+- (void)configCastCrewView{
     self.castCrewView = [[UIView alloc] init];
     self.castCrewView.translatesAutoresizingMaskIntoConstraints = false;
     self.castCrewLabel = [[UILabel alloc] init];
@@ -183,19 +183,19 @@
     
 }
 
--(void) configScrollView{
+- (void)configScrollView{
     self.scrollView = [[UIScrollView alloc] init];
     [self.scrollView setFrame:self.view.bounds];
 }
 
--(void) configContentStackView{
+- (void)configContentStackView{
     self.contentStackView = [[UIStackView alloc] initWithArrangedSubviews:@[self.movieDetailContentView,self.castCrewView, self.castCollectionView, self.footerView]];
     self.contentStackView.axis = UILayoutConstraintAxisVertical;
     self.contentStackView.translatesAutoresizingMaskIntoConstraints = false;
     self.contentStackView.spacing = 0;
 }
 
--(void) configContentView{
+- (void)configContentView{
     self.movieDetailContentView = [[MovieDetailView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     if (self.movie != nil) {
         [self.movieDetailContentView bindingData:self.movie];
@@ -204,15 +204,15 @@
     self.movieDetailContentView.delegate = self;
 }
 
--(void) configMovieDetailViewModel{
+- (void)configMovieDetailViewModel{
     self.movieDetailViewModel = [[MovieDetailViewModel alloc] init];
 }
 
--(void) configFavoriteMovieViewModel{
+- (void)configFavoriteMovieViewModel{
     self.favoriteViewModel = [[FavoritesViewModel alloc] init];
 }
 
--(void) layout{
+- (void)layout{
     
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.contentStackView];
@@ -232,7 +232,7 @@
 
 }
 
--(void) configHeightCostraintCastCollectionView{
+- (void)configHeightCostraintCastCollectionView{
     self.castCollectionViewHeightConstraint = [self.castCollectionView.heightAnchor constraintEqualToConstant:50];
     [self.castCollectionViewHeightConstraint setPriority:999];
     CGFloat height = self.castCollectionView.collectionViewLayout.collectionViewContentSize.height;
@@ -241,7 +241,7 @@
     [self.view layoutIfNeeded];
 
 }
--(void) configCollectionView{
+- (void)configCollectionView{
     self.cellPadding = 12;
     //self.cellPadding * 2 = top inset + bottom inset
     self.cellHeight = [CastCollectionViewCell getRowHeight] + (self.cellPadding * 2) + 12;
@@ -253,7 +253,7 @@
     [self.castCollectionView registerNib:[UINib nibWithNibName:[CastCollectionViewCell getNibName] bundle:nil] forCellWithReuseIdentifier:[CastCollectionViewCell getReuseIdentifier]];
 }
 
--(UICollectionViewFlowLayout *) createCollectionViewFlowLayout{
+- (UICollectionViewFlowLayout *)createCollectionViewFlowLayout{
     CGFloat itemWidth = [CastCollectionViewCell getRowHeight];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -264,7 +264,7 @@
 }
 
 
--(NSDate *) getCurrentDate{
+- (NSDate *)getCurrentDate{
     NSDate *today = [NSDate date];
 
     return today;
@@ -329,7 +329,7 @@
 }
 
 #pragma mark - Notification Helper
--(void) registerLocal {
+- (void)registerLocal {
 
     UNAuthorizationOptions options = UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge;
     [self.center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
@@ -341,7 +341,7 @@
     }];
 }
 
--(void) scheduleLocal: (NSDate *) date withMovie: (Movie *)movie{
+- (void)scheduleLocal:(NSDate *)date withMovie:(Movie *)movie{
     
     UNMutableNotificationContent *content = [UNMutableNotificationContent new];
     content.title = @"Movie";
@@ -371,7 +371,7 @@
     }];
 
 }
--(NSString *) generateUUID{
+- (NSString *)generateUUID{
     NSUUID *uuid = [NSUUID UUID];
     NSString *str = [uuid UUIDString];
     
@@ -381,17 +381,16 @@
 #pragma mark - Delegate
 - (void)didLikeButtonTapped:(BOOL)isFavorite{
     if (isFavorite) {
-        NSLog(@"favorited");
         [self insertNewMoveToCoreData];
         return;
     }
-    NSLog(@"unfavrotied");
+
     //remove from fav
     [self deleteFavMovieFromCoreData];
 }
 
 #pragma mark - CoreData
--(void) deleteFavMovieFromCoreData{
+- (void)deleteFavMovieFromCoreData{
     [self.favoriteViewModel deleteMovieFromCoreDataWithMovie:self.movie withSuccess:^{
         //notify st if delete movie from core data success
         [self postNotificationWhenUnlikeButtonTapped];
@@ -403,7 +402,7 @@
     }];
 }
 
--(void) insertNewMoveToCoreData{
+- (void)insertNewMoveToCoreData{
     [self.favoriteViewModel insertMovieToCoreDataWithMovie:self.movie withSuccess:^{
         //notify st if insert success..
         [self postNotificationWhenLikeButtonTapped];

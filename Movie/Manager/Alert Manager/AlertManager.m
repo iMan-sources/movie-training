@@ -27,7 +27,7 @@
     [vc presentViewController:alertController animated:true completion:nil];
 }
 
--(void) showErrorMessageWithDescription: (NSString *) msg inVC: (UIViewController *)vc withSelection: (void (^)(void)) completionHandler{
+- (void)showErrorMessageWithDescription:(NSString *) msg inVC:(UIViewController *)vc withSelection:(void (^)(void)) completionHandler{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:msg preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *okSelection = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -35,8 +35,5 @@
     }];
     [alertController addAction:okSelection];
     [vc presentViewController:alertController animated:true completion:nil];
-
-    
-
 }
 @end

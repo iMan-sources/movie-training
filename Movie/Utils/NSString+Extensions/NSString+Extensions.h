@@ -10,9 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Extensions)
--(NSDate *) convertStringToDate;
--(NSDate *) convertStringToYear;
--(NSDate *) convertYYYYmmddToYYYY;
+- (NSDate *)convertStringToDate;
+- (NSDate *)convertStringToYear;
+- (NSDate *)convertYYYYmmddToYYYY;
 @end
 
 NS_ASSUME_NONNULL_END

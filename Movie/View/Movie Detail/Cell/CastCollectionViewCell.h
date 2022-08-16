@@ -10,10 +10,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CastCollectionViewCell : UICollectionViewCell
-+(NSString *) getReuseIdentifier;
-+(NSString *) getNibName;
-+(CGFloat) getRowHeight;
--(void) bindingData: (Actor *) actor;
++ (NSString *)getReuseIdentifier;
++ (NSString *)getNibName;
++ (CGFloat)getRowHeight;
+- (void)bindingData:(Actor *)actor;
 @end
 
 NS_ASSUME_NONNULL_END

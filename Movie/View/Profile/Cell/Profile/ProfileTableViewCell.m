@@ -36,16 +36,16 @@
 }
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     
 }
 
 
--(void) layout{
+- (void)layout{
     
 }
 
-- (void)bindingData:(NSString *)infor withImage: (UIImage *)image{
+- (void)bindingData:(NSString *)infor withImage:(UIImage *)image{
     self.inforLabel.text = infor;
     self.inforImageView.image = image;
 }

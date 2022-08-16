@@ -42,12 +42,12 @@
 
 #pragma mark - Helper
 
--(void) setup{
+- (void)setup{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self configSelectedImage];
 }
 
--(void) configSelectedImage{
+- (void)configSelectedImage{
     [self.selectedImage setHidden:YES];
 }
 
@@ -55,7 +55,7 @@
     self.titleLabel.text = content;
 }
 
--(void) setCheckImageDisplayHidden: (BOOL) isHidden{
+- (void)setCheckImageDisplayHidden:(BOOL)isHidden{
     [self.selectedImage setHidden:isHidden];
 }
 

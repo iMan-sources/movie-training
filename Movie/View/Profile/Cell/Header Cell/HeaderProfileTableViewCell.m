@@ -37,12 +37,12 @@
 
 #pragma mark - Helper
 
--(void) setup{
+- (void)setup{
     [self configAvatarView];
 
 }
 
--(void) layout{
+- (void)layout{
     
     [self.contentView addSubview:self.avatarView];
     [self.avatarView.topAnchor constraintEqualToAnchor:self.topAnchor].active= true;
@@ -53,17 +53,17 @@
 
 }
 
--(void) configAvatarView{
+- (void)configAvatarView{
     self.avatarView = [[AvatarView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.avatarView.translatesAutoresizingMaskIntoConstraints = false;
 }
 
--(void)bindingData: (User *)user{
+- (void)bindingData:(User *)user{
     [self.avatarView bindingData:user];
     [self.avatarView configTextFieldWithBorderStyle:UITextBorderStyleNone withInteract:NO];
 }
 
-+(CGFloat) getHeaderViewHeight{
++ (CGFloat)getHeaderViewHeight{
     return 130.0;
 }
 

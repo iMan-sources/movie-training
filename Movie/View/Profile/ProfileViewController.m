@@ -34,7 +34,7 @@
 
 }
 
--(User *)createUserForTest{
+- (User *)createUserForTest{
     NSDateFormatter *mmddccyy = [[NSDateFormatter alloc] init];
     mmddccyy.timeStyle = NSDateFormatterNoStyle;
     mmddccyy.dateFormat = @"MM/dd/yyyy";
@@ -55,33 +55,33 @@
 
 
 #pragma mark - Action
--(void) didAddNewReminderMovie: (NSNotification *) sender{
+- (void)didAddNewReminderMovie:(NSNotification *)sender{
     [self loadReminderMovies];
 
 }
 #pragma mark - Helper
--(void) registerDidAddReminderNotification{
+- (void)registerDidAddReminderNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAddNewReminderMovie:) name:DidAddReminderNotification object:nil];
 }
--(void) setup{
+- (void)setup{
     [self configProfileViewModel];
     [self configProfileTableView];
     [self configReminderViewModel];
     
 }
 
--(void) configReminderViewModel{
+- (void)configReminderViewModel{
     self.reminderViewModel = [[ReminderViewModel alloc] init];
 }
 
--(void) loadInforUser{
+- (void)loadInforUser{
     [self.profileViewModel loadUserFromUserDefaultWithKey:UserInforNameDefaults completionHandler:^{
         
         [self.profileTableView reloadData];
     }];
 }
 
--(void) loadReminderMovies{
+- (void)loadReminderMovies{
     __weak ProfileViewController *weakSelf = self;
     [weakSelf.reminderViewModel fetchRemindersInCoreDataWithSuccess:^{
         [weakSelf.profileTableView reloadData];
@@ -91,17 +91,17 @@
     }];
 }
 
--(void) layout{
+- (void)layout{
     CGFloat trailingPadding = UIScreen.mainScreen.bounds.size.width * (1 - CoefficientWidthInSreen);
     self.profileTrailingConstraint.constant = trailingPadding;
 }
     
 
--(void) configProfileViewModel{
+- (void)configProfileViewModel{
     self.profileViewModel = [[ProfileViewModel alloc] init];
 }
 
--(void) configProfileTableView{
+- (void)configProfileTableView{
     self.profileTableView.delegate = self;
     self.profileTableView.dataSource = self;
     self.profileTableView.rowHeight = UITableViewAutomaticDimension;

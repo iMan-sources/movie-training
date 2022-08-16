@@ -29,7 +29,7 @@
 }
 
 #pragma mark - Action
--(void) didFooterButtonTapped: (UIButton *)sender{
+- (void)didFooterButtonTapped:(UIButton *)sender{
     NSInteger tag = sender.tag;
     [self.delegate didFooterButtonTapped:tag];
     return;
@@ -42,11 +42,11 @@
     self.footerButton.layer.cornerRadius = 10;
 }
 
--(void) configFooterButton{
+- (void)configFooterButton{
     [self.footerButton addTarget:self action:@selector(didFooterButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
--(void) setButtonTag: (NSInteger) tag{
+- (void)setButtonTag:(NSInteger)tag{
     self.footerButton.tag = tag;
 }
 

@@ -10,14 +10,14 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol ActionFooterTableViewCellDelegate <NSObject>
 
--(void) didSelectButtonTapped;
+- (void)didSelectButtonTapped;
 
--(void) didCancelButtonTapped;
+- (void)didCancelButtonTapped;
 
 @end
 @interface ActionFooterTableViewCell : UITableViewHeaderFooterView
-+(NSString *) getNibName;
-+(NSString *) getReuseIdentifier;
++ (NSString *)getNibName;
++ (NSString *)getReuseIdentifier;
 
 @property(weak, nonatomic) id<ActionFooterTableViewCellDelegate> delegate;
 @end

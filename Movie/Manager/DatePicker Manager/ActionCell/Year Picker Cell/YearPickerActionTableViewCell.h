@@ -10,11 +10,11 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol YearPickerActionTableViewCellDelegate <NSObject>
 
--(void) didYearPickerSelectedWithYear: (NSString *) year;
+- (void)didYearPickerSelectedWithYear:(NSString *)year;
 
 @end
 @interface YearPickerActionTableViewCell : UITableViewCell
-+(NSString *) getReuseIdentifier;
++ (NSString *)getReuseIdentifier;
 @property(weak, nonatomic) id<YearPickerActionTableViewCellDelegate> delegate;
 @end
 

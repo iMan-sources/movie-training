@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol ProfileViewControllerDelegate
 
--(void) didButtonInProfileVCTapped: (NSInteger) tag;
+- (void)didButtonInProfileVCTapped: (NSInteger) tag;
 
 @end
 @interface ProfileViewController : UIViewController

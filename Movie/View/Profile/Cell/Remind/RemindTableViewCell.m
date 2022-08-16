@@ -51,7 +51,7 @@
     
 }
 
--(NSString *) concateAllInfor: (Movie *)movie{
+- (NSString *)concateAllInfor:(Movie *)movie{
     NSString *title = [movie getTitle];
     NSString *voteString = [NSString stringWithFormat:@"%@/10", [movie getVoteAverage]];
     
@@ -64,13 +64,13 @@
     return fullInfor;
 }
 
--(void) setPosterImageByURL: (NSString *)stringPosterURL{
+- (void)setPosterImageByURL:(NSString *)stringPosterURL{
     NSURL *posterURL = [[NSURL alloc] initWithString:stringPosterURL];
     UIImage *placeholderImage = [Images getPlaceholderImage];
     [self.iconImageView sd_setImageWithURL:posterURL placeholderImage:placeholderImage options:SDWebImageContinueInBackground];
 }
 
--(void) setup{
+- (void)setup{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 

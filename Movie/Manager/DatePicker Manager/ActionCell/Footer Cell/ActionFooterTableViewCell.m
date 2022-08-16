@@ -34,15 +34,15 @@
 }
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     [self configButtons];
 }
 
--(void) layout{
+- (void)layout{
     
 }
 
--(void) configButtons{
+- (void)configButtons{
 
     self.cancelButton.layer.cornerRadius = 10;
     self.cancelButton.clipsToBounds = YES;
@@ -57,10 +57,10 @@
 }
 
 #pragma mark - Action
--(void) didCancelButtonTapped: (UIButton *) sender{
+- (void)didCancelButtonTapped:(UIButton *)sender{
     [self.delegate didCancelButtonTapped];
 }
--(void) didSelectButtonTapped: (UIButton *) sender{
+- (void)didSelectButtonTapped:(UIButton *)sender{
     [self.delegate didSelectButtonTapped];
 }
 

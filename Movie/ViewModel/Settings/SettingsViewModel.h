@@ -37,31 +37,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
--(NSString *) titleForHeader: (NSInteger)section;
+- (NSString *)titleForHeader:(NSInteger)section;
 
--(BOOL) isFromYearReleaseType: (NSIndexPath *) indexPath;
+- (BOOL)isFromYearReleaseType:(NSIndexPath *)indexPath;
 
--(BOOL) isMovieWithRateFromType: (NSIndexPath *) indexPath;
+- (BOOL)isMovieWithRateFromType:(NSIndexPath *)indexPath;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 
 
--(BOOL) checkIfRowIsFilterTypeDefault: (NSIndexPath *) indexPath;
--(BOOL) checkIfRowIsSortTypeDefault: (NSIndexPath *) indexPath;
+- (BOOL)checkIfRowIsFilterTypeDefault: (NSIndexPath *)indexPath;
+- (BOOL)checkIfRowIsSortTypeDefault: (NSIndexPath *)indexPath;
 #pragma mark - User default
 
--(double) loadMovieRateSettingFromUserDefault;
--(int) loadReleaseYearSettingFromUserDefault;
+- (double)loadMovieRateSettingFromUserDefault;
+- (int)loadReleaseYearSettingFromUserDefault;
 
--(void) loadSettingsDefault;
+- (void)loadSettingsDefault;
 
--(void) setMovieRatingInUserDefault: (double) rating;
--(void) setFromReleaseyearInUserDefault: (NSString *)year;
+- (void)setMovieRatingInUserDefault:(double)rating;
+- (void)setFromReleaseyearInUserDefault:(NSString *)year;
 
--(NSString *) filterTitleForCell: (FilterType)type;
+- (NSString *)filterTitleForCell:(FilterType)type;
 
--(NSInteger) loadYearSettingsInUserDefault: (NSMutableArray<NSString *> *) years;
+- (NSInteger)loadYearSettingsInUserDefault:(NSMutableArray<NSString *> *)years;
 
 @end
 

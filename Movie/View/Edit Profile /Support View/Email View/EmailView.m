@@ -44,7 +44,7 @@
 
 #pragma mark - Helper
 
--(void) customInit{
+- (void)customInit{
     [[NSBundle mainBundle] loadNibNamed:@"EmailView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
@@ -52,7 +52,7 @@
 
 }
 #pragma mark - Instance Helper
--(void) bindingData:(NSString *) email{
+- (void)bindingData:(NSString *)email{
     self.emailTextField.text = email;
 }
 

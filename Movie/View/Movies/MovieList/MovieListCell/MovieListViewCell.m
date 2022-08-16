@@ -65,13 +65,13 @@
 
 #pragma mark - Helper
 
--(void)setup{
+- (void)setup{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self configLikeButton];
     self.favoriteViewModel = [[FavoritesViewModel alloc] init];
 }
 
--(void) configLikeButton{
+- (void)configLikeButton{
     [self.likeButton addTarget:self action:@selector(didLikeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.likeButton setImage:[Images getStarImage] forState:UIControlStateNormal];
 
@@ -92,7 +92,7 @@
 
 #pragma mark - Action
 
--(void) didLikeButtonTapped: (UIButton *) sender{
+- (void)didLikeButtonTapped:(UIButton *) sender{
     [self.delegate didLikeButtonTapped:(MovieListViewCell *) self];
     if ([self.likeButton.imageView.image isEqual:[Images getStarImage]]) {
         [self.likeButton setImage:[Images getFilledStar] forState:UIControlStateNormal];

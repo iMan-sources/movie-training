@@ -34,7 +34,7 @@
     return self;
 }
 
--(void) customInit{
+- (void)customInit{
     [[NSBundle mainBundle] loadNibNamed:@"AvatarView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
@@ -42,7 +42,7 @@
     [self configAvatarView];
 }
 #pragma mark - Action
--(void) didAvatarImageViewTapped: (UITapGestureRecognizer *) sender{
+- (void)didAvatarImageViewTapped:(UITapGestureRecognizer *)sender{
     [self.delegate didAvatarViewTapped];
 }
 #pragma mark - Instance Helper
@@ -70,7 +70,7 @@
 }
 
 #pragma mark - Helper
--(void) configAvatarView{
+- (void)configAvatarView{
     self.avatarImageView.layer.cornerRadius = self.avatarHeightContraint.constant / 2;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didAvatarImageViewTapped:)];
     [self.avatarImageView addGestureRecognizer:tapGesture];
@@ -79,7 +79,7 @@
 }
 
 
--(void) configTextFieldWithBorderStyle: (UITextBorderStyle ) borderStyle withInteract: (BOOL) isInteract{
+- (void)configTextFieldWithBorderStyle:(UITextBorderStyle )borderStyle withInteract:(BOOL)isInteract{
     [self.nameTextfield setBorderStyle:borderStyle];
     [self.nameTextfield setUserInteractionEnabled:isInteract];
 }

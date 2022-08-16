@@ -10,12 +10,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MovieDetailViewModel : NSObject
--(void) getCreditsMovieWithMovieId: (NSInteger)movieId withSuccess: (void(^)(void))succesCompletion withError: (void(^)(NSError *)) errorCompletion;
+- (void) getCreditsMovieWithMovieId: (NSInteger)movieId withSuccess:(void(^)(void))succesCompletion withError:(void(^)(NSError *))errorCompletion;
 
 - (NSInteger)numberOfSectionsInCollectionView;
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;
 
--(Actor *) cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (Actor *)cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

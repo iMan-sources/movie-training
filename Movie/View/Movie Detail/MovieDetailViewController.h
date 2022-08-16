@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MovieDetailViewController : UIViewController
 
--(void) loadMovieData: (Movie *)movie;
+- (void)loadMovieData:(Movie *)movie;
 @end
 
 NS_ASSUME_NONNULL_END

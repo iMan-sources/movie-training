@@ -11,11 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MovieGridViewCell : UICollectionViewCell
 
-+(NSString *) getReuseIdentifier;
++ (NSString *)getReuseIdentifier;
 
-+(NSString *) getNibName;
++ (NSString *)getNibName;
 
--(void) bindingData: (Movie *)movie;
+- (void)bindingData:(Movie *)movie;
 @end
 
 NS_ASSUME_NONNULL_END

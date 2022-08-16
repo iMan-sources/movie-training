@@ -11,25 +11,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MovieListViewCellDelegate <NSObject>
 
--(void) didLikeButtonTapped: (UITableViewCell *)cell;
+- (void)didLikeButtonTapped:(UITableViewCell *)cell;
 
 @end
 
 @interface MovieListViewCell : UITableViewCell
 
-+(NSString *) getReuseIdentifier;
-+(NSString *) getNibName;
++ (NSString *)getReuseIdentifier;
++ (NSString *)getNibName;
 
 
 - (void)bindingData:(Movie *)movie;
 
--(void) changeImageButtonByFavorite: (BOOL) isFavorited;
+- (void)changeImageButtonByFavorite:(BOOL)isFavorited;
 
--(void) setLikeButtonUserInteract: (BOOL) isInteract;
+- (void)setLikeButtonUserInteract:(BOOL)isInteract;
 
 @property(weak, nonatomic) id<MovieListViewCellDelegate> delegate;
 
--(Movie *) getMovie;
+- (Movie *)getMovie;
 @end
 
 

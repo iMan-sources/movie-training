@@ -11,9 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HeaderProfileTableViewCell : UITableViewHeaderFooterView
 
-+(NSString *) getReuseIdentifier;
-+(CGFloat) getHeaderViewHeight;
--(void)bindingData: (User *)user;
++ (NSString *)getReuseIdentifier;
++ (CGFloat)getHeaderViewHeight;
+- (void)bindingData: (User *)user;
 @end
 
 NS_ASSUME_NONNULL_END

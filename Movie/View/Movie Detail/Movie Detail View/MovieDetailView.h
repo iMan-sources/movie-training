@@ -10,15 +10,15 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol MovieDetailViewDelegate <NSObject>
 
--(void) didReminderTapped;
--(void) didLikeButtonTapped: (BOOL) isFavorite;
+- (void)didReminderTapped;
+- (void)didLikeButtonTapped:(BOOL)isFavorite;
 @end
 @interface MovieDetailView : UIView
 
--(void) bindingData: (Movie *)movie;
+- (void)bindingData:(Movie *)movie;
 @property(weak, nonatomic) id<MovieDetailViewDelegate> delegate;
 
--(void) addRemindLabel: (NSDate *) date;
+- (void)addRemindLabel:(NSDate *)date;
 
 - (void)changeImageButtonByFavorite:(BOOL)isFavorited;
 

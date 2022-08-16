@@ -31,7 +31,7 @@ const int InforProfileTypeCount = (gender - birthday + 1);
 
 #pragma mark - Helper
 
--(void) saveUserInUserDefault: (User *)user withKey: (NSString *)key{
+- (void)saveUserInUserDefault:(User *)user withKey:(NSString *)key{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setValue:[user getName] forKey: @"name"];
@@ -41,7 +41,7 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     [dict setValue:[user getEmail] forKey:@"email"];
     [defaults setObject:dict forKey:key];
 }
--(UIImage *)imageForInforType: (InforProfileType) type{
+- (UIImage *)imageForInforType:(InforProfileType)type{
     switch (type) {
         case imagePath: {
             {
@@ -69,7 +69,7 @@ const int InforProfileTypeCount = (gender - birthday + 1);
         }
     }
 }
--(NSString *) titleForInforType: (InforProfileType) type{
+- (NSString *)titleForInforType:(InforProfileType)type{
     switch (type) {
         case imagePath: {
             {
@@ -95,7 +95,7 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     }
 }
 
--(void) loadUserFromUserDefaultWithKey: (NSString *) key completionHandler: (void(^)(void)) completionHandler{
+- (void)loadUserFromUserDefaultWithKey:(NSString *)key completionHandler:(void(^)(void))completionHandler{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *encodedUser = [defaults objectForKey:key];
     
@@ -104,7 +104,7 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     completionHandler();
 }
 
--(User *) generateUserFromDictionary: (NSDictionary *)dict{
+- (User *)generateUserFromDictionary:(NSDictionary *)dict{
     NSString *name = [dict objectForKey:@"name"];
     NSString *gender = [dict objectForKey:@"gender"];
     NSString *imagePath = [dict objectForKey:@"imagePath"];
@@ -115,7 +115,7 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     return user;
 }
 
--(NSString *) inforWithInforProfileType: (InforProfileType) type{
+- (NSString *)inforWithInforProfileType:(InforProfileType)type{
     switch (type) {
         case imagePath: {
             {
@@ -157,15 +157,15 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     return InforProfileTypeCount;
 }
 
--(NSInteger)numberOfSectionsIntTableViewForEditVC{
+- (NSInteger)numberOfSectionsIntTableViewForEditVC{
     return 1;
 }
 
--(NSInteger)numberOfRowsInSectionForEditVC:(NSInteger)section{
+- (NSInteger)numberOfRowsInSectionForEditVC:(NSInteger)section{
     return InforProfileTypeCount;
 }
 
--(NSString *)inforForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (NSString *)inforForRowAtIndexPath:(NSIndexPath *)indexPath{
     //    NSInteger row = indexPath.row;
     InforProfileType type = [self inforProfileTypeForIndexPath:indexPath];
     NSString *infor = [self inforWithInforProfileType:type];
@@ -179,7 +179,7 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     return img;
 }
 
--(InforProfileType) inforProfileTypeForIndexPath: (NSIndexPath *)indexPath{
+- (InforProfileType)inforProfileTypeForIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     InforProfileType type = birthday;
     //iterate InforProfileTypeCount to define type -> infor
@@ -192,7 +192,7 @@ const int InforProfileTypeCount = (gender - birthday + 1);
     return type;
 }
 
--(User *)getUser{
+- (User *)getUser{
     return self.user;
 }
 

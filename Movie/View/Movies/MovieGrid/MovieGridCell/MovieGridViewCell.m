@@ -36,7 +36,7 @@
     [self setPosterImageByURL:stringPosterURL];
 }
 
--(void) setPosterImageByURL: (NSString *)stringPosterURL{
+- (void)setPosterImageByURL:(NSString *)stringPosterURL{
     NSURL *posterURL = [[NSURL alloc] initWithString:stringPosterURL];
     UIImage *placeholderImage = [Images getPlaceholderImage];
     [self.posterImageView sd_setImageWithURL:posterURL placeholderImage:placeholderImage options:SDWebImageContinueInBackground];

@@ -10,8 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EmailView : UIView
--(void) bindingData: (NSString *) email;
--(NSString *) getEmail;
+- (void)bindingData:(NSString *)email;
+- (NSString *)getEmail;
 @end
 
 NS_ASSUME_NONNULL_END

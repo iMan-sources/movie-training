@@ -20,13 +20,13 @@ typedef NS_ENUM(NSInteger, PickerType){
 };
 @protocol DidDateSelectedDelegate <NSObject>
 
--(void) didDateSelected: (NSDate *)date;
+-(void)didDateSelected:(NSDate *)date;
 
 @end
 
 @protocol DatePickerManagerDelegate <NSObject>
 
--(void) showPickerViewWithPickerType: (PickerType) pickerType;
+- (void)showPickerViewWithPickerType:(PickerType)pickerType;
 @property(weak, nonatomic) id<DidDateSelectedDelegate> delegate;
 @end
 

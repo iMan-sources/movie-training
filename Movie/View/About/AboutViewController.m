@@ -28,10 +28,10 @@
 
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     [self loadWebView];
 }
--(void) loadWebView{
+- (void)loadWebView{
     NSURL *aboutURL = [NSURL URLWithString:AboutURL];
     NSURLRequest *request = [NSURLRequest requestWithURL: aboutURL];
     __weak AboutViewController *weakSelf = self;

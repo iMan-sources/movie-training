@@ -23,7 +23,7 @@ static NSInteger const DatePickerHeight = 300;
 #pragma mark - Helper
 
 #pragma mark - Config Views
--(void) configMaskView{
+- (void)configMaskView{
     self.maskView = [[UIView alloc] init];
     self.maskView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     self.maskView.alpha = 0;
@@ -32,7 +32,7 @@ static NSInteger const DatePickerHeight = 300;
     [self.maskView addGestureRecognizer:tapGesture];
 }
 
--(void) configWindow{
+- (void)configWindow{
     UIScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
     
     if([scene.delegate conformsToProtocol:@protocol(UIWindowSceneDelegate)]){
@@ -41,7 +41,7 @@ static NSInteger const DatePickerHeight = 300;
     
 }
 
--(void) configActionSheetTableView{
+- (void)configActionSheetTableView{
     self.actionSheetTableView = [[UITableView alloc] init];
     [self.actionSheetTableView registerClass:[DatePickerActionTableViewCell class] forCellReuseIdentifier:[DatePickerActionTableViewCell getReuseIdentifier]];
     
@@ -62,7 +62,7 @@ static NSInteger const DatePickerHeight = 300;
     
 }
 
--(void) setup{
+- (void)setup{
     [self configWindow];
     [self configMaskView];
     [self.maskView setFrame:self.window.frame];
@@ -76,13 +76,13 @@ static NSInteger const DatePickerHeight = 300;
 }
 
 #pragma mark - Show & Dimiss Actionsheet
--(void) showActionSheet: (BOOL) shouldShow{
+- (void)showActionSheet:(BOOL)shouldShow{
     CGRect rect = self.actionSheetTableView.frame;
     rect.origin.y = shouldShow ? self.window.bounds.size.height - DatePickerHeight : self.window.bounds.size.height;
     self.actionSheetTableView.frame = rect;
 }
 
--(void) dismissActionSheet{
+- (void)dismissActionSheet{
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         self.maskView.alpha = 0;
         [self showActionSheet:NO];
@@ -91,7 +91,7 @@ static NSInteger const DatePickerHeight = 300;
 
 #pragma mark - Blocks
 
-- (void)showPickerViewWithPickerType: (PickerType)pickerType{
+- (void)showPickerViewWithPickerType:(PickerType)pickerType{
     [self setup];
     self.pickerType = pickerType;
     [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -175,7 +175,7 @@ static NSInteger const DatePickerHeight = 300;
 
 #pragma mark - Action
 
--(void) handleDismissal: (UITapGestureRecognizer *) sender{
+-(void)handleDismissal:(UITapGestureRecognizer *)sender{
     [self dismissActionSheet];
 }
 

@@ -15,31 +15,31 @@
     return date;
 }
 
--(NSString *) convertYearToString{
+- (NSString *)convertYearToString{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy"];
     NSString *date = [formatter stringFromDate:self];
     return date;
 }
 
--(NSString *) convertyyyyMMddHHMMToString{
+- (NSString *)convertyyyyMMddHHMMToString{
     NSDateFormatter *fomatter = [[NSDateFormatter alloc] init];
     [fomatter setDateFormat:@"yyyy/MM/dd HH:mm"];
     NSString *date = [fomatter stringFromDate:self];
     return date;
 }
--(BOOL) isLaterThanOrEqualTo:(NSDate*)date {
+- (BOOL)isLaterThanOrEqualTo:(NSDate*)date {
     return !([self compare:date] == NSOrderedAscending);
 }
 
--(BOOL) isEarlierThanOrEqualTo:(NSDate*)date {
+- (BOOL)isEarlierThanOrEqualTo:(NSDate*)date {
     return !([self compare:date] == NSOrderedDescending);
 }
--(BOOL) isLaterThan:(NSDate*)date {
+- (BOOL)isLaterThan:(NSDate*)date {
     return ([self compare:date] == NSOrderedDescending);
 
 }
--(BOOL) isEarlierThan:(NSDate*)date {
+- (BOOL)isEarlierThan:(NSDate*)date {
     return ([self compare:date] == NSOrderedAscending);
 }
 @end

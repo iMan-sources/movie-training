@@ -10,8 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FavoritesViewController : UIViewController
--(void) registerLikeButtonTappedNotification;
--(void) registerUnlikeButtonTappedNotification;
+- (void)registerLikeButtonTappedNotification;
+- (void)registerUnlikeButtonTappedNotification;
 @end
 
 NS_ASSUME_NONNULL_END

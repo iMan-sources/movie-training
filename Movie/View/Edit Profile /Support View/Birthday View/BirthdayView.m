@@ -38,7 +38,7 @@
 }
 
 #pragma mark - Action
--(void) didDateLabelTapped: (UITapGestureRecognizer *) sender{
+- (void)didDateLabelTapped:(UITapGestureRecognizer *)sender{
     [self.delegate didBirthdayLabelTapped];
 }
 #pragma mark - Instance Helper
@@ -62,14 +62,14 @@
 
 #pragma mark - Helper
 
--(void) customInit{
+- (void)customInit{
     [[NSBundle mainBundle] loadNibNamed:@"BirthdayView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
     [self addGestureToDateLabel];
 }
 
--(void) addGestureToDateLabel{
+- (void)addGestureToDateLabel{
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didDateLabelTapped:)];
     [self.dateLabel addGestureRecognizer:tapGesture];
     [self.dateLabel setUserInteractionEnabled:YES];

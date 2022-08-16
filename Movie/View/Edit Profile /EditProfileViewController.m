@@ -53,7 +53,7 @@
 #pragma mark - Instance Helper
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     [self configViewModel];
 
     [self configHeaderView];
@@ -68,16 +68,16 @@
     [self registerKeyboardHideNotification];
 }
 
--(void) configHeaderView{
+- (void)configHeaderView{
     self.headerView = [[EditProfileHeaderView alloc] init];
     self.headerView.translatesAutoresizingMaskIntoConstraints = false;
     self.headerView.delegate = self;
 }
--(void) configDatePickerManager{
+- (void)configDatePickerManager{
     self.datePickeManager = [[DatePickerManager alloc] init];
 }
 
--(void) configViewModel{
+- (void)configViewModel{
     self.profileViewModel = [[ProfileViewModel alloc] init];
     [self.profileViewModel loadUserFromUserDefaultWithKey:UserInforNameDefaults completionHandler:^{
         self.user = [self.profileViewModel getUser];
@@ -86,7 +86,7 @@
 
 
 
--(void) configStackView{
+- (void)configStackView{
     self.genderView = [[GenderView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.birthdayView = [[BirthdayView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.emailView = [[EmailView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -104,7 +104,7 @@
     
 }
 
--(void) layout{
+- (void)layout{
     [self.view addSubview:self.headerView];
     [self.headerView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = true;
     [self.headerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:12].active = true;
@@ -118,7 +118,7 @@
     
 }
 
--(void) getData{
+- (void)getData{
     [self.user setWithGender:[self.genderView getGender]];
     [self.user setWithBirthday:[self.birthdayView getDate]];
     [self.user setWithEmail:[self.emailView getEmail]];
@@ -134,20 +134,20 @@
     return [documentsPath stringByAppendingPathComponent:name];
 }
 
--(void) registerKeyboardShowNotification{
+- (void)registerKeyboardShowNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardShow:) name:UIKeyboardDidShowNotification object:nil];
 }
 
--(void) registerKeyboardHideNotification{
+- (void)registerKeyboardHideNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didKeyboardHide:) name:UIKeyboardDidHideNotification object:nil];
 }
 
 #pragma mark - Action
--(void) didKeyboardShow: (NSNotification *) sender{
+- (void)didKeyboardShow:(NSNotification *)sender{
     self.isKeyboardShow = YES;
 }
 
--(void) didKeyboardHide: (NSNotification *) sender{
+- (void)didKeyboardHide:(NSNotification *)sender{
     self.isKeyboardShow = NO;
 }
 #pragma mark - Delegate

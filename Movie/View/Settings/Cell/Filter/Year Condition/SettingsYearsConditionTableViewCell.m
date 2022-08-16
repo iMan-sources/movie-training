@@ -26,14 +26,14 @@
     // Configure the view for the selected state
 }
 #pragma mark - Class Helper
-+(NSString *) getReuseIdentifer{
++ (NSString *)getReuseIdentifer{
     return @"SettingsYearsConditionTableViewCell";
 }
-+(NSString *) getNibName{
++ (NSString *)getNibName{
     return @"SettingsYearsConditionTableViewCell";
 }
 
-+(CGFloat) getRowHeight{
++ (CGFloat)getRowHeight{
     return 40.0;
 }
 
@@ -44,16 +44,16 @@
     self.yearLabel.text = yearTitle;
 }
 
--(void) setReleaseYearWhenPickerSelected: (NSString *) year{
+- (void)setReleaseYearWhenPickerSelected:(NSString *)year{
     self.yearLabel.text = year;
 }
 
--(void) setup{
+- (void)setup{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self configYearLabel];
 }
 
--(void) configYearLabel{
+- (void)configYearLabel{
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didYearLabelTapped:)];
     [self.yearLabel setUserInteractionEnabled:YES];
     [self.yearLabel addGestureRecognizer:tapGesture];
@@ -61,7 +61,7 @@
 }
 #pragma mark - Action
 
--(void)didYearLabelTapped: (UITapGestureRecognizer *) sender{
+- (void)didYearLabelTapped:(UITapGestureRecognizer *)sender{
     [self.delegate didYearLabelSelected];
 }
 

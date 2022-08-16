@@ -9,7 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Images.h"
 @implementation UIView (Extensions)
--(NSMutableAttributedString *) makeAttributedStringWithBase: (NSString *)baseString withRedString: (NSString *) attrsString{
+- (NSMutableAttributedString *)makeAttributedStringWithBase:(NSString *)baseString withRedString: (NSString *)attrsString{
     
     NSMutableAttributedString *baseAttrsString = [[NSMutableAttributedString alloc] initWithString:baseString];
     NSDictionary *attrs = @{
@@ -21,7 +21,7 @@
     return baseAttrsString;
 }
 
--(void) setPosterImageByURL: (NSString *)stringPosterURL inImageView: (UIImageView *) posterImageView{
+- (void)setPosterImageByURL:(NSString *)stringPosterURL inImageView: (UIImageView *) posterImageView{
     NSURL *posterURL = [[NSURL alloc] initWithString:stringPosterURL];
     UIImage *placeholderImage = [Images getPlaceholderImage];
     [posterImageView sd_setImageWithURL:posterURL placeholderImage:placeholderImage options:SDWebImageContinueInBackground];

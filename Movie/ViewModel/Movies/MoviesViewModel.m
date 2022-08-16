@@ -61,7 +61,7 @@ static NSInteger const itemsInPage = 20;
     } withError:errorCompletion];
 }
 
--(void) sortMovieWithSuccess: (void(^)(void))completionHandler{
+- (void) sortMovieWithSuccess:(void(^)(void))completionHandler{
     [self configSortType];
     switch (self.sortType) {
         case releaseDate:
@@ -80,7 +80,7 @@ static NSInteger const itemsInPage = 20;
     completionHandler();
 }
 
--(void) sortMoviesArrayByReleaseDate{
+- (void)sortMoviesArrayByReleaseDate{
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"release_date"
                                                  ascending:NO];
@@ -91,7 +91,7 @@ static NSInteger const itemsInPage = 20;
     self.movies = [[NSMutableArray alloc] initWithArray:[self.movies sortedArrayUsingDescriptors:@[sortDescriptor]]];
 }
 
--(void) sortMoviesArrayByRating{
+- (void)sortMoviesArrayByRating{
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"vote_average"
                                                  ascending:NO];
@@ -126,12 +126,12 @@ static NSInteger const itemsInPage = 20;
     return 1;
 }
 
--(NSInteger )numberOfItemsInSection:(NSInteger)section{
+- (NSInteger )numberOfItemsInSection:(NSInteger)section{
     NSInteger rows = self.isFiltered ? self.filteredArray.count : self.movies.count;
     return rows;
 }
 
--(Movie *)cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (Movie *)cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     Movie *movie = self.isFiltered ? self.filteredArray[row] : self.movies[row];
     if ( movie != nil) {
@@ -140,7 +140,7 @@ static NSInteger const itemsInPage = 20;
     return nil;
 }
 
--(BOOL) checkHaveMoreMovies{
+- (BOOL)checkHaveMoreMovies{
     NSInteger size = self.movies.count;
     if (size < itemsInPage) {
         self.isHasMoreMovies = false;
@@ -148,7 +148,7 @@ static NSInteger const itemsInPage = 20;
     return self.isHasMoreMovies;
 }
 
--(Movie *)didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (Movie *)didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     Movie *movie = self.isFiltered ? self.filteredArray[row] : self.movies[row];
     if (movie != nil) {
@@ -157,11 +157,11 @@ static NSInteger const itemsInPage = 20;
     return nil;
 }
 #pragma mark - Helper
--(void) resetArray{
+- (void) resetArray{
     [self.movies removeAllObjects];
 }
 
--(void) configSortType{
+- (void)configSortType{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger type = [[standardUserDefaults objectForKey: SortTypeUserDefaults] intValue];
     switch (type) {
@@ -180,20 +180,20 @@ static NSInteger const itemsInPage = 20;
     }
 }
 #pragma mark - User default
--(void) configMovieRateFromUserDefault{
+- (void)configMovieRateFromUserDefault{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     double rate = [[standardUserDefaults objectForKey: MovieRateUserDefaults] doubleValue];
     self.movieRate = rate;
     self.isFiltered = YES;
 }
 
--(void) configReleaseYearFromUserDefault{
+- (void)configReleaseYearFromUserDefault{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString *year = [standardUserDefaults objectForKey: ReleaseYearUserDefaults];
     self.year = [year convertStringToYear];
 }
 
--(void) filterMoviesArrayWithSettingDefault: (void(^)(void)) completionHandler{
+- (void)filterMoviesArrayWithSettingDefault:(void(^)(void))completionHandler{
     [self configMovieRateFromUserDefault];
     [self configReleaseYearFromUserDefault];
     
@@ -208,7 +208,7 @@ static NSInteger const itemsInPage = 20;
     completionHandler();
 }
 
--(NSString *) loadFilterTypeFromUserDefault{
+- (NSString *)loadFilterTypeFromUserDefault{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger type = [[standardUserDefaults objectForKey: FilterTypeUserDefaults] intValue];
     

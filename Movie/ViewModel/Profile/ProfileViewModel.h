@@ -24,9 +24,9 @@ typedef NS_ENUM(NSInteger, InforProfileType){
 };
 
 @interface ProfileViewModel : NSObject
--(void) saveUserInUserDefault: (User *)user withKey: (NSString *)key;
+- (void)saveUserInUserDefault:(User *)user withKey:(NSString *)key;
 
--(void) loadUserFromUserDefaultWithKey: (NSString *) key completionHandler: (void(^)(void)) completionHandler;
+- (void)loadUserFromUserDefaultWithKey:(NSString *)key completionHandler:(void(^)(void))completionHandler;
 
 
 #pragma mark - Profile VC
@@ -34,18 +34,18 @@ typedef NS_ENUM(NSInteger, InforProfileType){
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 
--(NSString *)inforForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)inforForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark - Edit Profile VC
--(NSInteger)numberOfSectionsIntTableViewForEditVC;
+- (NSInteger)numberOfSectionsIntTableViewForEditVC;
 
--(NSInteger)numberOfRowsInSectionForEditVC:(NSInteger)section;
+- (NSInteger)numberOfRowsInSectionForEditVC:(NSInteger)section;
 
--(InforProfileType) inforProfileTypeForIndexPath: (NSIndexPath *)indexPath;
+- (InforProfileType)inforProfileTypeForIndexPath:(NSIndexPath *)indexPath;
 
 - (UIImage *)imageForRowAtIndexPath:(NSIndexPath *)indexPath;
 
--(User *)getUser;
+- (User *)getUser;
 
 @end
 

@@ -35,7 +35,7 @@
     return self;
 }
 
--(void) customInit{
+- (void)customInit{
     [[NSBundle mainBundle] loadNibNamed:@"GenderView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
@@ -52,7 +52,7 @@
 
 
 #pragma mark - Helper
--(void) configGenderView{
+- (void)configGenderView{
     [self makeCornerButton:self.maleButton];
     [self makeCornerButton:self.femaleButton];
     
@@ -61,7 +61,7 @@
     
 }
 
--(void) makeCornerButton: (UIButton *) button{
+- (void)makeCornerButton:(UIButton *)button{
     button.layer.cornerRadius = self.buttonWidthConstraint.constant / 2;
     button.layer.borderColor = [UIColor blackColor].CGColor;
     button.layer.borderWidth = 2;
@@ -78,14 +78,14 @@
     [self.femaleButton setImage:[Images getFilledBlackRound] forState:UIControlStateNormal];
 }
 #pragma mark - Action
--(void) didMaleButtonTapped: (UIButton *)sender{
+- (void)didMaleButtonTapped:(UIButton *)sender{
     if (![sender.imageView.image isEqual:[Images getFilledBlackRound]]) {
         [sender setImage:[Images getFilledBlackRound] forState:UIControlStateNormal];
         [self.femaleButton setImage:[Images getFilledWhiteRound] forState:UIControlStateNormal];
     }
 }
 
--(void) didFemaleButtonTapepd: (UIButton *) sender{
+- (void)didFemaleButtonTapepd:(UIButton *)sender{
     if (![sender.imageView.image isEqual:[Images getFilledBlackRound]]) {
         [sender setImage:[Images getFilledBlackRound] forState:UIControlStateNormal];
         [self.maleButton setImage:[Images getFilledWhiteRound] forState:UIControlStateNormal];

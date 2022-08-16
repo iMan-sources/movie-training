@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
 
 #pragma mark - Helpers
 
--(void) setup{
+- (void)setup{
     self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
     
     self.slideMenuPadding = UIScreen.mainScreen.bounds.size.width * CoefficientWidthInSreen;
@@ -69,11 +69,11 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
     
 }
 
--(void) layout{
+- (void)layout{
     
 }
 
--(void) initRelatedViewControllers{
+- (void)initRelatedViewControllers{
     NSString *profileVCIdentifier = [ViewControllerIdentifiers getProfileVCIdentifer];
     
     NSString *tabBarVCIdentifier = [ViewControllerIdentifiers getTabBarVCIdentifier];
@@ -83,18 +83,18 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
     self.tabBarViewController = [self.story instantiateViewControllerWithIdentifier: tabBarVCIdentifier];
 }
 
--(void)bringProfileViewControllerToView{
+- (void)bringProfileViewControllerToView{
     
     [self bringVCToView:self.profileViewController withView:self.profileView];
     [self bringVCToView:self.tabBarViewController withView:self.tabBarView];
     
 }
 
--(void) registerSideMenuNotification{
+- (void)registerSideMenuNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSideBarButtonTapped:) name:SideMenuNotification object:nil];
 }
 
--(void) handleSlideMenuWhenPushVC{
+- (void)handleSlideMenuWhenPushVC{
     //hide the profile VC
     if (self.sideMenuStatus == state_open) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SideMenuNotification object:nil];
@@ -103,7 +103,7 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
 
 #pragma mark - Action
 
-- (void)didSideBarButtonTapped: (NSNotification *) sender{
+- (void)didSideBarButtonTapped:(NSNotification *)sender{
     switch (self.sideMenuStatus) {
         case state_close:
         {
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSInteger, FooterProfileButtonSelected){
 }
 
 
--(void) slideTabbarViewToTheRightWithSpacing: (NSInteger) padding{
+- (void)slideTabbarViewToTheRightWithSpacing:(NSInteger)padding{
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         CGRect f = self.tabBarView.frame;
         f.origin.x = padding;

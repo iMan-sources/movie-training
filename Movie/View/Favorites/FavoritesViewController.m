@@ -39,23 +39,23 @@
 
 
 #pragma mark - Navigation
--(void) configNavigationBar{
+- (void)configNavigationBar{
     [self configLeftBarItemButtons];
     self.navigationItem.title = @"Favorites";
 
 }
 #pragma mark - API
 
--(void) didLikeButtonTappedInMovieListVC: (NSNotification *) sender{
+- (void)didLikeButtonTappedInMovieListVC:(NSNotification *)sender{
     [self fetchFavoriteMovies];
 }
 
--(void) didDeleteButtonTappedInMovieListVC: (NSNotification *) sender{
+- (void)didDeleteButtonTappedInMovieListVC:(NSNotification *)sender{
     [self fetchFavoriteMovies];
 }
 
 #pragma mark - Action
--(void) didTableViewTapped: (UITapGestureRecognizer *) sender{
+- (void)didTableViewTapped:(UITapGestureRecognizer *)sender{
     [self.searchController.searchBar.searchTextField resignFirstResponder];
     [self.searchController.searchBar.searchTextField endEditing:YES];
     self.searchController.showsSearchResultsController = YES;
@@ -65,7 +65,7 @@
 }
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     
     [self configStoryboard];
     
@@ -79,22 +79,22 @@
     
 }
 
--(void) configStoryboard{
+- (void)configStoryboard{
     self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
 }
--(void) configAlertController{
+- (void)configAlertController{
     self.alertManager = [[AlertManager alloc] init];
 }
 
--(void) configViewModel{
+- (void)configViewModel{
     self.favoritesViewModel = [[FavoritesViewModel alloc] init];
 }
 
--(void) layout{
+- (void)layout{
     
 }
 
--(void) registerTapGestureToEndEditing{
+- (void)registerTapGestureToEndEditing{
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTableViewTapped:)];
     [tapGesture setCancelsTouchesInView:YES];
     tapGesture.cancelsTouchesInView = NO;
@@ -102,7 +102,7 @@
     
 }
 
--(void) searchMovieWithName: (NSString *)movieName{
+- (void)searchMovieWithName:(NSString *)movieName{
     __weak FavoritesViewController *weakSelf = self;
     [weakSelf.favoritesViewModel searchMoviesInCoreDataWithName:movieName withSuccess:^{
         [weakSelf.favoritesTableView reloadData];
@@ -113,7 +113,7 @@
     }];
 }
 
--(void) fetchFavoriteMovies{
+- (void)fetchFavoriteMovies{
 
     __weak FavoritesViewController *weakSelf = self;
     [weakSelf.favoritesViewModel getMovieFromCoreDataWithSuccess:^(NSArray<Movie *> * _Nonnull movies) {
@@ -138,7 +138,7 @@
     self.favoritesTableView.rowHeight = 150.0;
 }
 
--(void) configSearchController{
+- (void)configSearchController{
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.definesPresentationContext = YES;
@@ -154,7 +154,7 @@
     
 }
 
--(void) registerLikeButtonTappedNotification{
+- (void)registerLikeButtonTappedNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLikeButtonTappedInMovieListVC:) name:LikeButtonTappedNotification object:nil];
 }
 

@@ -28,11 +28,11 @@
 }
 
 #pragma mark - Action
--(void) didCancelButtonTapped: (UIButton *)sender{
+- (void)didCancelButtonTapped:(UIButton *)sender{
     [self.delegate didCancelButtonTapped];
 }
 
--(void) didDoneButtonTapped: (UIButton *)sender{
+- (void)didDoneButtonTapped:(UIButton *)sender{
     [self.delegate didDoneButtonTapped];
 }
 
@@ -43,13 +43,13 @@
 
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     self.translatesAutoresizingMaskIntoConstraints = false;
     [self configAvatarView];
     [self configButtons];
 }
 
--(void) configButtons{
+- (void)configButtons{
     self.cancelButton = [self makeButtonWithText:@"CANCEL" withBackgroundColor:[UIColor systemCyanColor]];
     [self.cancelButton addTarget:self action:@selector(didCancelButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -57,7 +57,7 @@
     [self.doneButton addTarget:self action:@selector(didDoneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
--(void) layout{
+- (void)layout{
     [self addSubview:self.avatarView];
     [self addSubview:self.cancelButton];
     [self addSubview:self.doneButton];
@@ -76,7 +76,7 @@
     [self.doneButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = true;
 }
 
--(void) configAvatarView{
+- (void)configAvatarView{
     self.avatarView = [[AvatarView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.avatarView.translatesAutoresizingMaskIntoConstraints = false;
     [self.avatarView setAvatarImageViewUseInteraction: YES];
@@ -92,7 +92,7 @@
     return 150.0;
 }
 
--(UIButton *) makeButtonWithText: (NSString *)text withBackgroundColor: (UIColor *)color{
+- (UIButton *)makeButtonWithText:(NSString *)text withBackgroundColor:(UIColor *)color{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:text forState:UIControlStateNormal];
     [button setBackgroundColor:color];

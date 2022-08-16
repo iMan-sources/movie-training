@@ -10,15 +10,15 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol FetcherMoviesProtocol <NSObject>
 
--(void)fetchMoviesWithPage: (NSInteger)page withSucess: (void(^)(NSArray<Movie *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
+- (void)fetchMoviesWithPage:(NSInteger)page withSucess:(void(^)(NSArray<Movie *> *))successCompletion withError:(void(^)(NSError *))errorCompletion;
 
--(void) fetchMovieWithID: (NSInteger) movieID withSuccess: (void(^)(Movie *)) successCompletion withError: (void(^)(NSError *)) errorCompletion;
+- (void)fetchMovieWithID:(NSInteger)movieID withSuccess:(void(^)(Movie *))successCompletion withError:(void(^)(NSError *))errorCompletion;
 
 @end
 
 @protocol FetcherCreditsMovieProtocol <NSObject>
 
--(void) fetchCreditsMovieWithID: (NSInteger)movieId withSuccess: (void(^)(NSArray<Actor *> *))successCompletion withError: (void(^)(NSError *)) errorCompletion;
+- (void)fetchCreditsMovieWithID:(NSInteger)movieId withSuccess:(void(^)(NSArray<Actor *> *))successCompletion withError:(void(^)(NSError *))errorCompletion;
 
 @end
 @interface Fetcher : NSObject<FetcherMoviesProtocol, FetcherCreditsMovieProtocol>

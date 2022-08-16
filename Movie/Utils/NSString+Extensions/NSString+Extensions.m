@@ -16,14 +16,14 @@
     return date;
 }
 
--(NSDate *) convertStringToYear{
+- (NSDate *)convertStringToYear{
     NSDateFormatter *fomatter = [[NSDateFormatter alloc] init];
     [fomatter setDateFormat:@"yyyy"];
     NSDate *date = [fomatter dateFromString:self];
     return date;
 }
 
--(NSDate *) convertYYYYmmddToYYYY{
+- (NSDate *)convertYYYYmmddToYYYY{
     NSDateFormatter *fomatter = [[NSDateFormatter alloc] init];
     [fomatter setDateFormat:@"yyyy-MM-dd"];
     NSDate *date = [fomatter dateFromString:self];

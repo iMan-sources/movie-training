@@ -10,16 +10,16 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol DatePickerActionTableViewCellDelegate <NSObject>
 
--(void) didDatePickerSelected: (NSDate *) date;
+- (void)didDatePickerSelected:(NSDate *)date;
 
 @end
 
 @interface DatePickerActionTableViewCell : UITableViewCell
-+(NSString *) getReuseIdentifier;
++ (NSString *)getReuseIdentifier;
 @property(weak, nonatomic) id<DatePickerActionTableViewCellDelegate> delegate;
 
 //- (void)bindingDateType:(PickerType) pickerType;
--(void) bindingData: (NSInteger) picker;
+- (void)bindingData:(NSInteger)picker;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -20,7 +20,7 @@
     [viewController didMoveToParentViewController:self];
 }
 
--(void) configLeftBarItemButtons{
+- (void)configLeftBarItemButtons{
     UIButton *sideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [sideButton setImage:[Images getMenuHamburgerImage] forState:UIControlStateNormal];
     [sideButton addTarget:self action:@selector(didSideButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -30,7 +30,7 @@
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 
--(void) registerTapGestureToEndEditing{
+- (void)registerTapGestureToEndEditing{
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didViewTapped:)];
     [tapGesture setCancelsTouchesInView:YES];
     tapGesture.cancelsTouchesInView = NO;
@@ -39,23 +39,22 @@
 }
 
 #pragma mark - Action
--(void) didSideButtonTapped: (UIButton *) sender{
-    NSLog(@"🛑 didSideButtonTapped");
+- (void)didSideButtonTapped:(UIButton *)sender{
     //post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:SideMenuNotification object:nil];
 }
 
--(void) didViewTapped: (UITapGestureRecognizer *) sender{
+- (void)didViewTapped:(UITapGestureRecognizer *)sender{
     [self.view endEditing:YES];
     [self.view resignFirstResponder];
 }
 
 #pragma mark Notification Center
--(void) postNotificationWhenLikeButtonTapped{
+- (void)postNotificationWhenLikeButtonTapped{
     [[NSNotificationCenter defaultCenter] postNotificationName:LikeButtonTappedNotification object:nil];
 }
 
--(void) postNotificationWhenUnlikeButtonTapped{
+- (void)postNotificationWhenUnlikeButtonTapped{
     [[NSNotificationCenter defaultCenter] postNotificationName:UnlikeButtonTappedNotification object:nil];
 }
 

@@ -34,7 +34,7 @@
 
 #pragma mark - Helpers
 
--(void) setup{
+- (void)setup{
     
     
     self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
@@ -42,7 +42,7 @@
     [self configTabBarController];
 }
 
--(void) configTabBarController{
+- (void)configTabBarController{
     self.tabBarController = [[UITabBarController alloc] init];
     
     UINavigationController *movieListNC = [self configMoviesVC];
@@ -68,7 +68,7 @@
 }
 
 
--(void) configTabBarFontSize{
+- (void)configTabBarFontSize{
     NSDictionary *attrs = @{
         NSFontAttributeName: [UIFont systemFontOfSize:14]
     };
@@ -76,13 +76,13 @@
     [[UITabBarItem appearance] setTitleTextAttributes: attrs forState:UIControlStateNormal];
 }
 
--(void) layout{
+- (void)layout{
     [[self.tabBarController view] setFrame:self.view.bounds];
     [self.view addSubview:[self.tabBarController view]];
 }
 
 #pragma mark - initialize tabbar VCs
--(UINavigationController *) configMoviesVC{
+- (UINavigationController *)configMoviesVC{
     MoviesViewController *movielistVC = [self.story instantiateViewControllerWithIdentifier:[ViewControllerIdentifiers getMoviesVCIdentifier]];
     
     UINavigationController *movielistNC = [[UINavigationController alloc] initWithRootViewController:movielistVC];
@@ -92,7 +92,7 @@
     return movielistNC;
 }
 
--(UINavigationController *) configAboutVC{
+- (UINavigationController *)configAboutVC{
     AboutViewController *aboutVC = [self.story instantiateViewControllerWithIdentifier:[ViewControllerIdentifiers getAboutVCIdentifer]];
     
     UINavigationController *aboutNC = [[UINavigationController alloc] initWithRootViewController:aboutVC];
@@ -102,7 +102,7 @@
     return aboutNC;
 }
 
--(UINavigationController *) configSettingsVC{
+- (UINavigationController *)configSettingsVC{
     SettingsViewController *settingsVC = [self.story instantiateViewControllerWithIdentifier:[ViewControllerIdentifiers getSettingsVCIdentifier]];
     
     UINavigationController *settingsNC = [[UINavigationController alloc] initWithRootViewController:settingsVC];
@@ -113,7 +113,7 @@
     return settingsNC;
 }
 
--(UINavigationController *) configFavoritesVC{
+- (UINavigationController *)configFavoritesVC{
     FavoritesViewController *favoritesVC = (FavoritesViewController *)[self.story instantiateViewControllerWithIdentifier:[ViewControllerIdentifiers getFavoritesVCIdentifer]];
     
     //send noti when like button tapped in movie list vc

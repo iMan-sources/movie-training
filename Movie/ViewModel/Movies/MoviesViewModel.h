@@ -10,11 +10,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MoviesViewModel : NSObject
--(void)getMoviesWithPage: (NSInteger)page withSucess: (void(^)(void))successCompletion withError: (void(^)(NSError *)) errorCompletion;
--(void) sortMovieWithSuccess: (void(^)(void))completionHandler;
--(void) resetArray;
+- (void)getMoviesWithPage:(NSInteger)page withSucess:(void(^)(void))successCompletion withError:(void(^)(NSError *))errorCompletion;
+- (void)sortMovieWithSuccess:(void(^)(void))completionHandler;
+- (void)resetArray;
 
--(NSString *) loadFilterTypeFromUserDefault;
+- (NSString *)loadFilterTypeFromUserDefault;
 #pragma mark -TableView
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 
@@ -24,15 +24,15 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -collectionView
 - (NSInteger)numberOfSectionsInCollectionView;
 
--(NSInteger )numberOfItemsInSection:(NSInteger)section;
+- (NSInteger )numberOfItemsInSection:(NSInteger)section;
 
--(Movie *)cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (Movie *)cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
--(BOOL) checkHaveMoreMovies;
+- (BOOL)checkHaveMoreMovies;
 
--(Movie *)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (Movie *)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
--(void) filterMoviesArrayWithSettingDefault: (void(^)(void)) completionHandler;
+- (void)filterMoviesArrayWithSettingDefault:(void(^)(void)) completionHandler;
 
 
 

@@ -36,14 +36,14 @@
     return rows;
 }
 
--(Movie *)cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (Movie *)cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = indexPath.row;
     Movie *movie = self.movies[row];
     return movie;
 }
 
 
--(NSArray<Movie *> *)convertMovieFromMovieCD: (NSArray<MovieCD *> *)movies{
+- (NSArray<Movie *> *)convertMovieFromMovieCD: (NSArray<MovieCD *> *)movies{
     NSMutableArray *moviesArray = [[NSMutableArray alloc] init];
     [movies enumerateObjectsUsingBlock:^(MovieCD * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         Movie *movie = [[Movie alloc] initWithMovieInCoreData:obj];
@@ -55,7 +55,7 @@
 
 #pragma mark - CoreData
 //[SEARCH]
--(void) searchMoviesInCoreDataWithName: (NSString *)name withSuccess: (void(^)(void)) successCompletion withError: (void(^)(NSError *)) errorCompletion{
+- (void)searchMoviesInCoreDataWithName:(NSString *)name withSuccess:(void(^)(void))successCompletion withError:(void(^)(NSError *))errorCompletion{
     __weak FavoritesViewModel *weakSelf = self;
     [weakSelf.coreDataManager filterMovieWithName:name withSuccess:^(NSArray<MovieCD *> * _Nonnull movies) {
         NSArray<Movie *> *result =  [self convertMovieFromMovieCD:movies];

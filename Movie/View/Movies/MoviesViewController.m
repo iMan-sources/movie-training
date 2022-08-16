@@ -58,33 +58,33 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 
 #pragma mark - Action
 
--(void) didFilterTypeChanged: (NSNotification *)sender{
+- (void)didFilterTypeChanged:(NSNotification *)sender{
     //reload view, call api again
     [self.moviesViewModel resetArray];
     [self resetPage];
     [self fetchMovies];
 }
 
--(void) didSortTypeChanged: (NSNotification *) sender{
+- (void)didSortTypeChanged:(NSNotification *)sender{
     [self sortMovies];
 }
 
--(void) didMovieRateSlided: (NSNotification *) sender{
+- (void)didMovieRateSlided:(NSNotification *)sender{
 //    NSLog(@"slide noti");
     [self filterMovies];
 
 }
 
--(void) didReleaseYearChanged: (NSNotification *) sender{
+- (void)didReleaseYearChanged:(NSNotification *)sender{
     [self filterMovies];
 }
 
--(void) resetPage{
+- (void)resetPage{
     self.page = 1;
     
 }
 
--(void) didGridButtonTapped: (UIButton *) sender{
+- (void)didGridButtonTapped:(UIButton *)sender{
     if (self.displayState == tableView_state) {
         self.displayState = collectionView_state;
         [self transitionFromViewToView:self.movieListView to:self.movieGridView];
@@ -97,7 +97,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 }
 
 #pragma mark - Navigation
--(void) configNavigationBar{
+- (void)configNavigationBar{
     self.tabBarItem.title = @"Movies";
     NSString *title = [self.moviesViewModel loadFilterTypeFromUserDefault];
     self.navigationItem.title = title;
@@ -106,7 +106,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self configRightBarItemButtons];
 }
 
--(void) configRightBarItemButtons{
+- (void)configRightBarItemButtons{
     UIButton *gridButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [gridButton setImage:[Images getGridMenuImage] forState:UIControlStateNormal];
     [gridButton setImage:[Images getListMenuImage] forState:UIControlStateSelected];
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
 
 
 #pragma mark - API
--(void) fetchMovies{
+- (void)fetchMovies{
     __weak MoviesViewController *weakSelf = self;
     [self.moviesViewModel getMoviesWithPage:self.page withSucess:^{
         [weakSelf.movieListVC reloadData];
@@ -138,7 +138,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     }];
 }
 
--(void) sortMovies{
+- (void)sortMovies{
     __weak MoviesViewController *weakSelf = self;
     [self.moviesViewModel sortMovieWithSuccess:^{
         [weakSelf.movieListVC reloadData];
@@ -146,7 +146,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     }];
 }
 
--(void) filterMovies{
+- (void)filterMovies{
     __weak MoviesViewController *weakSelf = self;
     [self.moviesViewModel filterMoviesArrayWithSettingDefault:^{
         [weakSelf.movieListVC reloadData];
@@ -154,10 +154,10 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     }];
 }
 #pragma mark - Helpers
--(void) configAlertManager{
+- (void)configAlertManager{
     self.alertManager = [[AlertManager alloc] init];
 }
--(void) setup{
+- (void)setup{
     [self configViewModel];
     self.page = 1;
     self.story = [UIStoryboard storyboardWithName:[Storyboard getStoryboardName] bundle:nil];
@@ -172,12 +172,12 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self configAlertManager];
 }
 
--(void) configViewModel{
+- (void)configViewModel{
     self.moviesViewModel = [[MoviesViewModel alloc] init];
 }
 
 
--(void) configDefaultDisplayView{
+- (void)configDefaultDisplayView{
     [self configMovieGridView];
     [self configMovieListView];
     
@@ -185,7 +185,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self.view addSubview:self.movieListView];
 }
 
--(void) configMovieListView{
+- (void)configMovieListView{
     self.movieListView = [[UIView alloc]init];
     self.movieListVC = (MovieListViewController *)[[MovieListViewController alloc]initWithNibName:@"MovieListViewController" bundle:nil];
     self.movieListVC.delegate = self;
@@ -195,7 +195,7 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     
 }
 
--(void) configMovieGridView{
+- (void)configMovieGridView{
     self.movieGridView = [[UIView alloc]init];
     self.movieGridVC = (MovieGridViewController *)[[MovieGridViewController alloc] initWithNibName:@"MovieGridViewController" bundle:nil];
     [self.movieGridVC loadViewModel:self.moviesViewModel];
@@ -203,25 +203,25 @@ typedef NS_ENUM(NSInteger, ContentDisplayState){
     [self bringVCToView:self.movieGridVC withView:self.movieGridView];
 }
 
--(void) transitionFromViewToView: (UIView *)fromView to: (UIView *)toView{
+- (void)transitionFromViewToView:(UIView *)fromView to:(UIView *)toView{
     [fromView removeFromSuperview];
     [toView setFrame:self.view.bounds];
     [self.view addSubview:toView];
 }
 
--(void) regsiterDidFilterTypeChangedNotification{
+- (void)regsiterDidFilterTypeChangedNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFilterTypeChanged:) name:DidFilterTypeChangedNotification object:nil];
 }
 
--(void) registerDidSortTypeChangedNotification{
+- (void)registerDidSortTypeChangedNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSortTypeChanged:) name:DidSortTypeChangedNotification object:nil];
 }
 
--(void) registerDidMovieRateChangedNotification{
+- (void)registerDidMovieRateChangedNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didMovieRateSlided:) name:DidMovieRateChangedNotification object:nil];
 }
 
--(void) registerReleaseYearChangedNotification{
+- (void)registerReleaseYearChangedNotification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReleaseYearChanged:) name:DidReleaseYearChangedNotification object:nil];
 }
 

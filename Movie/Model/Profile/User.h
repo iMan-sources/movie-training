@@ -10,24 +10,24 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface User : NSObject
--(instancetype) initWithName: (NSString *)name withBirthday: (NSDate *)birthday withGender: (NSString *)gender withImagePath: (NSString *)imagePath withEmail: (NSString *) email;
--(void) printOut;
+- (instancetype)initWithName:(NSString *)name withBirthday:(NSDate *)birthday withGender:(NSString *)gender withImagePath:(NSString *)imagePath withEmail:(NSString *)email;
+- (void)printOut;
 
--(NSString *)getName;
+- (NSString *)getName;
 
--(NSDate *)getBirthDay;
+- (NSDate *)getBirthDay;
 
--(NSString *)getGender;
+- (NSString *)getGender;
 
--(NSString *)getImagePath;
+- (NSString *)getImagePath;
 
--(NSString *)getEmail;
+- (NSString *)getEmail;
 
--(void) setWithImagePath: (NSString *)imagePath;
--(void) setWithName: (NSString *)name;
--(void) setWithGender: (NSString *)gender;
--(void) setWithEmail: (NSString *)email;
--(void) setWithBirthday: (NSDate *)date;
+- (void)setWithImagePath:(NSString *)imagePath;
+- (void)setWithName:(NSString *)name;
+- (void)setWithGender:(NSString *)gender;
+- (void)setWithEmail:(NSString *)email;
+- (void)setWithBirthday:(NSDate *)date;
 
 
 @end

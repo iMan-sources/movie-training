@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReminderViewModel : NSObject
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
--(void) fetchRemindersInCoreDataWithSuccess: (void(^)(void)) completion withError: (void(^)(NSError *)) errorCompletion;
--(ReminderMovie *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)fetchRemindersInCoreDataWithSuccess: (void(^)(void))completion withError:(void(^)(NSError *))errorCompletion;
+- (ReminderMovie *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)numberOfSectionsInTableView;
--(BOOL) checkIfHaveReminderList;
+- (BOOL)checkIfHaveReminderList;
 @end
 
 NS_ASSUME_NONNULL_END

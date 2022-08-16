@@ -57,7 +57,7 @@
     
 }
 
--(void) addRemindLabel: (NSDate *) date{
+- (void)addRemindLabel:(NSDate *)date{
     [self.reminderLabel setHidden:NO];
     //set text
     NSString *time = [date convertyyyyMMddHHMMToString];
@@ -74,7 +74,7 @@
 }
 
 
--(void) customInit{
+- (void)customInit{
     [[NSBundle mainBundle] loadNibNamed:@"MovieDetailView" owner:self options:nil];
     [self addSubview:self.contentView];
     [self.contentView setFrame:self.bounds];
@@ -84,17 +84,17 @@
 
 }
 
--(void) configLikeButton{
+- (void)configLikeButton{
     [self.likeButton setImage:[Images getStarImage] forState:UIControlStateNormal];
     [self.likeButton addTarget:self action:@selector(didLikeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
--(void) configReminderButton{
+- (void)configReminderButton{
     [self.reminderButton addTarget:self action:@selector(didReminderTapped:) forControlEvents:UIControlEventTouchUpInside];
     self.reminderButton.layer.cornerRadius = 10;
 }
 
--(NSString *) generatingSpaceWhenOverviewEmptyWithOverview: (NSString *) overview{
+- (NSString *)generatingSpaceWhenOverviewEmptyWithOverview:(NSString *)overview{
     NSMutableString *spacing = [[NSMutableString alloc] initWithString:overview];
     for (int i = 0; i < 100; i++) {
         [spacing appendString:@" "];
@@ -104,12 +104,12 @@
     
 }
 
--(void)didReminderTapped:(UIButton *)sender{
+- (void)didReminderTapped:(UIButton *)sender{
     [self.delegate didReminderTapped];
 }
 
 #pragma mark - Action
--(void) didLikeButtonTapped: (UIButton *)sender{
+- (void) didLikeButtonTapped:(UIButton *)sender{
     BOOL isFavorite = NO;
     if ([self.likeButton.imageView.image isEqual:[Images getStarImage]]) {
         [self.likeButton setImage:[Images getFilledStar] forState:UIControlStateNormal];

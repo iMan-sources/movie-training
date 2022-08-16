@@ -10,10 +10,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RemindTableViewCell : UITableViewCell
-+(NSString *) getReuseIdentifier;
-+(NSString *) getNibName;
++ (NSString *)getReuseIdentifier;
++ (NSString *)getNibName;
 
--(void) bindingData:(ReminderMovie *)reminderMovie;
+- (void)bindingData:(ReminderMovie *)reminderMovie;
 @end
 
 NS_ASSUME_NONNULL_END

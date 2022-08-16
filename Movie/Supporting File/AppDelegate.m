@@ -25,28 +25,14 @@
 
     [self configTabBar];
     
-//    [self registerPushToSettingsVCNotification];
-
-
     return YES;
 }
-//- (void)registerPushToSettingsVCNotification{
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToSettingsVC:) name:PushToSettingsVCNotification object:nil];
-//
-//}
-//
-//-(void) pushToSettingsVC: (NSNotification *) sender{
-//    RemindersViewController *reminderVC = [[RemindersViewController alloc] initWithNibName:[RemindersViewController getNibName] bundle:nil];
-//    UINavigationController *navVc=(UINavigationController *) self.window.rootViewController;
-//
-//    [navVc pushViewController:reminderVC animated:YES];
-//}
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     return UIInterfaceOrientationMaskPortrait;
 }
 
--(void) configNavBar{
+- (void)configNavBar{
     UINavigationBarAppearance *navBarAppearance = [[UINavigationBarAppearance alloc] init];
     [navBarAppearance configureWithOpaqueBackground];
 
@@ -62,7 +48,7 @@
     [UINavigationBar appearance].scrollEdgeAppearance = navBarAppearance;
 }
 
--(void) configTabBar{
+- (void)configTabBar{
 
     NSDictionary *normalAttrs = @{
         NSFontAttributeName: [UIFont systemFontOfSize:14],
@@ -86,7 +72,7 @@
     [UITabBar appearance].scrollEdgeAppearance = tabbarAppearance;
 }
 
--(void) setupSettingsDefault{
+- (void)setupSettingsDefault{
     
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     if ([standardUserDefaults objectForKey:FilterTypeUserDefaults] == nil) {
@@ -100,7 +86,7 @@
     [self setupUserInforInUserDefault:standardUserDefaults];
 }
 
--(void) setupFilterMovieRateAndReleaseYear: (NSUserDefaults *) standardUserDefaults{
+- (void)setupFilterMovieRateAndReleaseYear:(NSUserDefaults *)standardUserDefaults{
     if ([standardUserDefaults objectForKey:MovieRateUserDefaults] == nil) {
         [standardUserDefaults setObject:@"0.0" forKey:MovieRateUserDefaults];
     }
@@ -109,7 +95,7 @@
     }
 }
 
--(void) setupUserInforInUserDefault: (NSUserDefaults *) standardUserDefaults{
+- (void)setupUserInforInUserDefault:(NSUserDefaults *)standardUserDefaults{
     
     if ([standardUserDefaults objectForKey:UserInforNameDefaults] == nil) {
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];

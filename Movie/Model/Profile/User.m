@@ -40,33 +40,33 @@
     self.gender = gender;
 }
 
--(void) setWithBirthday: (NSDate *)date;{
+- (void)setWithBirthday:(NSDate *)date;{
     self.birthday = date;
 }
 
--(void) setWithImagePath: (NSString *)imagePath{
+- (void)setWithImagePath:(NSString *)imagePath{
     self.imagePath = imagePath;
 }
 
--(NSString *)getName{
+- (NSString *)getName{
     return self.name;
 }
 
 
--(NSDate *)getBirthDay{
+- (NSDate *)getBirthDay{
     return self.birthday;
 }
 
 
--(NSString *)getGender{
+- (NSString *)getGender{
     return self.gender;
 }
 
--(NSString *)getImagePath{
+- (NSString *)getImagePath{
     return self.imagePath;
 }
 
--(NSString *)getEmail{
+- (NSString *)getEmail{
     return self.email;
 }
 

@@ -46,22 +46,22 @@
     self.titleLabel.text = content;
     self.sliderRating.value = rating;
 }
--(void) setup{
+- (void)setup{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self configViewModel];
     [self configSlider];
 }
--(void) configSlider{
+- (void)configSlider{
     self.sliderRating.continuous = NO;
     [self.sliderRating addTarget:self action:@selector(didSliderDragged:) forControlEvents:UIControlEventValueChanged];
 }
 
--(void) configViewModel{
+- (void)configViewModel{
     self.settingsViewModel = [[SettingsViewModel alloc] init];
 }
 
 #pragma mark - Action
--(void) didSliderDragged: (UISlider *) sender{
+- (void)didSliderDragged:(UISlider *)sender{
     double rate = sender.value;
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", rate];
     

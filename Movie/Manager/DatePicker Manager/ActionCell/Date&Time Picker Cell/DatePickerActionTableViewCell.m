@@ -35,14 +35,14 @@
 }
 
 #pragma mark - Helper
--(void) setup{
+- (void)setup{
     [self configDatePicker];
     self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
 }
 
--(void) layout{
+- (void)layout{
     [self.contentView addSubview:self.datePicker];
     [self.datePicker.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:8].active = true;
     [self.datePicker.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:8].active = true;
@@ -50,7 +50,7 @@
     [self.datePicker.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-8].active = true;
 }
 
--(void) configDatePicker{
+- (void)configDatePicker{
     self.datePicker = [[UIDatePicker alloc] init];
     [self.datePicker setValue:[UIColor blackColor] forKey:@"textColor"];
     self.datePicker.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -82,7 +82,7 @@
     }
 }
 
--(NSDate *) convertDateInPickerToBirthday: (UIDatePicker *) sender{
+- (NSDate *)convertDateInPickerToBirthday:(UIDatePicker *)sender{
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterLongStyle];
     [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -109,7 +109,7 @@
 }
 
 #pragma mark - Action
--(void) dueDateChanged: (UIDatePicker *) sender{
+- (void)dueDateChanged:(UIDatePicker *)sender{
 
     NSDate *date = [self convertDateInPickerToBirthday:sender];
     [self.delegate didDatePickerSelected:date];

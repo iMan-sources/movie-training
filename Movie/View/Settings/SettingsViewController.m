@@ -43,21 +43,21 @@
 
 
 #pragma mark - Action
--(void) pushToSettingsVC: (NSNotification *) sender{
+- (void)pushToSettingsVC:(NSNotification *)sender{
     RemindersViewController *reminderVC = [[RemindersViewController alloc] initWithNibName:[RemindersViewController getNibName] bundle:nil];
     
     [self.navigationController pushViewController:reminderVC animated:YES];
 }
 #pragma mark - Helper
 
--(void) configNavigationBar{
+- (void)configNavigationBar{
     self.navigationItem.title = @"Settings";
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
     [self configLeftBarItemButtons];
 }
 
--(void) configTableView{
+- (void)configTableView{
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:[SettingsFilterTableViewCell getNibName] bundle:nil] forCellReuseIdentifier:[SettingsFilterTableViewCell getReuseIdentifer]];
@@ -78,17 +78,17 @@
     
 }
 
--(void) setup{
+- (void)setup{
     [self configViewModel];
     [self configTableView];
     [self configDatePickerManager];
 }
 
--(void) configViewModel{
+- (void)configViewModel{
     self.settingsViewModel = [[SettingsViewModel alloc] init];
 }
 
--(void) configDatePickerManager{
+- (void)configDatePickerManager{
     self.datePickerManager = [[DatePickerManager alloc] init];
     self.datePickerManager.delegate = self;
 }

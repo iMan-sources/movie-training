@@ -10,8 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Extensions)
--(NSMutableAttributedString *) makeAttributedStringWithBase: (NSString *)baseString withRedString: (NSString *) attrsString;
--(void) setPosterImageByURL: (NSString *)stringPosterURL inImageView: (UIImageView *) posterImageView;
+- (NSMutableAttributedString *)makeAttributedStringWithBase:(NSString *)baseString withRedString: (NSString *)attrsString;
+- (void)setPosterImageByURL:(NSString *)stringPosterURL inImageView: (UIImageView *)posterImageView;
 @end
 
 
